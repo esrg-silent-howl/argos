@@ -42,10 +42,11 @@ int main(int, char**)
         printk("Camera initialized\n");
 #else
         cout << "Started grabbing frames" << endl << "Press any key to terminate" << endl;
+        uint32_t frame_count = 0;
 #endif
     
     /* Change exposure */
-    cap.set(CAP_PROP_EXPOSURE, /*value*/);
+    // cap.set(CAP_PROP_EXPOSURE, /*value*/);
 
     while(1) {
 
@@ -65,6 +66,7 @@ int main(int, char**)
 
 #ifndef RASPBERRY_PI
         /* Show live and wait for a key with timeout long enough to show images */
+        cv::imwrite(string("img/img" + to_string(frame_count++) + ".jpg"), frame);
         imshow("Live", frame);
         if (waitKey(5) >= 0)
             break;

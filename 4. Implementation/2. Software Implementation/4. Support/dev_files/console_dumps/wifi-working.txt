@@ -1,0 +1,2361 @@
+josep@josep:~$ arp -a
+_gateway (192.168.1.254) at e0:b9:e5:ba:4d:4c [ether] on wlo1
+? (192.168.1.253) at e2:b9:e5:ba:4d:4c [ether] on wlo1
+josep@josep:~$ arp -a
+_gateway (192.168.1.254) at e0:b9:e5:ba:4d:4c [ether] on wlo1
+? (192.168.1.253) at e2:b9:e5:ba:4d:4c [ether] on wlo1
+josep@josep:~$ arp -a
+_gateway (192.168.1.254) at e0:b9:e5:ba:4d:4c [ether] on wlo1
+? (192.168.1.253) at e2:b9:e5:ba:4d:4c [ether] on wlo1
+josep@josep:~$ arp -a
+_gateway (192.168.1.254) at e0:b9:e5:ba:4d:4c [ether] on wlo1
+? (10.42.0.232) at <incomplete> on eno1
+? (192.168.1.253) at e2:b9:e5:ba:4d:4c [ether] on wlo1
+josep@josep:~$ arp -a
+_gateway (192.168.1.254) at e0:b9:e5:ba:4d:4c [ether] on wlo1
+? (10.42.0.232) at <incomplete> on eno1
+? (192.168.1.253) at e2:b9:e5:ba:4d:4c [ether] on wlo1
+josep@josep:~$ ssh root@10.42.0.232
+ssh: connect to host 10.42.0.232 port 22: No route to host
+josep@josep:~$ ssh-keygen -f "/home/josep/.ssh/known_hosts" -R "10.42.0.232"
+# Host 10.42.0.232 found: line 2
+/home/josep/.ssh/known_hosts updated.
+Original contents retained as /home/josep/.ssh/known_hosts.old
+josep@josep:~$ ssh root@10.42.0.232
+The authenticity of host '10.42.0.232 (10.42.0.232)' can't be established.
+ECDSA key fingerprint is SHA256:LWg6S43033SFdd3eyZ8AfqNeHWPyfUubKmJwZuwyv+I.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '10.42.0.232' (ECDSA) to the list of known hosts.
+root@10.42.0.232's password: 
+# ifup
+ifup: no interface(s) specified
+ifup: Use --help for help
+# ifup wlan0
+Unknown interface wlan0
+# ifconfig
+eth0      Link encap:Ethernet  HWaddr DC:A6:32:C2:D3:A1  
+          inet addr:10.42.0.232  Bcast:10.42.0.255  Mask:255.255.255.0
+          inet6 addr: fe80::dea6:32ff:fec2:d3a1/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:106 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:75 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:11869 (11.5 KiB)  TX bytes:8260 (8.0 KiB)
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+# reboot
+# Connection to 10.42.0.232 closed by remote host.
+Connection to 10.42.0.232 closed.
+josep@josep:~$ arp -a
+_gateway (192.168.1.254) at e0:b9:e5:ba:4d:4c [ether] on wlo1
+? (192.168.1.253) at e2:b9:e5:ba:4d:4c [ether] on wlo1
+josep@josep:~$ arp -a
+_gateway (192.168.1.254) at e0:b9:e5:ba:4d:4c [ether] on wlo1
+? (192.168.1.253) at e2:b9:e5:ba:4d:4c [ether] on wlo1
+josep@josep:~$ arp -a
+_gateway (192.168.1.254) at e0:b9:e5:ba:4d:4c [ether] on wlo1
+? (192.168.1.253) at e2:b9:e5:ba:4d:4c [ether] on wlo1
+josep@josep:~$ arp -a
+_gateway (192.168.1.254) at e0:b9:e5:ba:4d:4c [ether] on wlo1
+? (192.168.1.253) at e2:b9:e5:ba:4d:4c [ether] on wlo1
+josep@josep:~$ arp -a
+_gateway (192.168.1.254) at e0:b9:e5:ba:4d:4c [ether] on wlo1
+? (192.168.1.253) at e2:b9:e5:ba:4d:4c [ether] on wlo1
+josep@josep:~$ arp -a
+_gateway (192.168.1.254) at e0:b9:e5:ba:4d:4c [ether] on wlo1
+? (192.168.1.253) at e2:b9:e5:ba:4d:4c [ether] on wlo1
+josep@josep:~$ arp -a
+_gateway (192.168.1.254) at e0:b9:e5:ba:4d:4c [ether] on wlo1
+? (192.168.1.253) at e2:b9:e5:ba:4d:4c [ether] on wlo1
+josep@josep:~$ arp -a
+_gateway (192.168.1.254) at e0:b9:e5:ba:4d:4c [ether] on wlo1
+? (192.168.1.253) at e2:b9:e5:ba:4d:4c [ether] on wlo1
+josep@josep:~$ ssh root@10.42.0.232
+ssh: connect to host 10.42.0.232 port 22: No route to host
+josep@josep:~$ arp -a
+_gateway (192.168.1.254) at e0:b9:e5:ba:4d:4c [ether] on wlo1
+? (10.42.0.233) at dc:a6:32:c2:d3:a1 [ether] on eno1
+? (10.42.0.232) at <incomplete> on eno1
+? (192.168.1.253) at e2:b9:e5:ba:4d:4c [ether] on wlo1
+josep@josep:~$ ssh root@10.42.0.232
+root@10.42.0.232's password: 
+# ifconfig
+eth0      Link encap:Ethernet  HWaddr DC:A6:32:C2:D3:A1  
+          inet addr:10.42.0.232  Bcast:10.42.0.255  Mask:255.255.255.0
+          inet6 addr: fe80::dea6:32ff:fec2:d3a1/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:48 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:46 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:6957 (6.7 KiB)  TX bytes:5378 (5.2 KiB)
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+# ifup wlan0
+Successfully initialized wpa_supplicant
+rfkill: Cannot get wiphy information
+Could not read interface wlan0 flags: No such device
+WEXT: Could not set interface 'wlan0' UP
+wlan0: Failed to initialize driver interface
+Failed to bring up wlan0.
+# cd /etc
+# ls
+dhcpcd.conf          hostname             iproute2             network              profile.d            resolv.conf          wireless-regdb
+dropbear             hosts                issue                os-release           protocols            services             wpa_supplicant.conf
+fstab                init.d               libnl                passwd               rc_keymaps           shadow
+group                inittab              mtab                 profile              rc_maps.cfg          shells
+# cat /etc/wpa_supplicant.conf
+# /etc/wpa_supplicant/wpa_supplicant.conf
+
+ctrl_interface=/var/run/wpa_supplicant
+ap_scan=1
+
+#network={
+#    ssid="MEO-BA4D4D"
+#    psk="65D87163BB"
+#    priority=1
+#    id="test_net_1"
+#}
+
+network={
+        ssid="MEO-BA4D4D"
+        scan_ssid=1
+        proto=RSN WPA
+        key_mgmt=WPA-PSK
+        pairwise=CCMP TKIP
+        group=CCMP TKIP
+        auth_alg=OPEN
+        priority=0
+        id_str="test1"
+        psk="65D87163BB"
+}
+
+# cat /etc/network/interface
+cat: can't open '/etc/network/interface': No such file or directory
+# cat /etc/network/interfaces
+# /etc/network/interfaces
+
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet dhcp
+  pre-up /etc/network/nfs_check
+  wait-delay 15
+  hostname $(hostname)
+
+auto wlan0
+iface wlan0 inet dhcp
+        pre-up wpa_supplicant -B -Dwext -iwlan0 -c/etc/wpa_supplicant.conf
+        post-down killall -q wpa_supplicant
+
+iface default inet dhcp
+# wpa_supplicant --help
+wpa_supplicant: invalid option -- -
+wpa_supplicant v2.9
+Copyright (c) 2003-2019, Jouni Malinen <j@w1.fi> and contributors
+
+This software may be distributed under the terms of the BSD license.
+See README for more details.
+
+usage:
+  wpa_supplicant [-BddhKLqqstvW] [-P<pid file>] [-g<global ctrl>] \
+        [-G<group>] \
+        -i<ifname> -c<config file> [-C<ctrl>] [-D<driver>] [-p<driver_param>] \
+        [-b<br_ifname>] [-e<entropy file>] [-f<debug file>] \
+        [-o<override driver>] [-O<override ctrl>] \
+        [-N -i<ifname> -c<conf> [-C<ctrl>] [-D<driver>] \
+        [-p<driver_param>] [-b<br_ifname>] [-I<config file>] ...]
+
+drivers:
+  nl80211 = Linux nl80211/cfg80211
+  wext = Linux wireless extensions (generic)
+  wired = Wired Ethernet driver
+options:
+  -b = optional bridge interface name
+  -B = run daemon in the background
+  -c = Configuration file
+  -C = ctrl_interface parameter (only used if -c is not)
+  -d = increase debugging verbosity (-dd even more)
+  -D = driver name (can be multiple drivers: nl80211,wext)
+  -e = entropy file
+  -f = log output to debug file instead of stdout
+  -g = global ctrl_interface
+  -G = global ctrl_interface group
+  -h = show this help text
+  -i = interface name
+  -I = additional configuration file
+  -K = include keys (passwords, etc.) in debug output
+  -L = show license (BSD)
+  -M = start describing new matching interface
+  -N = start describing new interface
+  -o = override driver parameter for new interfaces
+  -O = override ctrl_interface parameter for new interfaces
+  -p = driver parameters
+  -P = PID file
+  -q = decrease debugging verbosity (-qq even less)
+  -s = log output to syslog instead of stdout
+  -t = include timestamp in debug messages
+  -v = show version
+  -W = wait for a control interface monitor before starting
+example:
+  wpa_supplicant -Dnl80211 -iwlan0 -c/etc/wpa_supplicant.conf
+# ifup wlan0
+Successfully initialized wpa_supplicant
+rfkill: Cannot get wiphy information
+Could not read interface wlan0 flags: No such device
+WEXT: Could not set interface 'wlan0' UP
+wlan0: Failed to initialize driver interface
+Failed to bring up wlan0.
+# cat /etc/network/interfaces
+# /etc/network/interfaces
+
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet dhcp
+  pre-up /etc/network/nfs_check
+  wait-delay 15
+  hostname $(hostname)
+
+auto wlan0
+iface wlan0 inet dhcp
+        pre-up wpa_supplicant -B -Dnl80211 -iwlan0 -c/etc/wpa_supplicant.conf
+        post-down killall -q wpa_supplicant
+
+iface default inet dhcp
+# ifup wlan0
+Successfully initialized wpa_supplicant
+Could not read interface wlan0 flags: No such device
+nl80211: Driver does not support authentication/association or connect commands
+nl80211: deinit ifname=wlan0 disabled_11b_rates=0
+Could not read interface wlan0 flags: No such device
+wlan0: Failed to initialize driver interface
+sha256_generic 16384 0 - Live 0xbf16a000
+sha256_generic 16384 0 - Live 0xbf16a000
+libsha256 20480 1 sha256_generic, Live 0xbf162000
+cfg80211 692224 0 - Live 0xbf07b000
+sha256_generic 16384 0 - Live 0xbf16a000
+libsha256 20480 1 sha256_generic, Live 0xbf162000
+cfg80211 692224 0 - Live 0xbf07b000
+rfkill 28672 1 cfg80211, Live 0xbf073000
+8021q 32768 0 - Live 0xbf1ca000
+garp 16384 1 8021q, Live 0xbf1c2000
+stp 16384 1 garp, Live 0xbf1bb000
+llc 16384 2 garp,stp, Live 0xbf1b3000
+ipv6 466944 26 [permanent], Live 0xbf000000
+
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+# ifup wlan0
+Successfully initialized wpa_supplicant
+wlan0: Unsupported driver 'cfg80211'
+Failed to bring up wlan0.
+# ifup wlan0
+Successfully initialized wpa_supplicant
+Could not read interface wlan0 flags: No such device
+nl80211: Driver does not support authentication/association or connect commands
+nl80211: deinit ifname=wlan0 disabled_11b_rates=0
+Could not read interface wlan0 flags: No such device
+wlan0: Failed to initialize driver interface
+Failed to bring up wlan0.
+# ifup wlan0
+Successfully initialized wpa_supplicant
+Could not read interface wlan0 flags: No such device
+nl80211: Driver does not support authentication/association or connect commands
+nl80211: deinit ifname=wlan0 disabled_11b_rates=0
+Could not read interface wlan0 flags: No such device
+wlan0: Failed to initialize driver interface
+Failed to bring up wlan0.
+# ifup wlan0
+Successfully initialized wpa_supplicant
+Could not read interface wlan0 flags: No such device
+nl80211: Driver does not support authentication/association or connect commands
+nl80211: deinit ifname=wlan0 disabled_11b_rates=0
+Could not read interface wlan0 flags: No such device
+wlan0: Failed to initialize driver interface
+Failed to bring up wlan0.
+# iconfig wlan0
+-sh: iconfig: not found
+# ifconfig wlan0
+ifconfig: wlan0: error fetching interface information: Device not found
+# cd  /etc/hostapd
+-sh: cd: can't cd to /etc/hostapd: No such file or directory
+# ls /etc
+dhcpcd.conf          hostname             iproute2             network              profile.d            resolv.conf          wireless-regdb
+dropbear             hosts                issue                os-release           protocols            services             wpa_supplicant.conf
+fstab                init.d               libnl                passwd               rc_keymaps           shadow
+group                inittab              mtab                 profile              rc_maps.cfg          shells
+# lsmod
+Module                  Size  Used by    Not tainted
+sha256_generic         16384  0 
+libsha256              20480  1 sha256_generic
+cfg80211              692224  0 
+rfkill                 28672  1 cfg80211
+8021q                  32768  0 
+garp                   16384  1 8021q
+stp                    16384  1 garp
+llc                    16384  2 garp,stp
+ipv6                  466944 26 [permanent]
+# ifconfig wlan0
+ifconfig: wlan0: error fetching interface information: Device not found
+# ifup wlan0
+Successfully initialized wpa_supplicant
+Could not read interface wlan0 flags: No such device
+nl80211: Driver does not support authentication/association or connect commands
+nl80211: deinit ifname=wlan0 disabled_11b_rates=0
+Could not read interface wlan0 flags: No such device
+wlan0: Failed to initialize driver interface
+Failed to bring up wlan0.
+# ifconfig wlan0 up
+ifconfig: SIOCGIFFLAGS: No such device
+# ^C
+# dmesg|more
+[    0.000000] Booting Linux on physical CPU 0x0
+[    0.000000] Linux version 5.4.72-v7l (josep@josep) (gcc version 9.3.0 (Buildroot 2020.11.1)) #2 SMP Wed Jan 27 01:26:55 WET 2021
+[    0.000000] CPU: ARMv7 Processor [410fd083] revision 3 (ARMv7), cr=30c5383d
+[    0.000000] CPU: div instructions available: patching division code
+[    0.000000] CPU: PIPT / VIPT nonaliasing data cache, PIPT instruction cache
+[    0.000000] OF: fdt: Machine model: Raspberry Pi 4 Model B Rev 1.2
+[    0.000000] Memory policy: Data cache writealloc
+[    0.000000] Reserved memory: created CMA memory pool at 0x000000002ac00000, size 64 MiB
+[    0.000000] OF: reserved mem: initialized node linux,cma, compatible id shared-dma-pool
+[    0.000000] On node 0 totalpages: 498688
+[    0.000000]   DMA zone: 2304 pages used for memmap
+[    0.000000]   DMA zone: 0 pages reserved
+[    0.000000]   DMA zone: 196608 pages, LIFO batch:63
+[    0.000000]   HighMem zone: 302080 pages, LIFO batch:63
+[    0.000000] percpu: Embedded 20 pages/cpu s49804 r8192 d23924 u81920
+[    0.000000] pcpu-alloc: s49804 r8192 d23924 u81920 alloc=20*4096
+[    0.000000] pcpu-alloc: [0] 0 [0] 1 [0] 2 [0] 3 
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 496384
+[    0.000000] Kernel command line: coherent_pool=1M 8250.nr_uarts=1 snd_bcm2835.enable_compat_alsa=0 snd_bcm2835.enable_hdmi=1 snd_bcm2835.enable_headphones=1 bcm2708_fb.fbwidth=0 bcm2708_fb.fbheight=0 bcm2708_fb.fbswap=1 smsc95xx.macaddr=DC:A6:32:C2:D3:A1 vc_mem.mem_base=0x3ec00000 vc_mem.mem_size=0x40000000  root=/dev/mmcblk0p2 rootwait console=tty1 console=ttyAMA0,115200
+[    0.000000] Dentry cache hash table entries: 131072 (order: 7, 524288 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] software IO TLB: mapped [mem 0x25400000-0x29400000] (64MB)
+[    0.000000] Memory: 1820492K/1994752K available (10240K kernel code, 745K rwdata, 2840K rodata, 2048K init, 856K bss, 108724K reserved, 65536K cma-reserved, 1208320K highmem)                                     
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=4, Nodes=1
+[    0.000000] ftrace: allocating 31094 entries in 61 pages
+[    0.000000] rcu: Hierarchical RCU implementation.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+[    0.000000] NR_IRQS: 16, nr_irqs: 16, preallocated irqs: 16
+[    0.000000] GIC: Using split EOI/Deactivate mode
+[    0.000000] random: get_random_bytes called from start_kernel+0x338/0x51c with crng_init=0
+[    0.000007] sched_clock: 32 bits at 1000kHz, resolution 1000ns, wraps every 2147483647500ns
+[    0.000030] clocksource: timer: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1911260446275 ns
+[    0.000109] bcm2835: system timer (irq = 17)
+[    0.000755] arch_timer: cp15 timer(s) running at 54.00MHz (phys).
+[    0.000776] clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0xc743ce346, max_idle_ns: 440795203123 ns
+[    0.000797] sched_clock: 56 bits at 54MHz, resolution 18ns, wraps every 4398046511102ns
+[    0.000814] Switching to timer-based delay loop, resolution 18ns
+[    0.001048] Console: colour dummy device 80x30
+[    0.001547] printk: console [tty1] enabled
+[    0.001613] Calibrating delay loop (skipped), value calculated using timer frequency.. 108.00 BogoMIPS (lpj=540000)
+[    0.001655] pid_max: default: 32768 minimum: 301
+[    0.001814] LSM: Security Framework initializing
+[    0.002013] Mount-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+[    0.002054] Mountpoint-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+[    0.003299] Disabling memory control group subsystem
+[    0.003433] CPU: Testing write buffer coherency: ok
+[    0.003937] CPU0: thread -1, cpu 0, socket 0, mpidr 80000000
+[    0.004857] Setting up static identity map for 0x200000 - 0x20003c
+[    0.005078] rcu: Hierarchical SRCU implementation.
+[    0.005761] smp: Bringing up secondary CPUs ...
+[    0.006916] CPU1: thread -1, cpu 1, socket 0, mpidr 80000001
+[    0.008199] CPU2: thread -1, cpu 2, socket 0, mpidr 80000002
+[    0.009421] CPU3: thread -1, cpu 3, socket 0, mpidr 80000003
+[    0.009577] smp: Brought up 1 node, 4 CPUs
+[    0.009648] SMP: Total of 4 processors activated (432.00 BogoMIPS).
+[    0.009674] CPU: All CPU(s) started in HYP mode.
+[    0.009699] CPU: Virtualization extensions available.
+[    0.010507] devtmpfs: initialized
+[    0.023986] VFP support v0.3: implementor 41 architecture 3 part 40 variant 8 rev 0
+[    0.024255] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+[    0.024304] futex hash table entries: 1024 (order: 4, 65536 bytes, linear)
+[    0.026330] pinctrl core: initialized pinctrl subsystem
+[    0.027310] NET: Registered protocol family 16
+[    0.031020] DMA: preallocated 1024 KiB pool for atomic coherent allocations
+[    0.031617] audit: initializing netlink subsys (disabled)
+[    0.031888] audit: type=2000 audit(0.030:1): state=initialized audit_enabled=0 res=1
+[    0.032936] hw-breakpoint: found 5 (+1 reserved) breakpoint and 4 watchpoint registers.
+[    0.032972] hw-breakpoint: maximum watchpoint size is 8 bytes.
+[    0.033295] Serial: AMBA PL011 UART driver
+[    0.036759] bcm2835-mbox fe00b880.mailbox: mailbox enabled
+[    0.060825] raspberrypi-firmware soc:firmware: Attached to firmware from 2020-10-15 12:54, variant start
+[    0.070841] raspberrypi-firmware soc:firmware: Firmware hash is 7a06d62ff1c0c6bd72d4b9a91b6e38eaf68aeb70
+[    0.124653] bcm2835-dma fe007000.dma: DMA legacy API manager, dmachans=0x1
+[    0.129641] vgaarb: loaded
+[    0.130108] SCSI subsystem initialized
+[    0.130363] usbcore: registered new interface driver usbfs
+[    0.130435] usbcore: registered new interface driver hub
+[    0.130569] usbcore: registered new device driver usb
+[    0.130949] usb_phy_generic phy: phy supply vcc not found, using dummy regulator
+[    0.132726] clocksource: Switched to clocksource arch_sys_counter
+[    0.866440] VFS: Disk quotas dquot_6.6.0
+[    0.866560] VFS: Dquot-cache hash table entries: 1024 (order 0, 4096 bytes)
+[    0.866773] FS-Cache: Loaded
+[    0.866976] CacheFiles: Loaded
+[    0.877217] thermal_sys: Registered thermal governor 'step_wise'
+[    0.877582] NET: Registered protocol family 2
+[    0.878325] tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 6144 bytes, linear)
+[    0.878377] TCP established hash table entries: 8192 (order: 3, 32768 bytes, linear)
+[    0.878458] TCP bind hash table entries: 8192 (order: 4, 65536 bytes, linear)
+[    0.878539] TCP: Hash tables configured (established 8192 bind 8192)
+[    0.878691] UDP hash table entries: 512 (order: 2, 16384 bytes, linear)
+[    0.878741] UDP-Lite hash table entries: 512 (order: 2, 16384 bytes, linear)
+[    0.879018] NET: Registered protocol family 1
+[    0.879770] RPC: Registered named UNIX socket transport module.
+[    0.879800] RPC: Registered udp transport module.
+[    0.879825] RPC: Registered tcp transport module.
+[    0.879850] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    0.879885] PCI: CLS 0 bytes, default 64
+[    0.881716] hw perfevents: enabled with armv7_cortex_a15 PMU driver, 7 counters available
+[    0.884024] Initialise system trusted keyrings
+[    0.884280] workingset: timestamp_bits=14 max_order=19 bucket_order=5
+[    0.895158] FS-Cache: Netfs 'nfs' registered for caching
+[    0.895897] NFS: Registering the id_resolver key type
+[    0.895941] Key type id_resolver registered
+[    0.895967] Key type id_legacy registered
+[    0.896002] nfs4filelayout_init: NFSv4 File Layout Driver Registering...
+[    0.897073] Key type asymmetric registered
+[    0.897103] Asymmetric key parser 'x509' registered
+[    0.897310] bounce: pool size: 64 pages
+[    0.897379] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 249)
+[    0.897622] io scheduler mq-deadline registered
+[    0.897651] io scheduler kyber registered
+[    0.901552] brcm-pcie fd500000.pcie: host bridge /scb/pcie@7d500000 ranges:
+[    0.901594] brcm-pcie fd500000.pcie:   No bus range found for /scb/pcie@7d500000, using [bus 00-ff]
+[    0.901686] brcm-pcie fd500000.pcie:      MEM 0x0600000000..0x0603ffffff -> 0x00f8000000
+[    0.901777] brcm-pcie fd500000.pcie:   IB MEM 0x0000000000..0x007fffffff -> 0x0000000000
+[    0.954878] brcm-pcie fd500000.pcie: link up, 5 GT/s x1 (SSC)
+[    0.955195] brcm-pcie fd500000.pcie: PCI host bridge to bus 0000:00
+[    0.955230] pci_bus 0000:00: root bus resource [bus 00-ff]
+[    0.955264] pci_bus 0000:00: root bus resource [mem 0x600000000-0x603ffffff] (bus address [0xf8000000-0xfbffffff])
+[    0.955344] pci 0000:00:00.0: [14e4:2711] type 01 class 0x060400
+[    0.955623] pci 0000:00:00.0: PME# supported from D0 D3hot
+[    0.958928] PCI: bus0: Fast back to back transfers disabled
+[    0.958966] pci 0000:00:00.0: bridge configuration invalid ([bus 00-00]), reconfiguring
+[    0.959259] pci 0000:01:00.0: [1106:3483] type 00 class 0x0c0330
+[    0.959421] pci 0000:01:00.0: reg 0x10: [mem 0x00000000-0x00000fff 64bit]
+[    0.959875] pci 0000:01:00.0: PME# supported from D0 D3cold
+[    0.963250] PCI: bus1: Fast back to back transfers disabled
+[    0.963285] pci_bus 0000:01: busn_res: [bus 01-ff] end is updated to 01
+[    0.963339] pci 0000:00:00.0: BAR 8: assigned [mem 0x600000000-0x6000fffff]
+[    0.963377] pci 0000:01:00.0: BAR 0: assigned [mem 0x600000000-0x600000fff 64bit]
+[    0.963477] pci 0000:00:00.0: PCI bridge to [bus 01]
+[    0.963515] pci 0000:00:00.0:   bridge window [mem 0x600000000-0x6000fffff]
+[    0.963844] pcieport 0000:00:00.0: enabling device (0140 -> 0142)
+[    0.964089] pcieport 0000:00:00.0: PME: Signaling with IRQ 54
+[    0.964501] pcieport 0000:00:00.0: AER: enabled with IRQ 54
+[    0.964855] pci 0000:01:00.0: enabling device (0140 -> 0142)
+[    0.965525] bcm2708_fb soc:fb: Unable to determine number of FBs. Disabling driver.
+[    0.965572] bcm2708_fb: probe of soc:fb failed with error -2
+[    0.969504] Serial: 8250/16550 driver, 1 ports, IRQ sharing enabled
+[    0.972641] iproc-rng200 fe104000.rng: hwrng registered
+[    0.973032] vc-mem: phys_addr:0x00000000 mem_base=0x3ec00000 mem_size:0x40000000(1024 MiB)
+[    0.973703] vc-sm: Videocore shared memory driver
+[    0.974271] gpiomem-bcm2835 fe200000.gpiomem: Initialised: Registers at 0xfe200000
+[    0.986215] brd: module loaded
+[    0.998430] loop: module loaded
+[    0.999848] Loading iSCSI transport class v2.0-870.
+[    1.001823] libphy: Fixed MDIO Bus: probed
+[    1.002445] bcmgenet fd580000.ethernet: failed to get enet clock
+[    1.002480] bcmgenet fd580000.ethernet: GENET 5.0 EPHY: 0x0000
+[    1.002518] bcmgenet fd580000.ethernet: failed to get enet-wol clock
+[    1.002554] bcmgenet fd580000.ethernet: failed to get enet-eee clock
+[    1.002597] bcmgenet: Skipping UMAC reset
+[    1.022767] libphy: bcmgenet MII bus: probed
+[    1.102852] unimac-mdio unimac-mdio.-19: Broadcom UniMAC MDIO bus
+[    1.103889] usbcore: registered new interface driver r8152
+[    1.103970] usbcore: registered new interface driver lan78xx
+[    1.104043] usbcore: registered new interface driver smsc95xx
+[    1.104482] xhci_hcd 0000:01:00.0: xHCI Host Controller
+[    1.104530] xhci_hcd 0000:01:00.0: new USB bus registered, assigned bus number 1
+[    1.107075] xhci_hcd 0000:01:00.0: hcc params 0x002841eb hci version 0x100 quirks 0x0000001000000890
+[    1.108395] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 5.04
+[    1.108434] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    1.108469] usb usb1: Product: xHCI Host Controller
+[    1.108498] usb usb1: Manufacturer: Linux 5.4.72-v7l xhci-hcd
+[    1.108527] usb usb1: SerialNumber: 0000:01:00.0
+[    1.109140] hub 1-0:1.0: USB hub found
+[    1.109250] hub 1-0:1.0: 1 port detected
+[    1.109846] xhci_hcd 0000:01:00.0: xHCI Host Controller
+[    1.109887] xhci_hcd 0000:01:00.0: new USB bus registered, assigned bus number 2
+[    1.109930] xhci_hcd 0000:01:00.0: Host supports USB 3.0 SuperSpeed
+[    1.110475] usb usb2: New USB device found, idVendor=1d6b, idProduct=0003, bcdDevice= 5.04
+[    1.110514] usb usb2: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    1.110548] usb usb2: Product: xHCI Host Controller
+[    1.110577] usb usb2: Manufacturer: Linux 5.4.72-v7l xhci-hcd
+[    1.110606] usb usb2: SerialNumber: 0000:01:00.0
+[    1.111217] hub 2-0:1.0: USB hub found
+[    1.111300] hub 2-0:1.0: 4 ports detected
+[    1.112892] dwc_otg: version 3.00a 10-AUG-2012 (platform bus)
+[    1.113216] dwc_otg: FIQ enabled
+[    1.113229] dwc_otg: NAK holdoff enabled
+[    1.113241] dwc_otg: FIQ split-transaction FSM enabled
+[    1.113258] Module dwc_common_port init
+[    1.113722] usbcore: registered new interface driver uas
+[    1.113841] usbcore: registered new interface driver usb-storage
+[    1.114048] mousedev: PS/2 mouse device common for all mice
+[    1.115922] bcm2835-wdt bcm2835-wdt: Broadcom BCM2835 watchdog timer
+[    1.119321] sdhci: Secure Digital Host Controller Interface driver
+[    1.119351] sdhci: Copyright(c) Pierre Ossman
+[    1.119976] mmc-bcm2835 fe300000.mmcnr: could not get clk, deferring probe
+[    1.120600] sdhci-pltfm: SDHCI platform and OF driver helper
+[    1.124370] ledtrig-cpu: registered to indicate activity on CPUs
+[    1.124694] hidraw: raw HID events driver (C) Jiri Kosina
+[    1.124895] usbcore: registered new interface driver usbhid
+[    1.124922] usbhid: USB HID core driver
+[    1.125925] vchiq: vchiq_init_state: slot_zero = (ptrval)
+[    1.128053] [vc_sm_connected_init]: start
+[    1.134238] [vc_sm_connected_init]: end - returning 0
+[    1.136232] Initializing XFRM netlink socket
+[    1.136288] NET: Registered protocol family 17
+[    1.136400] Key type dns_resolver registered
+[    1.136752] Registering SWP/SWPB emulation handler
+[    1.137074] registered taskstats version 1
+[    1.137106] Loading compiled-in X.509 certificates
+[    1.137653] Key type ._fscrypt registered
+[    1.137681] Key type .fscrypt registered
+[    1.148125] uart-pl011 fe201000.serial: cts_event_workaround enabled
+[    1.148215] fe201000.serial: ttyAMA0 at MMIO 0xfe201000 (irq = 29, base_baud = 0) is a PL011 rev2
+[    2.360975] printk: console [ttyAMA0] enabled
+[    2.373339] fe215040.serial: ttyS0 at MMIO 0x0 (irq = 30, base_baud = 62500000) is a 16550
+[    2.382372] bcm2835-power bcm2835-power: Broadcom BCM2835 power domains driver
+[    2.390616] mmc-bcm2835 fe300000.mmcnr: mmc_debug:0 mmc_debug2:0
+[    2.396668] mmc-bcm2835 fe300000.mmcnr: DMA channel allocated
+[    2.450881] mmc1: queuing unknown CIS tuple 0x80 (2 bytes)
+[    2.458085] mmc1: queuing unknown CIS tuple 0x80 (3 bytes)
+[    2.465259] mmc1: queuing unknown CIS tuple 0x80 (3 bytes)
+[    2.470810] mmc0: SDHCI controller on fe340000.emmc2 [fe340000.emmc2] using ADMA
+[    2.481349] of_cfs_init
+[    2.482335] mmc1: queuing unknown CIS tuple 0x80 (7 bytes)
+[    2.484088] of_cfs_init: OK
+[    2.491038] mmc1: queuing unknown CIS tuple 0x80 (3 bytes)
+[    2.498318] uart-pl011 fe201000.serial: no DMA platform data
+[    2.504416] Waiting for root device /dev/mmcblk0p2...
+[    2.542209] random: fast init done
+[    2.592879] mmc1: new high speed SDIO card at address 0001
+[    2.610481] mmc0: new ultra high speed DDR50 SDHC card at address aaaa
+[    2.617912] mmcblk0: mmc0:aaaa SL32G 29.7 GiB
+[    2.622779] usb 1-1: new high-speed USB device number 2 using xhci_hcd
+[    2.634934]  mmcblk0: p1 p2
+[    2.661883] EXT4-fs (mmcblk0p2): mounted filesystem with ordered data mode. Opts: (null)
+[    2.670140] VFS: Mounted root (ext4 filesystem) readonly on device 179:2.
+[    2.680556] devtmpfs: mounted
+[    2.692126] Freeing unused kernel memory: 2048K
+[    2.697066] Run /sbin/init as init process
+[    2.761929] EXT4-fs (mmcblk0p2): re-mounted. Opts: (null)
+[    2.805769] usb 1-1: New USB device found, idVendor=2109, idProduct=3431, bcdDevice= 4.21
+[    2.814101] usb 1-1: New USB device strings: Mfr=0, Product=1, SerialNumber=0
+[    2.821257] usb 1-1: Product: USB2.0 Hub
+[    2.827551] hub 1-1:1.0: USB hub found
+[    2.831637] hub 1-1:1.0: 4 ports detected
+[    2.931039] random: dd: uninitialized urandom read (512 bytes read)
+[    3.092105] bcmgenet: Skipping UMAC reset
+[    3.098624] bcmgenet fd580000.ethernet: configuring instance for external RGMII
+[    3.106601] bcmgenet fd580000.ethernet eth0: Link is Down
+[    3.121188] random: mktemp: uninitialized urandom read (6 bytes read)
+[    8.312903] bcmgenet fd580000.ethernet eth0: Link is Up - 1Gbps/Full - flow control rx/tx
+[   12.827349] random: dhcpcd: uninitialized urandom read (120 bytes read)
+[   12.948973] NET: Registered protocol family 10
+[   12.955111] Segment Routing with IPv6
+[   12.987068] 8021q: 802.1Q VLAN Support v1.8
+[   13.141285] cfg80211: Loading compiled-in X.509 certificates for regulatory database
+[   13.435356] cfg80211: Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+[   27.592775] random: crng init done
+#  lspci | grep Wireless
+#  lspci | grep
+BusyBox v1.32.0 (2021-01-25 22:24:18 WET) multi-call binary.
+
+Usage: grep [-HhnlLoqvsrRiwFE] [-m N] [-A/B/C N] PATTERN/-e PATTERN.../-f FILE [FILE]...
+
+Search for PATTERN in FILEs (or stdin)
+
+	-H	Add 'filename:' prefix
+	-h	Do not add 'filename:' prefix
+	-n	Add 'line_no:' prefix
+	-l	Show only names of files that match
+	-L	Show only names of files that don't match
+	-c	Show only count of matching lines
+	-o	Show only the matching part of line
+	-q	Quiet. Return 0 if PATTERN is found, 1 otherwise
+	-v	Select non-matching lines
+	-s	Suppress open and read errors
+	-r	Recurse
+	-R	Recurse and dereference symlinks
+	-i	Ignore case
+	-w	Match whole words only
+	-x	Match whole lines only
+	-F	PATTERN is a literal (not regexp)
+	-E	PATTERN is an extended regexp
+	-m N	Match up to N times per file
+	-A N	Print N lines of trailing context
+	-B N	Print N lines of leading context
+	-C N	Same as '-A N -B N'
+	-e PTRN	Pattern to match
+	-f FILE	Read pattern from file
+#  lspci
+00:00.0 PCI bridge: Broadcom Inc. and subsidiaries Device 2711 (rev 10)
+01:00.0 USB controller: VIA Technologies, Inc. VL805 USB 3.0 Host Controller (rev 01)
+# exit
+Connection to 10.42.0.232 closed.
+josep@josep:~$ arp -a
+_gateway (192.168.1.254) at e0:b9:e5:ba:4d:4c [ether] on wlo1
+? (10.42.0.233) at dc:a6:32:c2:d3:a1 [ether] on eno1
+? (10.42.0.232) at dc:a6:32:c2:d3:a1 [ether] on eno1
+? (192.168.1.253) at e2:b9:e5:ba:4d:4c [ether] on wlo1
+? (192.168.1.67) at f8:23:b2:f6:1d:ff [ether] on wlo1
+josep@josep:~$ ssh root@10.42.0.232
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the ECDSA key sent by the remote host is
+SHA256:VCqOSs5Q8AKqoCmZ3+ZgO2hOKwlk3O/MCqWLb8xkvPo.
+Please contact your system administrator.
+Add correct host key in /home/josep/.ssh/known_hosts to get rid of this message.
+Offending ECDSA key in /home/josep/.ssh/known_hosts:2
+  remove with:
+  ssh-keygen -f "/home/josep/.ssh/known_hosts" -R "10.42.0.232"
+ECDSA host key for 10.42.0.232 has changed and you have requested strict checking.
+Host key verification failed.
+josep@josep:~$ ssh-keygen -f "/home/josep/.ssh/known_hosts" -R "10.42.0.232"
+# Host 10.42.0.232 found: line 2
+/home/josep/.ssh/known_hosts updated.
+Original contents retained as /home/josep/.ssh/known_hosts.old
+josep@josep:~$ ssh root@10.42.0.232
+The authenticity of host '10.42.0.232 (10.42.0.232)' can't be established.
+ECDSA key fingerprint is SHA256:VCqOSs5Q8AKqoCmZ3+ZgO2hOKwlk3O/MCqWLb8xkvPo.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '10.42.0.232' (ECDSA) to the list of known hosts.
+root@10.42.0.232's password: 
+# ifconfig wlan0 up
+ifconfig: SIOCGIFFLAGS: No such device
+# ifup
+ifup: no interface(s) specified
+ifup: Use --help for help
+# ifup wlan0
+Unknown interface wlan0
+# ifup wlan0
+Successfully initialized wpa_supplicant
+Could not read interface wlan0 flags: No such device
+nl80211: Driver does not support authentication/association or connect commands
+nl80211: deinit ifname=wlan0 disabled_11b_rates=0
+Could not read interface wlan0 flags: No such device
+wlan0: Failed to initialize driver interface
+Failed to bring up wlan0.
+# dmesg | grep 80211
+[   12.816202] cfg80211: Loading compiled-in X.509 certificates for regulatory database
+[   13.109502] cfg80211: Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+# dmesg | grep wi
+[    0.000000] Kernel command line: coherent_pool=1M 8250.nr_uarts=1 snd_bcm2835.enable_compat_alsa=0 snd_bcm2835.enable_hdmi=1 snd_bcm2835.enable_headphones=1 bcm2708_fb.fbwidth=0 bcm2708_fb.fbheight=0 bcm2708_fb.fbswap=1 smsc95xx.macaddr=DC:A6:32:C2:D3:A1 vc_mem.mem_base=0x3ec00000 vc_mem.mem_size=0x40000000  root=/dev/mmcblk0p2 rootwait console=tty1 console=ttyAMA0,115200
+[    0.000000] random: get_random_bytes called from start_kernel+0x338/0x51c with crng_init=0
+[    0.000814] Switching to timer-based delay loop, resolution 18ns
+[    0.132672] clocksource: Switched to clocksource arch_sys_counter
+[    0.877320] thermal_sys: Registered thermal governor 'step_wise'
+[    0.881829] hw perfevents: enabled with armv7_cortex_a15 PMU driver, 7 counters available
+[    0.963456] pci 0000:00:00.0:   bridge window [mem 0x600000000-0x6000fffff]
+[    0.964026] pcieport 0000:00:00.0: PME: Signaling with IRQ 54
+[    0.964441] pcieport 0000:00:00.0: AER: enabled with IRQ 54
+[    0.965512] bcm2708_fb: probe of soc:fb failed with error -2
+[    2.671431] EXT4-fs (mmcblk0p2): mounted filesystem with ordered data mode. Opts: (null)
+[   12.609268] Segment Routing with IPv6
+# lspci
+00:00.0 PCI bridge: Broadcom Inc. and subsidiaries Device 2711 (rev 10)
+01:00.0 USB controller: VIA Technologies, Inc. VL805 USB 3.0 Host Controller (rev 01)
+# iw
+Usage:	iw [options] command
+Options:
+	--debug		enable netlink debugging
+	--version	show version (5.4)
+Commands:
+	dev <devname> ap stop 
+	dev <devname> ap start 
+	phy <phyname> coalesce show 
+	phy <phyname> coalesce disable 
+	phy <phyname> coalesce enable <config-file>
+	dev <devname> auth <SSID> <bssid> <type:open|shared> <freq in MHz> [key 0:abcde d:1:6162636465]
+	dev <devname> connect [-w] <SSID> [<freq in MHz>] [<bssid>] [key 0:abcde d:1:6162636465] [mfp:req/opt/no]
+	dev <devname> disconnect
+	dev <devname> cqm rssi <threshold|off> [<hysteresis>]
+	event [-t|-r] [-f]
+	dev <devname> ftm start_responder [lci=<lci buffer in hex>] [civic=<civic buffer in hex>]
+	dev <devname> ftm get_stats 
+	phy <phyname> hwsim wakequeues 
+	phy <phyname> hwsim stopqueues 
+	phy <phyname> hwsim setps <value>
+	phy <phyname> hwsim getps 
+	dev <devname> ibss join <SSID> <freq in MHz> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz] [fixed-freq] [<fixed bssid>] [beacon-interval <TU>] [basic-rates <rate in Mbps,rate2,...>] [mcast-rate <rate in Mbps>] [key d:0:abcde]
+	dev <devname> ibss leave
+	features 
+	commands
+	phy
+	list
+	phy <phyname> info
+	dev <devname> switch channel <channel> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz] [beacons <count>] [block-tx]
+	dev <devname> switch freq <freq> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz] [beacons <count>] [block-tx]
+	dev <devname> switch freq <control freq> [5|10|20|40|80|80+80|160] [<center1_freq> [<center2_freq>]] [beacons <count>] [block-tx]
+	dev
+	dev <devname> info
+	dev <devname> del
+	dev <devname> interface add <name> type <type> [mesh_id <meshid>] [4addr on|off] [flags <flag>*] [addr <mac-addr>]
+	phy <phyname> interface add <name> type <type> [mesh_id <meshid>] [4addr on|off] [flags <flag>*] [addr <mac-addr>]
+	help [command]
+	dev <devname> link
+	dev <devname> measurement ftm_request <config-file> [timeout=<seconds>] [randomise[=<addr>/<mask>]]
+	dev <devname> mesh leave
+	dev <devname> mesh join <mesh ID> [[freq <freq in MHz> <NOHT|HT20|HT40+|HT40-|80MHz>] [basic-rates <rate in Mbps,rate2,...>]], [mcast-rate <rate in Mbps>] [beacon-interval <time in TUs>] [dtim-period <value>] [vendor_sync on|off] [<param>=<value>]*
+	dev <devname> mgmt dump frame <type as hex ab> <pattern as hex ab:cd:..> [frame <type> <pattern>]* [count <frames>]
+	dev <devname> mpath dump
+	dev <devname> mpath set <destination MAC address> next_hop <next hop MAC address>
+	dev <devname> mpath new <destination MAC address> next_hop <next hop MAC address>
+	dev <devname> mpath del <MAC address>
+	dev <devname> mpath get <MAC address>
+	dev <devname> mpath probe <destination MAC address> frame <frame>
+	dev <devname> mpp dump
+	dev <devname> mpp get <MAC address>
+	wdev <idx> nan add_func type <publish|subscribe|followup> [active] [solicited] [unsolicited] [bcast] [close_range] name <name> [info <info>] [flw_up_id <id> flw_up_req_id <id> flw_up_dest <mac>] [ttl <ttl>] [srf <include|exclude> <bf|list> [bf_idx] [bf_len] <mac1;mac2...>] [rx_filter <str1:str2...>] [tx_filter <str1:str2...>]
+	wdev <idx> nan rm_func cookie <cookie>
+	wdev <idx> nan config [pref <pref>] [bands [2GHz] [5GHz]]
+	wdev <idx> nan stop 
+	wdev <idx> nan start pref <pref> [bands [2GHz] [5GHz]]
+	dev <devname> ocb leave
+	dev <devname> ocb join <freq in MHz> <5MHz|10MHz>
+	dev <devname> offchannel <freq> <duration>
+	wdev <idx> p2p stop 
+	wdev <idx> p2p start 
+	dev <devname> cac channel <channel> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> cac freq <freq> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> cac freq <control freq> [5|10|20|40|80|80+80|160] [<center1_freq> [<center2_freq>]]
+	dev <devname> cac trigger channel <channel> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> cac trigger freq <frequency> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> cac trigger freq <frequency> [5|10|20|40|80|80+80|160] [<center1_freq> [<center2_freq>]]
+	phy <phyname> channels
+	reg reload
+	phy <phyname> reg get
+	reg get
+	reg set <ISO/IEC 3166-1 alpha2>
+	dev <devname> roc start <freq> <time in ms>
+	dev <devname> scan [-u] [freq <freq>*] [duration <dur>] [ies <hex as 00:11:..>] [meshid <meshid>] [lowpri,flush,ap-force,duration-mandatory] [randomise[=<addr>/<mask>]] [ssid <ssid>*|passive]
+	dev <devname> scan sched_stop 
+	dev <devname> scan sched_start [interval <in_msecs> | scan_plans [<interval_secs:iterations>*] <interval_secs>] [delay <in_secs>] [freqs <freq>+] [matches [ssid <ssid>]+]] [active [ssid <ssid>]+|passive] [randomise[=<addr>/<mask>]]
+	dev <devname> scan abort 
+	dev <devname> scan trigger [freq <freq>*] [duration <dur>] [ies <hex as 00:11:..>] [meshid <meshid>] [lowpri,flush,ap-force,duration-mandatory] [randomise[=<addr>/<mask>]] [ssid <ssid>*|passive]
+	dev <devname> scan dump [-u]
+	dev <devname> set bitrates [legacy-<2.4|5> <legacy rate in Mbps>*] [ht-mcs-<2.4|5> <MCS index>*] [vht-mcs-<2.4|5> <NSS:MCSx,MCSy... | NSS:MCSx-MCSy>*] [sgi-2.4|lgi-2.4] [sgi-5|lgi-5]
+	dev <devname> set mcast_rate <rate in Mbps>
+	dev <devname> set peer <MAC address>
+	dev <devname> set noack_map <map>
+	dev <devname> set 4addr <on|off>
+	dev <devname> set type <type>
+	dev <devname> set meshid <meshid>
+	dev <devname> set monitor <flag>*
+	dev <devname> set mesh_param <param>=<value> [<param>=<value>]*
+	phy <phyname> set txq limit <packets> | memory_limit <bytes> | quantum <bytes>
+	phy <phyname> set antenna <bitmap> | all | <tx bitmap> <rx bitmap>
+	dev <devname> set txpower <auto|fixed|limit> [<tx power in mBm>]
+	phy <phyname> set txpower <auto|fixed|limit> [<tx power in mBm>]
+	phy <phyname> set distance <auto|distance>
+	phy <phyname> set coverage <coverage class>
+	phy <phyname> set netns { <pid> | name <nsname> }
+	phy <phyname> set retry [short <limit>] [long <limit>]
+	phy <phyname> set rts <rts threshold|off>
+	phy <phyname> set frag <fragmentation threshold|off>
+	dev <devname> set channel <channel> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	phy <phyname> set channel <channel> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> set freq <freq> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> set freq <control freq> [5|10|20|40|80|80+80|160] [<center1_freq> [<center2_freq>]]
+	phy <phyname> set freq <freq> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	phy <phyname> set freq <control freq> [5|10|20|40|80|80+80|160] [<center1_freq> [<center2_freq>]]
+	phy <phyname> set name <new name>
+	dev <devname> set power_save <on|off>
+	dev <devname> get mesh_param [<param>]
+	phy <phyname> get txq 
+	dev <devname> get power_save <param>
+	dev <devname> station dump [-v]
+	dev <devname> station set <MAC address> txpwr <auto|limit> [<tx power dBm>]
+	dev <devname> station set <MAC address> airtime_weight <weight>
+	dev <devname> station set <MAC address> mesh_power_mode <active|light|deep>
+	dev <devname> station set <MAC address> vlan <ifindex>
+	dev <devname> station set <MAC address> plink_action <open|block>
+	dev <devname> station del <MAC address> [subtype <subtype>] [reason-code <code>]
+	dev <devname> station get <MAC address>
+	dev <devname> survey dump
+	dev <devname> vendor recvbin <oui> <subcmd> <filename|-|hex data>
+	dev <devname> vendor recv <oui> <subcmd> <filename|-|hex data>
+	dev <devname> vendor send <oui> <subcmd> <filename|-|hex data>
+	phy <phyname> wowlan show 
+	phy <phyname> wowlan disable 
+	phy <phyname> wowlan enable [any] [disconnect] [magic-packet] [gtk-rekey-failure] [eap-identity-request] [4way-handshake] [rfkill-release] [net-detect [interval <in_msecs> | scan_plans [<interval_secs:iterations>*] <interval_secs>] [delay <in_secs>] [freqs <freq>+] [matches [ssid <ssid>]+]] [active [ssid <ssid>]+|passive] [randomise[=<addr>/<mask>]]] [tcp <config-file>] [patterns [offset1+]<pattern1> ...]
+
+Commands that use the netdev ('dev') can also be given the
+'wdev' instead to identify the device.
+
+You can omit the 'phy' or 'dev' if the identification is unique,
+e.g. "iw wlan0 info" or "iw phy0 info". (Don't when scripting.)
+
+Do NOT screenscrape this tool, we don't consider its output stable.
+
+# iw dev
+# iw wdev
+Usage:	iw [options] command
+Options:
+	--debug		enable netlink debugging
+	--version	show version (5.4)
+Commands:
+	dev <devname> ap stop 
+		Stop AP functionality
+		
+
+	dev <devname> ap start 
+		<SSID> <control freq> [5|10|20|40|80|80+80|160] [<center1_freq> [<center2_freq>]] <beacon interval in TU> <DTIM period> [hidden-ssid|zeroed-ssid] head <beacon head in hexadecimal> [tail <beacon tail in hexadecimal>] [inactivity-time <inactivity time in seconds>] [key0:abcde d:1:6162636465]
+		
+
+	phy <phyname> coalesce show 
+		Show coalesce status.
+
+	phy <phyname> coalesce disable 
+		Disable coalesce.
+
+	phy <phyname> coalesce enable <config-file>
+		Enable coalesce with given configuration.
+		The configuration file contains coalesce rules:
+		  delay=<delay>
+		  condition=<condition>
+		  patterns=<[offset1+]<pattern1>,<[offset2+]<pattern2>,...>
+		  delay=<delay>
+		  condition=<condition>
+		  patterns=<[offset1+]<pattern1>,<[offset2+]<pattern2>,...>
+		  ...
+		delay: maximum coalescing delay in msec.
+		condition: 1/0 i.e. 'not match'/'match' the patterns
+		patterns: each pattern is given as a bytestring with '-' in
+		places where any byte may be present, e.g. 00:11:22:-:44 will
+		match 00:11:22:33:44 and 00:11:22:33:ff:44 etc. Offset and
+		pattern should be separated by '+', e.g. 18+43:34:00:12 will
+		match '43:34:00:12' after 18 bytes of offset in Rx packet.
+		
+
+	dev <devname> auth <SSID> <bssid> <type:open|shared> <freq in MHz> [key 0:abcde d:1:6162636465]
+		Authenticate with the given network.
+		
+
+	dev <devname> connect [-w] <SSID> [<freq in MHz>] [<bssid>] [key 0:abcde d:1:6162636465] [mfp:req/opt/no]
+		Join the network with the given SSID (and frequency, BSSID).
+		With -w, wait for the connect to finish or fail.
+
+	dev <devname> disconnect
+		Disconnect from the current network.
+
+	dev <devname> cqm rssi <threshold|off> [<hysteresis>]
+		Set connection quality monitor RSSI threshold.
+		
+
+	event [-t|-r] [-f]
+		Monitor events from the kernel.
+		-t - print timestamp
+		-r - print relative timestamp
+		-f - print full frame for auth/assoc etc.
+
+	dev <devname> ftm start_responder [lci=<lci buffer in hex>] [civic=<civic buffer in hex>]
+		Start an FTM responder. Needs a running ap interface
+		
+
+	dev <devname> ftm get_stats 
+		Get FTM responder statistics.
+		
+
+	phy <phyname> hwsim wakequeues 
+		
+
+	phy <phyname> hwsim stopqueues 
+		
+
+	phy <phyname> hwsim setps <value>
+		
+
+	phy <phyname> hwsim getps 
+		
+
+	dev <devname> ibss join <SSID> <freq in MHz> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz] [fixed-freq] [<fixed bssid>] [beacon-interval <TU>] [basic-rates <rate in Mbps,rate2,...>] [mcast-rate <rate in Mbps>] [key d:0:abcde]
+		Join the IBSS cell with the given SSID, if it doesn't exist create
+		it on the given frequency. When fixed frequency is requested, don't
+		join/create a cell on a different frequency. When a fixed BSSID is
+		requested use that BSSID and do not adopt another cell's BSSID even
+		if it has higher TSF and the same SSID. If an IBSS is created, create
+		it with the specified basic-rates, multicast-rate and beacon-interval.
+
+	dev <devname> ibss leave
+		Leave the current IBSS cell.
+
+	features 
+		
+
+	commands
+		list all known commands and their decimal & hex value
+
+	phy
+	list
+		List all wireless devices and their capabilities.
+
+	phy <phyname> info
+		Show capabilities for the specified wireless device.
+
+	dev <devname> switch channel <channel> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz] [beacons <count>] [block-tx]
+	dev <devname> switch freq <freq> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz] [beacons <count>] [block-tx]
+	dev <devname> switch freq <control freq> [5|10|20|40|80|80+80|160] [<center1_freq> [<center2_freq>]] [beacons <count>] [block-tx]
+		Switch the operating channel by sending a channel switch announcement (CSA).
+
+	dev
+		List all network interfaces for wireless hardware.
+
+	dev <devname> info
+		Show information for this interface.
+
+	dev <devname> del
+		Remove this virtual interface
+
+	dev <devname> interface add <name> type <type> [mesh_id <meshid>] [4addr on|off] [flags <flag>*] [addr <mac-addr>]
+	phy <phyname> interface add <name> type <type> [mesh_id <meshid>] [4addr on|off] [flags <flag>*] [addr <mac-addr>]
+		Add a new virtual interface with the given configuration.
+		Valid interface types are: managed, ibss, monitor, mesh, wds.
+		
+		The flags are only used for monitor interfaces, valid flags are:
+		none:     no special flags
+		fcsfail:  show frames with FCS errors
+		control:  show control frames
+		otherbss: show frames from other BSSes
+		cook:     use cooked mode
+		active:   use active mode (ACK incoming unicast packets)
+		mumimo-groupid <GROUP_ID>: use MUMIMO according to a group id
+		mumimo-follow-mac <MAC_ADDRESS>: use MUMIMO according to a MAC address
+		
+		The mesh_id is used only for mesh mode.
+
+	help [command]
+		Print usage for all or a specific command, e.g.
+		"help wowlan" or "help wowlan enable".
+
+	dev <devname> link
+		Print information about the current link, if any.
+
+	dev <devname> measurement ftm_request <config-file> [timeout=<seconds>] [randomise[=<addr>/<mask>]]
+		Send an FTM request to the targets supplied in the config file.
+		Each line in the file represents a target, with the following format:
+		<addr> bw=<[20|40|80|80+80|160]> cf=<center_freq> [cf1=<center_freq1>] [cf2=<center_freq2>] [ftms_per_burst=<samples per burst>] [ap-tsf] [asap] [bursts_exp=<num of bursts exponent>] [burst_period=<burst period>] [retries=<num of retries>] [burst_duration=<burst duration>] [preamble=<legacy,ht,vht,dmg>] [lci] [civic]
+
+	dev <devname> mesh leave
+		Leave a mesh.
+
+	dev <devname> mesh join <mesh ID> [[freq <freq in MHz> <NOHT|HT20|HT40+|HT40-|80MHz>] [basic-rates <rate in Mbps,rate2,...>]], [mcast-rate <rate in Mbps>] [beacon-interval <time in TUs>] [dtim-period <value>] [vendor_sync on|off] [<param>=<value>]*
+		Join a mesh with the given mesh ID with frequency, basic-rates,
+		mcast-rate and mesh parameters. Basic-rates are applied only if
+		frequency is provided.
+
+	dev <devname> mgmt dump frame <type as hex ab> <pattern as hex ab:cd:..> [frame <type> <pattern>]* [count <frames>]
+		Register for receiving certain mgmt frames and print them.
+		Frames are selected by their type and pattern containing
+		the first several bytes of the frame that should match.
+		
+		Example: iw dev wlan0 mgmt dump frame 40 00 frame 40 01:02 count 10
+		
+
+	dev <devname> mpath dump
+		List known mesh paths.
+
+	dev <devname> mpath set <destination MAC address> next_hop <next hop MAC address>
+		Set an existing mesh path's next hop.
+
+	dev <devname> mpath new <destination MAC address> next_hop <next hop MAC address>
+		Create a new mesh path (instead of relying on automatic discovery).
+
+	dev <devname> mpath del <MAC address>
+		Remove the mesh path to the given node.
+
+	dev <devname> mpath get <MAC address>
+		Get information on mesh path to the given node.
+
+	dev <devname> mpath probe <destination MAC address> frame <frame>
+		Inject ethernet frame to given peer overriding the next hop
+		lookup from mpath table.
+		.Example: iw dev wlan0 mpath probe xx:xx:xx:xx:xx:xx frame 01:xx:xx:00
+		
+
+	dev <devname> mpp dump
+		List known mesh proxy paths.
+
+	dev <devname> mpp get <MAC address>
+		Get information on mesh proxy path to the given node.
+
+	wdev <idx> nan add_func type <publish|subscribe|followup> [active] [solicited] [unsolicited] [bcast] [close_range] name <name> [info <info>] [flw_up_id <id> flw_up_req_id <id> flw_up_dest <mac>] [ttl <ttl>] [srf <include|exclude> <bf|list> [bf_idx] [bf_len] <mac1;mac2...>] [rx_filter <str1:str2...>] [tx_filter <str1:str2...>]
+		
+
+	wdev <idx> nan rm_func cookie <cookie>
+		
+
+	wdev <idx> nan config [pref <pref>] [bands [2GHz] [5GHz]]
+		
+
+	wdev <idx> nan stop 
+		
+
+	wdev <idx> nan start pref <pref> [bands [2GHz] [5GHz]]
+		
+
+	dev <devname> ocb leave
+		Leave the OCB mode network.
+
+	dev <devname> ocb join <freq in MHz> <5MHz|10MHz>
+		Join the OCB mode network.
+
+	dev <devname> offchannel <freq> <duration>
+		Leave operating channel and go to the given channel for a while.
+
+	wdev <idx> p2p stop 
+		
+
+	wdev <idx> p2p start 
+		
+
+	dev <devname> cac channel <channel> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> cac freq <freq> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> cac freq <control freq> [5|10|20|40|80|80+80|160] [<center1_freq> [<center2_freq>]]
+	dev <devname> cac trigger channel <channel> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> cac trigger freq <frequency> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> cac trigger freq <frequency> [5|10|20|40|80|80+80|160] [<center1_freq> [<center2_freq>]]
+		Start or trigger a channel availability check (CAC) looking to look for
+		radars on the given channel.
+
+	phy <phyname> channels
+		Show available channels.
+
+	reg reload
+		Reload the kernel's regulatory database.
+
+	phy <phyname> reg get
+		Print out the devices' current regulatory domain information.
+
+	reg get
+		Print out the kernel's current regulatory domain information.
+
+	reg set <ISO/IEC 3166-1 alpha2>
+		Notify the kernel about the current regulatory domain.
+
+	dev <devname> roc start <freq> <time in ms>
+		
+
+	dev <devname> scan [-u] [freq <freq>*] [duration <dur>] [ies <hex as 00:11:..>] [meshid <meshid>] [lowpri,flush,ap-force,duration-mandatory] [randomise[=<addr>/<mask>]] [ssid <ssid>*|passive]
+		Scan on the given frequencies and probe for the given SSIDs
+		(or wildcard if not given) unless passive scanning is requested.
+		If -u is specified print unknown data in the scan results.
+		Specified (vendor) IEs must be well-formed.
+
+	dev <devname> scan sched_stop 
+		Stop an ongoing scheduled scan.
+
+	dev <devname> scan sched_start [interval <in_msecs> | scan_plans [<interval_secs:iterations>*] <interval_secs>] [delay <in_secs>] [freqs <freq>+] [matches [ssid <ssid>]+]] [active [ssid <ssid>]+|passive] [randomise[=<addr>/<mask>]]
+		Start a scheduled scan at the specified interval on the given frequencies
+		with probing for the given SSIDs (or wildcard if not given) unless passive
+		scanning is requested.  If matches are specified, only matching results
+		will be returned.
+
+	dev <devname> scan abort 
+		Abort ongoing scan
+
+	dev <devname> scan trigger [freq <freq>*] [duration <dur>] [ies <hex as 00:11:..>] [meshid <meshid>] [lowpri,flush,ap-force,duration-mandatory] [randomise[=<addr>/<mask>]] [ssid <ssid>*|passive]
+		Trigger a scan on the given frequencies with probing for the given
+		SSIDs (or wildcard if not given) unless passive scanning is requested.
+		Duration(in TUs), if specified, will be used to set dwell times.
+		
+
+	dev <devname> scan dump [-u]
+		Dump the current scan results. If -u is specified, print unknown
+		data in scan results.
+
+	dev <devname> set bitrates [legacy-<2.4|5> <legacy rate in Mbps>*] [ht-mcs-<2.4|5> <MCS index>*] [vht-mcs-<2.4|5> <NSS:MCSx,MCSy... | NSS:MCSx-MCSy>*] [sgi-2.4|lgi-2.4] [sgi-5|lgi-5]
+		Sets up the specified rate masks.
+		Not passing any arguments would clear the existing mask (if any).
+
+	dev <devname> set mcast_rate <rate in Mbps>
+		Set the multicast bitrate.
+
+	dev <devname> set peer <MAC address>
+		Set interface WDS peer.
+
+	dev <devname> set noack_map <map>
+		Set the NoAck map for the TIDs. (0x0009 = BE, 0x0006 = BK, 0x0030 = VI, 0x00C0 = VO)
+
+	dev <devname> set 4addr <on|off>
+		Set interface 4addr (WDS) mode.
+
+	dev <devname> set type <type>
+		Set interface type/mode.
+		Valid interface types are: managed, ibss, monitor, mesh, wds.
+
+	dev <devname> set meshid <meshid>
+	dev <devname> set monitor <flag>*
+		Set monitor flags. Valid flags are:
+		none:     no special flags
+		fcsfail:  show frames with FCS errors
+		control:  show control frames
+		otherbss: show frames from other BSSes
+		cook:     use cooked mode
+		active:   use active mode (ACK incoming unicast packets)
+		mumimo-groupid <GROUP_ID>: use MUMIMO according to a group id
+		mumimo-follow-mac <MAC_ADDRESS>: use MUMIMO according to a MAC address
+
+	dev <devname> set mesh_param <param>=<value> [<param>=<value>]*
+		Set mesh parameter (run command without any to see available ones).
+
+	phy <phyname> set txq limit <packets> | memory_limit <bytes> | quantum <bytes>
+		Set TXQ parameters. The limit and memory_limit are global queue limits
+		for the whole phy. The quantum is the DRR scheduler quantum setting.
+		Valid values: 1 - 2**32
+
+	phy <phyname> set antenna <bitmap> | all | <tx bitmap> <rx bitmap>
+		Set a bitmap of allowed antennas to use for TX and RX.
+		The driver may reject antenna configurations it cannot support.
+
+	dev <devname> set txpower <auto|fixed|limit> [<tx power in mBm>]
+		Specify transmit power level and setting type.
+
+	phy <phyname> set txpower <auto|fixed|limit> [<tx power in mBm>]
+		Specify transmit power level and setting type.
+
+	phy <phyname> set distance <auto|distance>
+		Enable ACK timeout estimation algorithm (dynack) or set appropriate
+		coverage class for given link distance in meters.
+		To disable dynack set valid value for coverage class.
+		Valid values: 0 - 114750
+
+	phy <phyname> set coverage <coverage class>
+		Set coverage class (1 for every 3 usec of air propagation time).
+		Valid values: 0 - 255.
+
+	phy <phyname> set netns { <pid> | name <nsname> }
+		Put this wireless device into a different network namespace:
+		    <pid>    - change network namespace by process id
+		    <nsname> - change network namespace by name from /var/run/netns
+		               or by absolute path (man ip-netns)
+		
+
+	phy <phyname> set retry [short <limit>] [long <limit>]
+		Set retry limit.
+
+	phy <phyname> set rts <rts threshold|off>
+		Set rts threshold.
+
+	phy <phyname> set frag <fragmentation threshold|off>
+		Set fragmentation threshold.
+
+	dev <devname> set channel <channel> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	phy <phyname> set channel <channel> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> set freq <freq> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> set freq <control freq> [5|10|20|40|80|80+80|160] [<center1_freq> [<center2_freq>]]
+	phy <phyname> set freq <freq> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	phy <phyname> set freq <control freq> [5|10|20|40|80|80+80|160] [<center1_freq> [<center2_freq>]]
+		Set frequency/channel the hardware is using, including HT
+		configuration.
+
+	phy <phyname> set name <new name>
+		Rename this wireless device.
+
+	dev <devname> set power_save <on|off>
+		Set power save state to on or off.
+
+	dev <devname> get mesh_param [<param>]
+		Retrieve mesh parameter (run command without any to see available ones).
+
+	phy <phyname> get txq 
+		Get TXQ parameters.
+
+	dev <devname> get power_save <param>
+		Retrieve power save state.
+
+	dev <devname> station dump [-v]
+		List all stations known, e.g. the AP on managed interfaces
+
+	dev <devname> station set <MAC address> txpwr <auto|limit> [<tx power dBm>]
+		Set Tx power for this station.
+
+	dev <devname> station set <MAC address> airtime_weight <weight>
+		Set airtime weight for this station.
+
+	dev <devname> station set <MAC address> mesh_power_mode <active|light|deep>
+		Set link-specific mesh power mode for this station
+
+	dev <devname> station set <MAC address> vlan <ifindex>
+		Set an AP VLAN for this station.
+
+	dev <devname> station set <MAC address> plink_action <open|block>
+		Set mesh peer link action for this station (peer).
+
+	dev <devname> station del <MAC address> [subtype <subtype>] [reason-code <code>]
+		Remove the given station entry (use with caution!)
+		Example subtype values: 0xA (disassociation), 0xC (deauthentication)
+
+	dev <devname> station get <MAC address>
+		Get information for a specific station.
+
+	dev <devname> survey dump
+		List all gathered channel survey data
+
+	dev <devname> vendor recvbin <oui> <subcmd> <filename|-|hex data>
+		
+
+	dev <devname> vendor recv <oui> <subcmd> <filename|-|hex data>
+		
+
+	dev <devname> vendor send <oui> <subcmd> <filename|-|hex data>
+		
+
+	phy <phyname> wowlan show 
+		Show WoWLAN status.
+
+	phy <phyname> wowlan disable 
+		Disable WoWLAN.
+
+	phy <phyname> wowlan enable [any] [disconnect] [magic-packet] [gtk-rekey-failure] [eap-identity-request] [4way-handshake] [rfkill-release] [net-detect [interval <in_msecs> | scan_plans [<interval_secs:iterations>*] <interval_secs>] [delay <in_secs>] [freqs <freq>+] [matches [ssid <ssid>]+]] [active [ssid <ssid>]+|passive] [randomise[=<addr>/<mask>]]] [tcp <config-file>] [patterns [offset1+]<pattern1> ...]
+		Enable WoWLAN with the given triggers.
+		Each pattern is given as a bytestring with '-' in places where any byte
+		may be present, e.g. 00:11:22:-:44 will match 00:11:22:33:44 and
+		00:11:22:33:ff:44 etc.
+		Offset and pattern should be separated by '+', e.g. 18+43:34:00:12 will match '43:34:00:12' after 18 bytes of offset in Rx packet.
+		
+		The TCP configuration file contains:
+		  source=ip[:port]
+		  dest=ip:port@mac
+		  data=<hex data packet>
+		  data.interval=seconds
+		  [wake=<hex packet with masked out bytes indicated by '-'>]
+		  [data.seq=len,offset[,start]]
+		  [data.tok=len,offset,<token stream>]
+		
+		Net-detect configuration example:
+		 iw phy0 wowlan enable net-detect interval 5000 delay 30 freqs 2412 2422 matches ssid foo ssid bar
+
+
+Commands that use the netdev ('dev') can also be given the
+'wdev' instead to identify the device.
+
+You can omit the 'phy' or 'dev' if the identification is unique,
+e.g. "iw wlan0 info" or "iw phy0 info". (Don't when scripting.)
+
+Do NOT screenscrape this tool, we don't consider its output stable.
+
+# iw wlan0
+Usage:	iw [options] command
+Options:
+	--debug		enable netlink debugging
+	--version	show version (5.4)
+Commands:
+	dev <devname> ap stop 
+		Stop AP functionality
+		
+
+	dev <devname> ap start 
+		<SSID> <control freq> [5|10|20|40|80|80+80|160] [<center1_freq> [<center2_freq>]] <beacon interval in TU> <DTIM period> [hidden-ssid|zeroed-ssid] head <beacon head in hexadecimal> [tail <beacon tail in hexadecimal>] [inactivity-time <inactivity time in seconds>] [key0:abcde d:1:6162636465]
+		
+
+	phy <phyname> coalesce show 
+		Show coalesce status.
+
+	phy <phyname> coalesce disable 
+		Disable coalesce.
+
+	phy <phyname> coalesce enable <config-file>
+		Enable coalesce with given configuration.
+		The configuration file contains coalesce rules:
+		  delay=<delay>
+		  condition=<condition>
+		  patterns=<[offset1+]<pattern1>,<[offset2+]<pattern2>,...>
+		  delay=<delay>
+		  condition=<condition>
+		  patterns=<[offset1+]<pattern1>,<[offset2+]<pattern2>,...>
+		  ...
+		delay: maximum coalescing delay in msec.
+		condition: 1/0 i.e. 'not match'/'match' the patterns
+		patterns: each pattern is given as a bytestring with '-' in
+		places where any byte may be present, e.g. 00:11:22:-:44 will
+		match 00:11:22:33:44 and 00:11:22:33:ff:44 etc. Offset and
+		pattern should be separated by '+', e.g. 18+43:34:00:12 will
+		match '43:34:00:12' after 18 bytes of offset in Rx packet.
+		
+
+	dev <devname> auth <SSID> <bssid> <type:open|shared> <freq in MHz> [key 0:abcde d:1:6162636465]
+		Authenticate with the given network.
+		
+
+	dev <devname> connect [-w] <SSID> [<freq in MHz>] [<bssid>] [key 0:abcde d:1:6162636465] [mfp:req/opt/no]
+		Join the network with the given SSID (and frequency, BSSID).
+		With -w, wait for the connect to finish or fail.
+
+	dev <devname> disconnect
+		Disconnect from the current network.
+
+	dev <devname> cqm rssi <threshold|off> [<hysteresis>]
+		Set connection quality monitor RSSI threshold.
+		
+
+	event [-t|-r] [-f]
+		Monitor events from the kernel.
+		-t - print timestamp
+		-r - print relative timestamp
+		-f - print full frame for auth/assoc etc.
+
+	dev <devname> ftm start_responder [lci=<lci buffer in hex>] [civic=<civic buffer in hex>]
+		Start an FTM responder. Needs a running ap interface
+		
+
+	dev <devname> ftm get_stats 
+		Get FTM responder statistics.
+		
+
+	phy <phyname> hwsim wakequeues 
+		
+
+	phy <phyname> hwsim stopqueues 
+		
+
+	phy <phyname> hwsim setps <value>
+		
+
+	phy <phyname> hwsim getps 
+		
+
+	dev <devname> ibss join <SSID> <freq in MHz> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz] [fixed-freq] [<fixed bssid>] [beacon-interval <TU>] [basic-rates <rate in Mbps,rate2,...>] [mcast-rate <rate in Mbps>] [key d:0:abcde]
+		Join the IBSS cell with the given SSID, if it doesn't exist create
+		it on the given frequency. When fixed frequency is requested, don't
+		join/create a cell on a different frequency. When a fixed BSSID is
+		requested use that BSSID and do not adopt another cell's BSSID even
+		if it has higher TSF and the same SSID. If an IBSS is created, create
+		it with the specified basic-rates, multicast-rate and beacon-interval.
+
+	dev <devname> ibss leave
+		Leave the current IBSS cell.
+
+	features 
+		
+
+	commands
+		list all known commands and their decimal & hex value
+
+	phy
+	list
+		List all wireless devices and their capabilities.
+
+	phy <phyname> info
+		Show capabilities for the specified wireless device.
+
+	dev <devname> switch channel <channel> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz] [beacons <count>] [block-tx]
+	dev <devname> switch freq <freq> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz] [beacons <count>] [block-tx]
+	dev <devname> switch freq <control freq> [5|10|20|40|80|80+80|160] [<center1_freq> [<center2_freq>]] [beacons <count>] [block-tx]
+		Switch the operating channel by sending a channel switch announcement (CSA).
+
+	dev
+		List all network interfaces for wireless hardware.
+
+	dev <devname> info
+		Show information for this interface.
+
+	dev <devname> del
+		Remove this virtual interface
+
+	dev <devname> interface add <name> type <type> [mesh_id <meshid>] [4addr on|off] [flags <flag>*] [addr <mac-addr>]
+	phy <phyname> interface add <name> type <type> [mesh_id <meshid>] [4addr on|off] [flags <flag>*] [addr <mac-addr>]
+		Add a new virtual interface with the given configuration.
+		Valid interface types are: managed, ibss, monitor, mesh, wds.
+		
+		The flags are only used for monitor interfaces, valid flags are:
+		none:     no special flags
+		fcsfail:  show frames with FCS errors
+		control:  show control frames
+		otherbss: show frames from other BSSes
+		cook:     use cooked mode
+		active:   use active mode (ACK incoming unicast packets)
+		mumimo-groupid <GROUP_ID>: use MUMIMO according to a group id
+		mumimo-follow-mac <MAC_ADDRESS>: use MUMIMO according to a MAC address
+		
+		The mesh_id is used only for mesh mode.
+
+	help [command]
+		Print usage for all or a specific command, e.g.
+		"help wowlan" or "help wowlan enable".
+
+	dev <devname> link
+		Print information about the current link, if any.
+
+	dev <devname> measurement ftm_request <config-file> [timeout=<seconds>] [randomise[=<addr>/<mask>]]
+		Send an FTM request to the targets supplied in the config file.
+		Each line in the file represents a target, with the following format:
+		<addr> bw=<[20|40|80|80+80|160]> cf=<center_freq> [cf1=<center_freq1>] [cf2=<center_freq2>] [ftms_per_burst=<samples per burst>] [ap-tsf] [asap] [bursts_exp=<num of bursts exponent>] [burst_period=<burst period>] [retries=<num of retries>] [burst_duration=<burst duration>] [preamble=<legacy,ht,vht,dmg>] [lci] [civic]
+
+	dev <devname> mesh leave
+		Leave a mesh.
+
+	dev <devname> mesh join <mesh ID> [[freq <freq in MHz> <NOHT|HT20|HT40+|HT40-|80MHz>] [basic-rates <rate in Mbps,rate2,...>]], [mcast-rate <rate in Mbps>] [beacon-interval <time in TUs>] [dtim-period <value>] [vendor_sync on|off] [<param>=<value>]*
+		Join a mesh with the given mesh ID with frequency, basic-rates,
+		mcast-rate and mesh parameters. Basic-rates are applied only if
+		frequency is provided.
+
+	dev <devname> mgmt dump frame <type as hex ab> <pattern as hex ab:cd:..> [frame <type> <pattern>]* [count <frames>]
+		Register for receiving certain mgmt frames and print them.
+		Frames are selected by their type and pattern containing
+		the first several bytes of the frame that should match.
+		
+		Example: iw dev wlan0 mgmt dump frame 40 00 frame 40 01:02 count 10
+		
+
+	dev <devname> mpath dump
+		List known mesh paths.
+
+	dev <devname> mpath set <destination MAC address> next_hop <next hop MAC address>
+		Set an existing mesh path's next hop.
+
+	dev <devname> mpath new <destination MAC address> next_hop <next hop MAC address>
+		Create a new mesh path (instead of relying on automatic discovery).
+
+	dev <devname> mpath del <MAC address>
+		Remove the mesh path to the given node.
+
+	dev <devname> mpath get <MAC address>
+		Get information on mesh path to the given node.
+
+	dev <devname> mpath probe <destination MAC address> frame <frame>
+		Inject ethernet frame to given peer overriding the next hop
+		lookup from mpath table.
+		.Example: iw dev wlan0 mpath probe xx:xx:xx:xx:xx:xx frame 01:xx:xx:00
+		
+
+	dev <devname> mpp dump
+		List known mesh proxy paths.
+
+	dev <devname> mpp get <MAC address>
+		Get information on mesh proxy path to the given node.
+
+	wdev <idx> nan add_func type <publish|subscribe|followup> [active] [solicited] [unsolicited] [bcast] [close_range] name <name> [info <info>] [flw_up_id <id> flw_up_req_id <id> flw_up_dest <mac>] [ttl <ttl>] [srf <include|exclude> <bf|list> [bf_idx] [bf_len] <mac1;mac2...>] [rx_filter <str1:str2...>] [tx_filter <str1:str2...>]
+		
+
+	wdev <idx> nan rm_func cookie <cookie>
+		
+
+	wdev <idx> nan config [pref <pref>] [bands [2GHz] [5GHz]]
+		
+
+	wdev <idx> nan stop 
+		
+
+	wdev <idx> nan start pref <pref> [bands [2GHz] [5GHz]]
+		
+
+	dev <devname> ocb leave
+		Leave the OCB mode network.
+
+	dev <devname> ocb join <freq in MHz> <5MHz|10MHz>
+		Join the OCB mode network.
+
+	dev <devname> offchannel <freq> <duration>
+		Leave operating channel and go to the given channel for a while.
+
+	wdev <idx> p2p stop 
+		
+
+	wdev <idx> p2p start 
+		
+
+	dev <devname> cac channel <channel> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> cac freq <freq> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> cac freq <control freq> [5|10|20|40|80|80+80|160] [<center1_freq> [<center2_freq>]]
+	dev <devname> cac trigger channel <channel> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> cac trigger freq <frequency> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> cac trigger freq <frequency> [5|10|20|40|80|80+80|160] [<center1_freq> [<center2_freq>]]
+		Start or trigger a channel availability check (CAC) looking to look for
+		radars on the given channel.
+
+	phy <phyname> channels
+		Show available channels.
+
+	reg reload
+		Reload the kernel's regulatory database.
+
+	phy <phyname> reg get
+		Print out the devices' current regulatory domain information.
+
+	reg get
+		Print out the kernel's current regulatory domain information.
+
+	reg set <ISO/IEC 3166-1 alpha2>
+		Notify the kernel about the current regulatory domain.
+
+	dev <devname> roc start <freq> <time in ms>
+		
+
+	dev <devname> scan [-u] [freq <freq>*] [duration <dur>] [ies <hex as 00:11:..>] [meshid <meshid>] [lowpri,flush,ap-force,duration-mandatory] [randomise[=<addr>/<mask>]] [ssid <ssid>*|passive]
+		Scan on the given frequencies and probe for the given SSIDs
+		(or wildcard if not given) unless passive scanning is requested.
+		If -u is specified print unknown data in the scan results.
+		Specified (vendor) IEs must be well-formed.
+
+	dev <devname> scan sched_stop 
+		Stop an ongoing scheduled scan.
+
+	dev <devname> scan sched_start [interval <in_msecs> | scan_plans [<interval_secs:iterations>*] <interval_secs>] [delay <in_secs>] [freqs <freq>+] [matches [ssid <ssid>]+]] [active [ssid <ssid>]+|passive] [randomise[=<addr>/<mask>]]
+		Start a scheduled scan at the specified interval on the given frequencies
+		with probing for the given SSIDs (or wildcard if not given) unless passive
+		scanning is requested.  If matches are specified, only matching results
+		will be returned.
+
+	dev <devname> scan abort 
+		Abort ongoing scan
+
+	dev <devname> scan trigger [freq <freq>*] [duration <dur>] [ies <hex as 00:11:..>] [meshid <meshid>] [lowpri,flush,ap-force,duration-mandatory] [randomise[=<addr>/<mask>]] [ssid <ssid>*|passive]
+		Trigger a scan on the given frequencies with probing for the given
+		SSIDs (or wildcard if not given) unless passive scanning is requested.
+		Duration(in TUs), if specified, will be used to set dwell times.
+		
+
+	dev <devname> scan dump [-u]
+		Dump the current scan results. If -u is specified, print unknown
+		data in scan results.
+
+	dev <devname> set bitrates [legacy-<2.4|5> <legacy rate in Mbps>*] [ht-mcs-<2.4|5> <MCS index>*] [vht-mcs-<2.4|5> <NSS:MCSx,MCSy... | NSS:MCSx-MCSy>*] [sgi-2.4|lgi-2.4] [sgi-5|lgi-5]
+		Sets up the specified rate masks.
+		Not passing any arguments would clear the existing mask (if any).
+
+	dev <devname> set mcast_rate <rate in Mbps>
+		Set the multicast bitrate.
+
+	dev <devname> set peer <MAC address>
+		Set interface WDS peer.
+
+	dev <devname> set noack_map <map>
+		Set the NoAck map for the TIDs. (0x0009 = BE, 0x0006 = BK, 0x0030 = VI, 0x00C0 = VO)
+
+	dev <devname> set 4addr <on|off>
+		Set interface 4addr (WDS) mode.
+
+	dev <devname> set type <type>
+		Set interface type/mode.
+		Valid interface types are: managed, ibss, monitor, mesh, wds.
+
+	dev <devname> set meshid <meshid>
+	dev <devname> set monitor <flag>*
+		Set monitor flags. Valid flags are:
+		none:     no special flags
+		fcsfail:  show frames with FCS errors
+		control:  show control frames
+		otherbss: show frames from other BSSes
+		cook:     use cooked mode
+		active:   use active mode (ACK incoming unicast packets)
+		mumimo-groupid <GROUP_ID>: use MUMIMO according to a group id
+		mumimo-follow-mac <MAC_ADDRESS>: use MUMIMO according to a MAC address
+
+	dev <devname> set mesh_param <param>=<value> [<param>=<value>]*
+		Set mesh parameter (run command without any to see available ones).
+
+	phy <phyname> set txq limit <packets> | memory_limit <bytes> | quantum <bytes>
+		Set TXQ parameters. The limit and memory_limit are global queue limits
+		for the whole phy. The quantum is the DRR scheduler quantum setting.
+		Valid values: 1 - 2**32
+
+	phy <phyname> set antenna <bitmap> | all | <tx bitmap> <rx bitmap>
+		Set a bitmap of allowed antennas to use for TX and RX.
+		The driver may reject antenna configurations it cannot support.
+
+	dev <devname> set txpower <auto|fixed|limit> [<tx power in mBm>]
+		Specify transmit power level and setting type.
+
+	phy <phyname> set txpower <auto|fixed|limit> [<tx power in mBm>]
+		Specify transmit power level and setting type.
+
+	phy <phyname> set distance <auto|distance>
+		Enable ACK timeout estimation algorithm (dynack) or set appropriate
+		coverage class for given link distance in meters.
+		To disable dynack set valid value for coverage class.
+		Valid values: 0 - 114750
+
+	phy <phyname> set coverage <coverage class>
+		Set coverage class (1 for every 3 usec of air propagation time).
+		Valid values: 0 - 255.
+
+	phy <phyname> set netns { <pid> | name <nsname> }
+		Put this wireless device into a different network namespace:
+		    <pid>    - change network namespace by process id
+		    <nsname> - change network namespace by name from /var/run/netns
+		               or by absolute path (man ip-netns)
+		
+
+	phy <phyname> set retry [short <limit>] [long <limit>]
+		Set retry limit.
+
+	phy <phyname> set rts <rts threshold|off>
+		Set rts threshold.
+
+	phy <phyname> set frag <fragmentation threshold|off>
+		Set fragmentation threshold.
+
+	dev <devname> set channel <channel> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	phy <phyname> set channel <channel> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> set freq <freq> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> set freq <control freq> [5|10|20|40|80|80+80|160] [<center1_freq> [<center2_freq>]]
+	phy <phyname> set freq <freq> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	phy <phyname> set freq <control freq> [5|10|20|40|80|80+80|160] [<center1_freq> [<center2_freq>]]
+		Set frequency/channel the hardware is using, including HT
+		configuration.
+
+	phy <phyname> set name <new name>
+		Rename this wireless device.
+
+	dev <devname> set power_save <on|off>
+		Set power save state to on or off.
+
+	dev <devname> get mesh_param [<param>]
+		Retrieve mesh parameter (run command without any to see available ones).
+
+	phy <phyname> get txq 
+		Get TXQ parameters.
+
+	dev <devname> get power_save <param>
+		Retrieve power save state.
+
+	dev <devname> station dump [-v]
+		List all stations known, e.g. the AP on managed interfaces
+
+	dev <devname> station set <MAC address> txpwr <auto|limit> [<tx power dBm>]
+		Set Tx power for this station.
+
+	dev <devname> station set <MAC address> airtime_weight <weight>
+		Set airtime weight for this station.
+
+	dev <devname> station set <MAC address> mesh_power_mode <active|light|deep>
+		Set link-specific mesh power mode for this station
+
+	dev <devname> station set <MAC address> vlan <ifindex>
+		Set an AP VLAN for this station.
+
+	dev <devname> station set <MAC address> plink_action <open|block>
+		Set mesh peer link action for this station (peer).
+
+	dev <devname> station del <MAC address> [subtype <subtype>] [reason-code <code>]
+		Remove the given station entry (use with caution!)
+		Example subtype values: 0xA (disassociation), 0xC (deauthentication)
+
+	dev <devname> station get <MAC address>
+		Get information for a specific station.
+
+	dev <devname> survey dump
+		List all gathered channel survey data
+
+	dev <devname> vendor recvbin <oui> <subcmd> <filename|-|hex data>
+		
+
+	dev <devname> vendor recv <oui> <subcmd> <filename|-|hex data>
+		
+
+	dev <devname> vendor send <oui> <subcmd> <filename|-|hex data>
+		
+
+	phy <phyname> wowlan show 
+		Show WoWLAN status.
+
+	phy <phyname> wowlan disable 
+		Disable WoWLAN.
+
+	phy <phyname> wowlan enable [any] [disconnect] [magic-packet] [gtk-rekey-failure] [eap-identity-request] [4way-handshake] [rfkill-release] [net-detect [interval <in_msecs> | scan_plans [<interval_secs:iterations>*] <interval_secs>] [delay <in_secs>] [freqs <freq>+] [matches [ssid <ssid>]+]] [active [ssid <ssid>]+|passive] [randomise[=<addr>/<mask>]]] [tcp <config-file>] [patterns [offset1+]<pattern1> ...]
+		Enable WoWLAN with the given triggers.
+		Each pattern is given as a bytestring with '-' in places where any byte
+		may be present, e.g. 00:11:22:-:44 will match 00:11:22:33:44 and
+		00:11:22:33:ff:44 etc.
+		Offset and pattern should be separated by '+', e.g. 18+43:34:00:12 will match '43:34:00:12' after 18 bytes of offset in Rx packet.
+		
+		The TCP configuration file contains:
+		  source=ip[:port]
+		  dest=ip:port@mac
+		  data=<hex data packet>
+		  data.interval=seconds
+		  [wake=<hex packet with masked out bytes indicated by '-'>]
+		  [data.seq=len,offset[,start]]
+		  [data.tok=len,offset,<token stream>]
+		
+		Net-detect configuration example:
+		 iw phy0 wowlan enable net-detect interval 5000 delay 30 freqs 2412 2422 matches ssid foo ssid bar
+
+
+Commands that use the netdev ('dev') can also be given the
+'wdev' instead to identify the device.
+
+You can omit the 'phy' or 'dev' if the identification is unique,
+e.g. "iw wlan0 info" or "iw phy0 info". (Don't when scripting.)
+
+Do NOT screenscrape this tool, we don't consider its output stable.
+
+# iw phy0 
+Usage:	iw [options] command
+Options:
+	--debug		enable netlink debugging
+	--version	show version (5.4)
+Commands:
+	dev <devname> ap stop 
+		Stop AP functionality
+		
+
+	dev <devname> ap start 
+		<SSID> <control freq> [5|10|20|40|80|80+80|160] [<center1_freq> [<center2_freq>]] <beacon interval in TU> <DTIM period> [hidden-ssid|zeroed-ssid] head <beacon head in hexadecimal> [tail <beacon tail in hexadecimal>] [inactivity-time <inactivity time in seconds>] [key0:abcde d:1:6162636465]
+		
+
+	phy <phyname> coalesce show 
+		Show coalesce status.
+
+	phy <phyname> coalesce disable 
+		Disable coalesce.
+
+	phy <phyname> coalesce enable <config-file>
+		Enable coalesce with given configuration.
+		The configuration file contains coalesce rules:
+		  delay=<delay>
+		  condition=<condition>
+		  patterns=<[offset1+]<pattern1>,<[offset2+]<pattern2>,...>
+		  delay=<delay>
+		  condition=<condition>
+		  patterns=<[offset1+]<pattern1>,<[offset2+]<pattern2>,...>
+		  ...
+		delay: maximum coalescing delay in msec.
+		condition: 1/0 i.e. 'not match'/'match' the patterns
+		patterns: each pattern is given as a bytestring with '-' in
+		places where any byte may be present, e.g. 00:11:22:-:44 will
+		match 00:11:22:33:44 and 00:11:22:33:ff:44 etc. Offset and
+		pattern should be separated by '+', e.g. 18+43:34:00:12 will
+		match '43:34:00:12' after 18 bytes of offset in Rx packet.
+		
+
+	dev <devname> auth <SSID> <bssid> <type:open|shared> <freq in MHz> [key 0:abcde d:1:6162636465]
+		Authenticate with the given network.
+		
+
+	dev <devname> connect [-w] <SSID> [<freq in MHz>] [<bssid>] [key 0:abcde d:1:6162636465] [mfp:req/opt/no]
+		Join the network with the given SSID (and frequency, BSSID).
+		With -w, wait for the connect to finish or fail.
+
+	dev <devname> disconnect
+		Disconnect from the current network.
+
+	dev <devname> cqm rssi <threshold|off> [<hysteresis>]
+		Set connection quality monitor RSSI threshold.
+		
+
+	event [-t|-r] [-f]
+		Monitor events from the kernel.
+		-t - print timestamp
+		-r - print relative timestamp
+		-f - print full frame for auth/assoc etc.
+
+	dev <devname> ftm start_responder [lci=<lci buffer in hex>] [civic=<civic buffer in hex>]
+		Start an FTM responder. Needs a running ap interface
+		
+
+	dev <devname> ftm get_stats 
+		Get FTM responder statistics.
+		
+
+	phy <phyname> hwsim wakequeues 
+		
+
+	phy <phyname> hwsim stopqueues 
+		
+
+	phy <phyname> hwsim setps <value>
+		
+
+	phy <phyname> hwsim getps 
+		
+
+	dev <devname> ibss join <SSID> <freq in MHz> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz] [fixed-freq] [<fixed bssid>] [beacon-interval <TU>] [basic-rates <rate in Mbps,rate2,...>] [mcast-rate <rate in Mbps>] [key d:0:abcde]
+		Join the IBSS cell with the given SSID, if it doesn't exist create
+		it on the given frequency. When fixed frequency is requested, don't
+		join/create a cell on a different frequency. When a fixed BSSID is
+		requested use that BSSID and do not adopt another cell's BSSID even
+		if it has higher TSF and the same SSID. If an IBSS is created, create
+		it with the specified basic-rates, multicast-rate and beacon-interval.
+
+	dev <devname> ibss leave
+		Leave the current IBSS cell.
+
+	features 
+		
+
+	commands
+		list all known commands and their decimal & hex value
+
+	phy
+	list
+		List all wireless devices and their capabilities.
+
+	phy <phyname> info
+		Show capabilities for the specified wireless device.
+
+	dev <devname> switch channel <channel> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz] [beacons <count>] [block-tx]
+	dev <devname> switch freq <freq> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz] [beacons <count>] [block-tx]
+	dev <devname> switch freq <control freq> [5|10|20|40|80|80+80|160] [<center1_freq> [<center2_freq>]] [beacons <count>] [block-tx]
+		Switch the operating channel by sending a channel switch announcement (CSA).
+
+	dev
+		List all network interfaces for wireless hardware.
+
+	dev <devname> info
+		Show information for this interface.
+
+	dev <devname> del
+		Remove this virtual interface
+
+	dev <devname> interface add <name> type <type> [mesh_id <meshid>] [4addr on|off] [flags <flag>*] [addr <mac-addr>]
+	phy <phyname> interface add <name> type <type> [mesh_id <meshid>] [4addr on|off] [flags <flag>*] [addr <mac-addr>]
+		Add a new virtual interface with the given configuration.
+		Valid interface types are: managed, ibss, monitor, mesh, wds.
+		
+		The flags are only used for monitor interfaces, valid flags are:
+		none:     no special flags
+		fcsfail:  show frames with FCS errors
+		control:  show control frames
+		otherbss: show frames from other BSSes
+		cook:     use cooked mode
+		active:   use active mode (ACK incoming unicast packets)
+		mumimo-groupid <GROUP_ID>: use MUMIMO according to a group id
+		mumimo-follow-mac <MAC_ADDRESS>: use MUMIMO according to a MAC address
+		
+		The mesh_id is used only for mesh mode.
+
+	help [command]
+		Print usage for all or a specific command, e.g.
+		"help wowlan" or "help wowlan enable".
+
+	dev <devname> link
+		Print information about the current link, if any.
+
+	dev <devname> measurement ftm_request <config-file> [timeout=<seconds>] [randomise[=<addr>/<mask>]]
+		Send an FTM request to the targets supplied in the config file.
+		Each line in the file represents a target, with the following format:
+		<addr> bw=<[20|40|80|80+80|160]> cf=<center_freq> [cf1=<center_freq1>] [cf2=<center_freq2>] [ftms_per_burst=<samples per burst>] [ap-tsf] [asap] [bursts_exp=<num of bursts exponent>] [burst_period=<burst period>] [retries=<num of retries>] [burst_duration=<burst duration>] [preamble=<legacy,ht,vht,dmg>] [lci] [civic]
+
+	dev <devname> mesh leave
+		Leave a mesh.
+
+	dev <devname> mesh join <mesh ID> [[freq <freq in MHz> <NOHT|HT20|HT40+|HT40-|80MHz>] [basic-rates <rate in Mbps,rate2,...>]], [mcast-rate <rate in Mbps>] [beacon-interval <time in TUs>] [dtim-period <value>] [vendor_sync on|off] [<param>=<value>]*
+		Join a mesh with the given mesh ID with frequency, basic-rates,
+		mcast-rate and mesh parameters. Basic-rates are applied only if
+		frequency is provided.
+
+	dev <devname> mgmt dump frame <type as hex ab> <pattern as hex ab:cd:..> [frame <type> <pattern>]* [count <frames>]
+		Register for receiving certain mgmt frames and print them.
+		Frames are selected by their type and pattern containing
+		the first several bytes of the frame that should match.
+		
+		Example: iw dev wlan0 mgmt dump frame 40 00 frame 40 01:02 count 10
+		
+
+	dev <devname> mpath dump
+		List known mesh paths.
+
+	dev <devname> mpath set <destination MAC address> next_hop <next hop MAC address>
+		Set an existing mesh path's next hop.
+
+	dev <devname> mpath new <destination MAC address> next_hop <next hop MAC address>
+		Create a new mesh path (instead of relying on automatic discovery).
+
+	dev <devname> mpath del <MAC address>
+		Remove the mesh path to the given node.
+
+	dev <devname> mpath get <MAC address>
+		Get information on mesh path to the given node.
+
+	dev <devname> mpath probe <destination MAC address> frame <frame>
+		Inject ethernet frame to given peer overriding the next hop
+		lookup from mpath table.
+		.Example: iw dev wlan0 mpath probe xx:xx:xx:xx:xx:xx frame 01:xx:xx:00
+		
+
+	dev <devname> mpp dump
+		List known mesh proxy paths.
+
+	dev <devname> mpp get <MAC address>
+		Get information on mesh proxy path to the given node.
+
+	wdev <idx> nan add_func type <publish|subscribe|followup> [active] [solicited] [unsolicited] [bcast] [close_range] name <name> [info <info>] [flw_up_id <id> flw_up_req_id <id> flw_up_dest <mac>] [ttl <ttl>] [srf <include|exclude> <bf|list> [bf_idx] [bf_len] <mac1;mac2...>] [rx_filter <str1:str2...>] [tx_filter <str1:str2...>]
+		
+
+	wdev <idx> nan rm_func cookie <cookie>
+		
+
+	wdev <idx> nan config [pref <pref>] [bands [2GHz] [5GHz]]
+		
+
+	wdev <idx> nan stop 
+		
+
+	wdev <idx> nan start pref <pref> [bands [2GHz] [5GHz]]
+		
+
+	dev <devname> ocb leave
+		Leave the OCB mode network.
+
+	dev <devname> ocb join <freq in MHz> <5MHz|10MHz>
+		Join the OCB mode network.
+
+	dev <devname> offchannel <freq> <duration>
+		Leave operating channel and go to the given channel for a while.
+
+	wdev <idx> p2p stop 
+		
+
+	wdev <idx> p2p start 
+		
+
+	dev <devname> cac channel <channel> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> cac freq <freq> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> cac freq <control freq> [5|10|20|40|80|80+80|160] [<center1_freq> [<center2_freq>]]
+	dev <devname> cac trigger channel <channel> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> cac trigger freq <frequency> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> cac trigger freq <frequency> [5|10|20|40|80|80+80|160] [<center1_freq> [<center2_freq>]]
+		Start or trigger a channel availability check (CAC) looking to look for
+		radars on the given channel.
+
+	phy <phyname> channels
+		Show available channels.
+
+	reg reload
+		Reload the kernel's regulatory database.
+
+	phy <phyname> reg get
+		Print out the devices' current regulatory domain information.
+
+	reg get
+		Print out the kernel's current regulatory domain information.
+
+	reg set <ISO/IEC 3166-1 alpha2>
+		Notify the kernel about the current regulatory domain.
+
+	dev <devname> roc start <freq> <time in ms>
+		
+
+	dev <devname> scan [-u] [freq <freq>*] [duration <dur>] [ies <hex as 00:11:..>] [meshid <meshid>] [lowpri,flush,ap-force,duration-mandatory] [randomise[=<addr>/<mask>]] [ssid <ssid>*|passive]
+		Scan on the given frequencies and probe for the given SSIDs
+		(or wildcard if not given) unless passive scanning is requested.
+		If -u is specified print unknown data in the scan results.
+		Specified (vendor) IEs must be well-formed.
+
+	dev <devname> scan sched_stop 
+		Stop an ongoing scheduled scan.
+
+	dev <devname> scan sched_start [interval <in_msecs> | scan_plans [<interval_secs:iterations>*] <interval_secs>] [delay <in_secs>] [freqs <freq>+] [matches [ssid <ssid>]+]] [active [ssid <ssid>]+|passive] [randomise[=<addr>/<mask>]]
+		Start a scheduled scan at the specified interval on the given frequencies
+		with probing for the given SSIDs (or wildcard if not given) unless passive
+		scanning is requested.  If matches are specified, only matching results
+		will be returned.
+
+	dev <devname> scan abort 
+		Abort ongoing scan
+
+	dev <devname> scan trigger [freq <freq>*] [duration <dur>] [ies <hex as 00:11:..>] [meshid <meshid>] [lowpri,flush,ap-force,duration-mandatory] [randomise[=<addr>/<mask>]] [ssid <ssid>*|passive]
+		Trigger a scan on the given frequencies with probing for the given
+		SSIDs (or wildcard if not given) unless passive scanning is requested.
+		Duration(in TUs), if specified, will be used to set dwell times.
+		
+
+	dev <devname> scan dump [-u]
+		Dump the current scan results. If -u is specified, print unknown
+		data in scan results.
+
+	dev <devname> set bitrates [legacy-<2.4|5> <legacy rate in Mbps>*] [ht-mcs-<2.4|5> <MCS index>*] [vht-mcs-<2.4|5> <NSS:MCSx,MCSy... | NSS:MCSx-MCSy>*] [sgi-2.4|lgi-2.4] [sgi-5|lgi-5]
+		Sets up the specified rate masks.
+		Not passing any arguments would clear the existing mask (if any).
+
+	dev <devname> set mcast_rate <rate in Mbps>
+		Set the multicast bitrate.
+
+	dev <devname> set peer <MAC address>
+		Set interface WDS peer.
+
+	dev <devname> set noack_map <map>
+		Set the NoAck map for the TIDs. (0x0009 = BE, 0x0006 = BK, 0x0030 = VI, 0x00C0 = VO)
+
+	dev <devname> set 4addr <on|off>
+		Set interface 4addr (WDS) mode.
+
+	dev <devname> set type <type>
+		Set interface type/mode.
+		Valid interface types are: managed, ibss, monitor, mesh, wds.
+
+	dev <devname> set meshid <meshid>
+	dev <devname> set monitor <flag>*
+		Set monitor flags. Valid flags are:
+		none:     no special flags
+		fcsfail:  show frames with FCS errors
+		control:  show control frames
+		otherbss: show frames from other BSSes
+		cook:     use cooked mode
+		active:   use active mode (ACK incoming unicast packets)
+		mumimo-groupid <GROUP_ID>: use MUMIMO according to a group id
+		mumimo-follow-mac <MAC_ADDRESS>: use MUMIMO according to a MAC address
+
+	dev <devname> set mesh_param <param>=<value> [<param>=<value>]*
+		Set mesh parameter (run command without any to see available ones).
+
+	phy <phyname> set txq limit <packets> | memory_limit <bytes> | quantum <bytes>
+		Set TXQ parameters. The limit and memory_limit are global queue limits
+		for the whole phy. The quantum is the DRR scheduler quantum setting.
+		Valid values: 1 - 2**32
+
+	phy <phyname> set antenna <bitmap> | all | <tx bitmap> <rx bitmap>
+		Set a bitmap of allowed antennas to use for TX and RX.
+		The driver may reject antenna configurations it cannot support.
+
+	dev <devname> set txpower <auto|fixed|limit> [<tx power in mBm>]
+		Specify transmit power level and setting type.
+
+	phy <phyname> set txpower <auto|fixed|limit> [<tx power in mBm>]
+		Specify transmit power level and setting type.
+
+	phy <phyname> set distance <auto|distance>
+		Enable ACK timeout estimation algorithm (dynack) or set appropriate
+		coverage class for given link distance in meters.
+		To disable dynack set valid value for coverage class.
+		Valid values: 0 - 114750
+
+	phy <phyname> set coverage <coverage class>
+		Set coverage class (1 for every 3 usec of air propagation time).
+		Valid values: 0 - 255.
+
+	phy <phyname> set netns { <pid> | name <nsname> }
+		Put this wireless device into a different network namespace:
+		    <pid>    - change network namespace by process id
+		    <nsname> - change network namespace by name from /var/run/netns
+		               or by absolute path (man ip-netns)
+		
+
+	phy <phyname> set retry [short <limit>] [long <limit>]
+		Set retry limit.
+
+	phy <phyname> set rts <rts threshold|off>
+		Set rts threshold.
+
+	phy <phyname> set frag <fragmentation threshold|off>
+		Set fragmentation threshold.
+
+	dev <devname> set channel <channel> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	phy <phyname> set channel <channel> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> set freq <freq> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	dev <devname> set freq <control freq> [5|10|20|40|80|80+80|160] [<center1_freq> [<center2_freq>]]
+	phy <phyname> set freq <freq> [NOHT|HT20|HT40+|HT40-|5MHz|10MHz|80MHz]
+	phy <phyname> set freq <control freq> [5|10|20|40|80|80+80|160] [<center1_freq> [<center2_freq>]]
+		Set frequency/channel the hardware is using, including HT
+		configuration.
+
+	phy <phyname> set name <new name>
+		Rename this wireless device.
+
+	dev <devname> set power_save <on|off>
+		Set power save state to on or off.
+
+	dev <devname> get mesh_param [<param>]
+		Retrieve mesh parameter (run command without any to see available ones).
+
+	phy <phyname> get txq 
+		Get TXQ parameters.
+
+	dev <devname> get power_save <param>
+		Retrieve power save state.
+
+	dev <devname> station dump [-v]
+		List all stations known, e.g. the AP on managed interfaces
+
+	dev <devname> station set <MAC address> txpwr <auto|limit> [<tx power dBm>]
+		Set Tx power for this station.
+
+	dev <devname> station set <MAC address> airtime_weight <weight>
+		Set airtime weight for this station.
+
+	dev <devname> station set <MAC address> mesh_power_mode <active|light|deep>
+		Set link-specific mesh power mode for this station
+
+	dev <devname> station set <MAC address> vlan <ifindex>
+		Set an AP VLAN for this station.
+
+	dev <devname> station set <MAC address> plink_action <open|block>
+		Set mesh peer link action for this station (peer).
+
+	dev <devname> station del <MAC address> [subtype <subtype>] [reason-code <code>]
+		Remove the given station entry (use with caution!)
+		Example subtype values: 0xA (disassociation), 0xC (deauthentication)
+
+	dev <devname> station get <MAC address>
+		Get information for a specific station.
+
+	dev <devname> survey dump
+		List all gathered channel survey data
+
+	dev <devname> vendor recvbin <oui> <subcmd> <filename|-|hex data>
+		
+
+	dev <devname> vendor recv <oui> <subcmd> <filename|-|hex data>
+		
+
+	dev <devname> vendor send <oui> <subcmd> <filename|-|hex data>
+		
+
+	phy <phyname> wowlan show 
+		Show WoWLAN status.
+
+	phy <phyname> wowlan disable 
+		Disable WoWLAN.
+
+	phy <phyname> wowlan enable [any] [disconnect] [magic-packet] [gtk-rekey-failure] [eap-identity-request] [4way-handshake] [rfkill-release] [net-detect [interval <in_msecs> | scan_plans [<interval_secs:iterations>*] <interval_secs>] [delay <in_secs>] [freqs <freq>+] [matches [ssid <ssid>]+]] [active [ssid <ssid>]+|passive] [randomise[=<addr>/<mask>]]] [tcp <config-file>] [patterns [offset1+]<pattern1> ...]
+		Enable WoWLAN with the given triggers.
+		Each pattern is given as a bytestring with '-' in places where any byte
+		may be present, e.g. 00:11:22:-:44 will match 00:11:22:33:44 and
+		00:11:22:33:ff:44 etc.
+		Offset and pattern should be separated by '+', e.g. 18+43:34:00:12 will match '43:34:00:12' after 18 bytes of offset in Rx packet.
+		
+		The TCP configuration file contains:
+		  source=ip[:port]
+		  dest=ip:port@mac
+		  data=<hex data packet>
+		  data.interval=seconds
+		  [wake=<hex packet with masked out bytes indicated by '-'>]
+		  [data.seq=len,offset[,start]]
+		  [data.tok=len,offset,<token stream>]
+		
+		Net-detect configuration example:
+		 iw phy0 wowlan enable net-detect interval 5000 delay 30 freqs 2412 2422 matches ssid foo ssid bar
+
+
+Commands that use the netdev ('dev') can also be given the
+'wdev' instead to identify the device.
+
+You can omit the 'phy' or 'dev' if the identification is unique,
+e.g. "iw wlan0 info" or "iw phy0 info". (Don't when scripting.)
+
+Do NOT screenscrape this tool, we don't consider its output stable.
+
+# wdev
+-sh: wdev: not found
+# cd /etc && ls
+dhcpcd.conf          hostname             iproute2             network              profile.d            resolv.conf          wireless-regdb
+dropbear             hosts                issue                os-release           protocols            services             wpa_supplicant.conf
+fstab                init.d               libnl                passwd               rc_keymaps           shadow
+group                inittab              mtab                 profile              rc_maps.cfg          shells
+# cat wireless-regdb
+cat: read error: Is a directory
+# ls wireless-regdb
+pubkeys
+# ifup wlan0
+Successfully initialized wpa_supplicant
+Could not read interface wlan0 flags: No such device
+nl80211: Driver does not support authentication/association or connect commands
+nl80211: deinit ifname=wlan0 disabled_11b_rates=0
+Could not read interface wlan0 flags: No such device
+wlan0: Failed to initialize driver interface
+Failed to bring up wlan0.
+# exit
+Connection to 10.42.0.232 closed.
+josep@josep:~$ ssh-keygen -f "/home/josep/.ssh/known_hosts" -R "10.42.0.232"
+# Host 10.42.0.232 found: line 2
+/home/josep/.ssh/known_hosts updated.
+Original contents retained as /home/josep/.ssh/known_hosts.old
+josep@josep:~$ ssh root@10.42.0.232
+The authenticity of host '10.42.0.232 (10.42.0.232)' can't be established.
+ECDSA key fingerprint is SHA256:gEz9z9510u368qyXZZo80VBhfdWhzfddhqXeEYxOVSY.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '10.42.0.232' (ECDSA) to the list of known hosts.
+root@10.42.0.232's password: 
+# ls /etc
+TZ                   group                inittab              mtab                 profile              rc_maps.cfg          shells
+dhcpcd.conf          hostname             iproute2             network              profile.d            resolv.conf          wireless-regdb
+dropbear             hosts                issue                os-release           protocols            services             wpa_supplicant.conf
+fstab                init.d               libnl                passwd               rc_keymaps           shadow
+# cat /etc/network/interfaces
+# interface file auto-generated by buildroot
+
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet dhcp
+  pre-up /etc/network/nfs_check
+  wait-delay 15
+  hostname $(hostname)
+# ifup wlan0
+Successfully initialized wpa_supplicant
+Could not read interface wlan0 flags: No such device
+nl80211: Driver does not support authentication/association or connect commands
+nl80211: deinit ifname=wlan0 disabled_11b_rates=0
+Could not read interface wlan0 flags: No such device
+wlan0: Failed to initialize driver interface
+Failed to bring up wlan0.
+# iw dev
+# chmod 755 /etc/init.d/S10md
+chmod: /etc/init.d/S10md: No such file or directory
+# chmod 755 /etc/init.d/S10mdev
+chmod: /etc/init.d/S10mdev: No such file or directory
+# ls /etc/init.d
+S01syslogd   S02klogd     S02sysctl    S20urandom   S40network   S41dhcpcd    S50dropbear  ninfod.sh    rcK          rcS
+# exit
+Connection to 10.42.0.232 closed.
+josep@josep:~$ ssh-keygen -f "/home/josep/.ssh/known_hosts" -R "10.42.0.232"
+# Host 10.42.0.232 found: line 2
+/home/josep/.ssh/known_hosts updated.
+Original contents retained as /home/josep/.ssh/known_hosts.old
+josep@josep:~$ ssh root@10.42.0.232
+The authenticity of host '10.42.0.232 (10.42.0.232)' can't be established.
+ECDSA key fingerprint is SHA256:aPPEC3ZoGrd3/BQwm9J9GZnm8Tm7qHLomqTKIc9muU4.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '10.42.0.232' (ECDSA) to the list of known hosts.
+root@10.42.0.232's password: 
+# cd /etc
+# ls
+TZ                   group                inittab              mdev.conf            passwd               rc_keymaps           shadow
+dhcpcd.conf          hostname             iproute2             mtab                 profile              rc_maps.cfg          shells
+dropbear             hosts                issue                network              profile.d            resolv.conf          wireless-regdb
+fstab                init.d               libnl                os-release           protocols            services             wpa_supplicant.conf
+# cat wpa_supplicant.conf
+# /etc/wpa_supplicant/wpa_supplicant.conf
+
+ctrl_interface=/var/run/wpa_supplicant
+ap_scan=1
+
+#network={
+#    ssid="MEO-BA4D4D"
+#    psk="65D87163BB"
+#    priority=1
+#    id="test_net_1"
+#}
+
+network={
+        ssid="MEO-BA4D4D"
+        scan_ssid=1
+        proto=RSN WPA
+        key_mgmt=WPA-PSK
+        pairwise=CCMP TKIP
+        group=CCMP TKIP
+        auth_alg=OPEN
+        priority=0
+        id_str="test1"
+        psk="65D87163BB"
+}
+
+# cat network/interfaces
+# /etc/network/interfaces
+
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet dhcp
+  pre-up /etc/network/nfs_check
+  wait-delay 15
+  hostname $(hostname)
+
+auto wlan0
+iface wlan0 inet dhcp
+  pre-up wpa_supplicant -B -D nl80211 -i wlan0 -c /etc/wpa_supplicant.conf
+  post-down killall -q wpa_supplicant
+  wait-delay 15
+
+iface default inet dhcp
+# ifconfig list
+ifconfig: list: error fetching interface information: Device not found
+# ifconfig -list
+ifconfig: -list: error fetching interface information: Device not found
+# ifconfig --list
+ifconfig: --list: error fetching interface information: Device not found
+# ifconfig wlan0 up
+# ifup wlan0
+ifup: interface wlan0 already configured
+# rfkill list
+0: phy0: Wireless LAN
+	Soft blocked: no
+	Hard blocked: no
+# arp
+dsldevice.lan (192.168.1.254) at e0:b9:e5:ba:4d:4c [ether]  on wlan0
+? (10.42.0.1) at c8:d3:ff:d5:e9:f0 [ether]  on eth0
+# ping 192.168.1.68
+PING 192.168.1.68 (192.168.1.68) 56(84) bytes of data.
+64 bytes from 192.168.1.68: icmp_seq=1 ttl=64 time=1111 ms
+64 bytes from 192.168.1.68: icmp_seq=2 ttl=64 time=101 ms
+64 bytes from 192.168.1.68: icmp_seq=3 ttl=64 time=14.6 ms
+64 bytes from 192.168.1.68: icmp_seq=4 ttl=64 time=36.9 ms
+64 bytes from 192.168.1.68: icmp_seq=5 ttl=64 time=59.8 ms
+64 bytes from 192.168.1.68: icmp_seq=6 ttl=64 time=81.6 ms
+64 bytes from 192.168.1.68: icmp_seq=7 ttl=64 time=142 ms
+64 bytes from 192.168.1.68: icmp_seq=8 ttl=64 time=24.7 ms
+64 bytes from 192.168.1.68: icmp_seq=9 ttl=64 time=46.8 ms
+64 bytes from 192.168.1.68: icmp_seq=10 ttl=64 time=68.7 ms
+64 bytes from 192.168.1.68: icmp_seq=11 ttl=64 time=90.7 ms
+64 bytes from 192.168.1.68: icmp_seq=12 ttl=64 time=113 ms
+64 bytes from 192.168.1.68: icmp_seq=13 ttl=64 time=33.6 ms
+64 bytes from 192.168.1.68: icmp_seq=14 ttl=64 time=56.3 ms
+64 bytes from 192.168.1.68: icmp_seq=15 ttl=64 time=78.6 ms
+64 bytes from 192.168.1.68: icmp_seq=16 ttl=64 time=100 ms
+^X64 bytes from 192.168.1.68: icmp_seq=17 ttl=64 time=20.9 ms
+^C
+--- 192.168.1.68 ping statistics ---
+17 packets transmitted, 17 received, 0% packet loss, time 16034ms
+rtt min/avg/max/mdev = 14.638/128.303/1110.833/248.044 ms, pipe 2
+# exit
+Connection to 10.42.0.232 closed.
+josep@josep:~$ ssh-keygen -f "/home/josep/.ssh/known_hosts" -R "10.42.0.232"
+# Host 10.42.0.232 found: line 2
+/home/josep/.ssh/known_hosts updated.
+Original contents retained as /home/josep/.ssh/known_hosts.old
+josep@josep:~$ ssh root@10.42.0.232
+The authenticity of host '10.42.0.232 (10.42.0.232)' can't be established.
+ECDSA key fingerprint is SHA256:aPPEC3ZoGrd3/BQwm9J9GZnm8Tm7qHLomqTKIc9muU4.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '10.42.0.232' (ECDSA) to the list of known hosts.
+root@10.42.0.232's password: 
+# cd /etc
+# ls
+TZ                   group                inittab              mdev.conf            passwd               rc_keymaps           shadow
+dhcpcd.conf          hostname             iproute2             mtab                 profile              rc_maps.cfg          shells
+dropbear             hosts                issue                network              profile.d            resolv.conf          wireless-regdb
+fstab                init.d               libnl                os-release           protocols            services             wpa_supplicant.conf
+# cat hostname
+buildroot
+# cat hosts
+127.0.0.1	localhost
+127.0.1.1	buildroot
+# hostname
+buildroot
+# 
