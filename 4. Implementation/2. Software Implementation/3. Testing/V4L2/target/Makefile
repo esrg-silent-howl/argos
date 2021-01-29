@@ -1,0 +1,11 @@
+# CC =	gcc
+CC = ~/Desktop/buildroot-2020.11.1/output/host/bin/arm-buildroot-linux-uclibcgnueabihf-g++
+RM = /bin/rm -f
+objects = main
+all: $(objects)
+
+$(objects): %: %.cpp
+	$(CC) $(CFLAGS) -lpthread -o  $@ $<
+clean:
+	${RM} *.o hello
+

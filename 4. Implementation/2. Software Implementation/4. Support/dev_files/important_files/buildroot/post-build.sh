@@ -24,7 +24,7 @@ cp board/raspberrypi/interfaces ${TARGET_DIR}/etc/network/interfaces
 cp board/raspberrypi/wpa_supplicant.conf ${TARGET_DIR}/etc/wpa_supplicant.conf
 
 # create /home directory for applications
-mkdir ${TARGET_DIR}/home
+#mkdir ${TARGET_DIR}/home
 
 # create first-boot signal in target
 touch ${TARGET_DIR}/home/.firstboot

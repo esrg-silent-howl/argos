@@ -2,7 +2,7 @@
 
 #include <opencv2/core.hpp>
 #include <opencv2/videoio.hpp>
-#include <opencv2/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
 #include <iostream>
 #include <stdio.h>
 
@@ -66,10 +66,10 @@ int main(int, char**)
 
 #ifndef RASPBERRY_PI
         /* Show live and wait for a key with timeout long enough to show images */
-        cv::imwrite(string("img/img" + to_string(frame_count++) + ".jpg"), frame);
-        imshow("Live", frame);
-        if (waitKey(5) >= 0)
-            break;
+        imwrite(string("img/img" + to_string(frame_count++) + ".jpg"), frame);
+        //imshow("Live", frame);
+        //if (waitKey(5) >= 0)
+         //   break;
 #endif
     }
 
