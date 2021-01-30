@@ -1,11 +1,15 @@
 # CC =	gcc
 CC = g++
 RM = /bin/rm -f
-objects = main
-all: $(objects)
 
-$(objects): %: %.cpp
-	$(CC) -lpthread -o  $@ $<
+SOURCES = main.cpp camera.cpp
+LIBS = -lpthread
+OUT = main
+
+all:
+	$(CC) $(SOURCES) -o $(OUT) $(LIBS)
+debug:
+	$(CC) -g $(SOURCES) -o $(OUT) $(LIBS)
 clean:
-	${RM} *.o hello
+	${RM} *.o
 
