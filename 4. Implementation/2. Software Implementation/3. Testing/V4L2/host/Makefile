@@ -2,7 +2,7 @@
 CC = g++
 RM = /bin/rm -f
 
-SOURCES = main.cpp camera.cpp
+SOURCES = main.cpp camera.cpp log.cpp
 LIBS = -lpthread
 OUT = main
 

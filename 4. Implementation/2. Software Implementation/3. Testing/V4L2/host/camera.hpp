@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _CAMERA_HPP
+#define _CAMERA_HPP
 
 #include <string>
 #include <vector>
@@ -60,7 +61,12 @@ public:
 		INCOMP_ENCODING=-6,
 		NO_MEM=-7,
 		RESOURCE_UNAVAIL=-8,
-		BAD_UNMAP=-9
+		BAD_UNMAP=-9,
+		CAPTURE_TIMEOUT=-10,
+		NO_BUF_OUT=-11,
+		DEV_NOT_OPEN=-12,
+		INTERNAL=-13,
+		UNDEF=-14,
 	};
 
 	struct Device {
@@ -91,7 +97,9 @@ private:
 	Error uninitialize();
 	Error initializeMemoryMap();
 
-	bool capturing;
+	Error readFrame(v4l2_buffer& buf);
+
+	bool streaming;
 
 public:
 
@@ -103,8 +111,12 @@ public:
 	void closeDevice();
 	
 	Error start();
-	bool isCapturing();
+	bool isStreaming();
 	Error stop();
+
+	Error capture(std::string& filename);
 
 	Error drawRectangle(const Point2D& start, uint32_t width, uint32_t height);
 };
+
+#endif

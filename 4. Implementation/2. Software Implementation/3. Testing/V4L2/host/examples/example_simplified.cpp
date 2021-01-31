@@ -67,8 +67,8 @@ static void process_image(const void *p, int size)
 	FILE* file = fopen("/home/josep/Desktop/out.jpg", "w+");
     
 	if (file != NULL) {
-		std::cout << "File opened. \n";
 		int result = fwrite(p, 1, size, file);
+		std::cout << "File opened. \n" << result;
 	} else {
 		std::cout << "Nnnnot. \n";
 	}
@@ -401,7 +401,6 @@ int main(int argc, char **argv)
 	if (argc != 2) {
 		std::cerr << "Need exactly 1 argument\n";
 		return 1;
-	
 	}
 	
 	std::cout << "Selected device: " << argv[1] << "\n";
@@ -409,11 +408,11 @@ int main(int argc, char **argv)
 	dev_name = (char*)malloc(sizeof(argv[1]) + 1);
 	strcpy(dev_name, argv[1]);
 
-	//open_device();
-	//std::cout << "Device open." << "\n";
+	open_device();
+	std::cout << "Device open." << "\n";
 
-	//init_device();
-	//std::cout << "Device initialized." << "\n";
+	init_device();
+	std::cout << "Device initialized." << "\n";
 
 	start_capturing();
 	std::cout << "Capture started on device." << "\n";
@@ -427,8 +426,8 @@ int main(int argc, char **argv)
 	uninit_device();
 	std::cout << "Uninitialized device." << "\n";
 
-	//close_device();
-	//std::cout << "Closed device." << "\n";
+	close_device();
+	std::cout << "Closed device." << "\n";
 
 	fprintf(stderr, "\n");
 	return 0;

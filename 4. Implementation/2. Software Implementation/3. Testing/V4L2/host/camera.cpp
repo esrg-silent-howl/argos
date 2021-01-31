@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -39,15 +40,18 @@ static int xioctl(int fh, int request, void *arg)
 Camera::Camera(const std::string& device, const Camera::Format& format) {
 	
 	log::info << "Entering Camera device constructor "\
-			"(initialization is optional)" << std::endl;
+			"(initialization is optional, errors may be benign)" << std::endl;
 
+	streaming = false;
 	openDevice(device, format);
 
 	log::info << "Exiting Camera device constructor" << std::endl;
 }
 
 Camera::~Camera() {
-	closeDevice();
+
+	if (isOpen())
+		closeDevice();
 }
 
 Camera::Error Camera::openDevice(const std::string& dev_name, const Camera::Format& format) {
@@ -95,7 +99,7 @@ Camera::Error Camera::openDevice(const std::string& dev_name, const Camera::Form
 
 	initialize();
 
-	log::ok << "Device is opened" << std::endl;
+	log::ok << "Done: Device is opened" << std::endl;
 
 	return OK;
 }
@@ -110,9 +114,8 @@ void Camera::closeDevice()  {
 		close(this->dev.descriptor);
 		this->dev.name = "";
 		this->dev.descriptor = -1;
+		uninitialize();
 	}
-
-	uninitialize();
 }
 
 Camera::Error Camera::initialize() {
@@ -125,7 +128,7 @@ Camera::Error Camera::initialize() {
 
 	/* Check if a device is open and ready to be initialized */
 	if (!isOpen()) {
-		log::error << "No device has been opened yet";
+		log::error << "No device has been opened yet" << std::endl;
 		return NO_DEVICE;
 	}
 
@@ -210,8 +213,6 @@ Camera::Error Camera::uninitialize() {
 			LOG_DETAILS();
 			return BAD_UNMAP;
 		}
-
-		log::ok << "Buffer " << i << " unmapped" << std::endl;
 	}
 
 	log::ok << "Done: Device uninitialized successfully" << std::endl;
@@ -298,27 +299,158 @@ Camera::Error Camera::start() {
 		buf.index = i;
 
 		if (-1 == xioctl(dev.descriptor, VIDIOC_QBUF, &buf)) {
-			errno_exit("VIDIOC_QBUF");
+			log::error << "Failed to enqueue buffer " << i << \
+					" for capture" << std::endl;
+			LOG_DETAILS();
+			return UNDEF;
 		}	
 	}
-	type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-	if (-1 == xioctl(fd, VIDIOC_STREAMON, &type))
-			errno_exit("VIDIOC_STREAMON");
 
-	capturing = true;
+	/* Attempt to start streaming */
+	type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+	if (-1 == xioctl(dev.descriptor, VIDIOC_STREAMON, &type)) {
+		log::error << "Could not start stream" << std::endl;
+		LOG_DETAILS();
+		
+		/* At this point, none of the well-defined errors may apply */
+		return UNDEF;
+	}
+
+	log::ok << "Done: Started streaming" << std::endl;
+
+	streaming = true;
 }
 
-bool Camera::isCapturing() {
+bool Camera::isStreaming() {
 
-	return capturing;
+	return streaming;
 }
 
 Camera::Error Camera::stop() {
 
-	capturing = false;
+	struct v4l2_buffer buf;
+
+	/* Signal if no stream was running */
+	if (!streaming)
+		log::info << "No capture is currently active" << std::endl;
+
+	/* Stop video stream */		
+	CLEAR(buf);
+	buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+ 	xioctl(dev.descriptor, VIDIOC_STREAMOFF, &buf);
+	
+	streaming = false;
+	
+	log::ok << "Done: Stopped streaming" << std::endl;
+
+	return OK;	
 }
 
-Camera::Error Camera::drawRectangle(const Point2D& start, uint32_t width, uint32_t height) {
+Camera::Error Camera::capture(std::string& filename) {
+
+	fd_set fds;
+	struct timeval tv;
+	int32_t result;
+	struct v4l2_buffer buf;
+	//ofstream out_file;
+	FILE* out_file;
+
+	if(!isOpen()) {
+		log::error << "Devide must be opened before capturing" << std::endl;
+		return DEV_NOT_OPEN;
+	}
+
+	FD_ZERO(&fds);
+	FD_SET(dev.descriptor, &fds);
+
+	/* Wait for the descriptor to be ready for reading until timeout */
+	tv.tv_sec = 1;
+	tv.tv_usec = 000;
+	result = select(dev.descriptor + 1, &fds, NULL, NULL, &tv);
+
+	/* Error */
+	if (result == -1) {
+		if (errno == EINTR) {
+			log::error << "Failed to capture frame" << std::endl;
+			log::details << "Descriptor unavailable" << std::endl;
+			return RESOURCE_UNAVAIL;
+		}
+	
+	/* Timeout */
+	} else if (result == 0) {
+		log::error << "Timed out while trying to capture frame" << std::endl;
+		return CAPTURE_TIMEOUT;
+	}
+
+	/* Read the frame and return if failed */
+	result = (int32_t)readFrame(buf);
+
+	if (result != OK)
+		return static_cast<Camera::Error>(result);
+
+	log::ok << "Frame read successfully" << std::endl;
+
+	/* Save frame */
+	log::info << "Opening " << filename << std::endl;
+	/*out_file.open(filename, ios::out | ios::trunc | ios::binary);
+	
+	if (!out_file.is_open()) {
+		log::error << "Could not open file as requested " << std::endl;
+		return RESOURCE_UNAVAIL;
+	}
+
+    out_file.write(static_cast<char*>(buffers[buf.index].start), buf.bytesused);
+    
+	if (!out_file.good()) {
+		out_file.close();
+		log::error << "An error occured while writing to file " << std::endl;
+	}*/
+	out_file = fopen(filename.c_str(), "w+");
+	int result2 = fwrite(buffers[buf.index].start, 1, buf.bytesused, out_file);
+
+	log::ok << "Done: Captured frame and saved it" << std::endl;
+
+	return OK;
+}
+
+Camera::Error Camera::readFrame (v4l2_buffer& buf) {
+
+	/* Read frame */
+	CLEAR(buf);
+	buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+	buf.memory = V4L2_MEMORY_MMAP;
+
+	/* Attempt to dequeue buffer */
+	if (-1 == xioctl(dev.descriptor, VIDIOC_DQBUF, &buf)) {
+
+		log::error << "Failed to capture frame" << std::endl;
+
+		switch (errno) {
+		case EAGAIN:
+			log::details << "No buffer in the outgoing queue" << std::endl;
+			return NO_BUF_OUT;
+
+		case EIO:
+			log::details << "Internal error" << std::endl;
+			/* TODO: Implement buffer recovery procedure (see spec)*/
+			return INTERNAL;
+
+		default:
+			log::details << "Undefined error" << std::endl;
+			return UNDEF;
+		}
+	}
+
+	if (-1 == xioctl(dev.descriptor, VIDIOC_QBUF, &buf)) {
+		log::error << "Failed to enqueue buffer for capture" << std::endl;
+		LOG_DETAILS();
+		return UNDEF;
+	}
+
+	return OK;
+}
+
+Camera::Error Camera::drawRectangle (const Point2D& start, uint32_t width, uint32_t height) {
 
 }
 

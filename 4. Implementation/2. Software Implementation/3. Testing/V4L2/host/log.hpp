@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _LOG_HPP
+#define _LOG_HPP
 
 #include <iostream>
 #include <sstream>
@@ -31,26 +32,36 @@ namespace log {
 
 		friend std::ostream& operator<<(const log::Logger& logger, int32_t num) {
 			
-			logger.stream << logger.prefix << to_string(num);
+			logger.stream << logger.prefix << num;
 			return logger.stream;
 		}
 
 		friend std::ostream& operator<<(const log::Logger& logger, uint32_t num) {
 			
-			logger.stream << logger.prefix << to_string(num);
+			logger.stream << logger.prefix << num;
 			return logger.stream;
 		}
 
-		Logger(std::string prefix, std::ostream& stream) : prefix(prefix), stream(stream) {
+		friend std::ostream& operator<<(const log::Logger& logger, float num) {
+			
+			logger.stream << logger.prefix << num;
+			return logger.stream;
+		}
+
+		Logger(std::string prefix, std::ostream& stream, 
+				bool only_verbose = false) 
+				: prefix(prefix), stream(stream) {
 
 		}
 
 	};
 
 	const Logger   error("  [ERROR]: ", std::cerr);
-	const Logger	info("   [INFO]: ", std::cout);
+	const Logger	info("   [INFO]: ", std::cout, true);
 	const Logger warning("[WARNING]: ", std::cout);
-	const Logger      ok("     [OK]: ", std::cout);
+	const Logger      ok("     [OK]: ", std::cout, true);
 	const Logger details("\t[DETAILS]: ", std::cout);
 	const Logger generic("",  std::cout);
 };
+
+#endif
