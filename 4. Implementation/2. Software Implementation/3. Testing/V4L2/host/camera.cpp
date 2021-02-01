@@ -20,6 +20,9 @@
 #include "camera.hpp"
 #include "log.hpp"
 
+#define BUF_TYPE V4L2_BUF_TYPE_VIDEO_CAPTURE
+#define MEM_TYPE V4L2_MEMORY_MMAP
+
 using namespace std;
 
 #define LOG_DETAILS()	log::details << errno << " - " << strerror(errno) << std::endl
@@ -37,10 +40,10 @@ static int xioctl(int fh, int request, void *arg)
 	return r;
 }
 
-Camera::Camera(const std::string& device, const Camera::Format& format) {
+Camera::Camera(uint32_t dev_index, const Camera::Format& format) {
 
 	streaming = false;
-	openDevice(device, format, true);
+	openDevice(dev_index, format, true);
 
 }
 
@@ -50,30 +53,32 @@ Camera::~Camera() {
 		closeDevice();
 }
 
-Camera::Error Camera::openDevice(const std::string& dev_name, const Camera::Format& format, bool silent) {
+Camera::Error Camera::openDevice(uint32_t dev_index, const Camera::Format& format, bool silent) {
 
 	struct stat st;
+	v4l2_fmtdesc desc;
 	int descriptor;
+	std::string device = string("/dev/video") + std::to_string(dev_index);
 
 	if (isOpen())
 		closeDevice();
 
 	/* Verify the existence of the device */
-	if (-1 == stat(dev_name.c_str(), &st)) {
+	if (-1 == stat(device.c_str(), &st)) {
 		
 		if (!silent) {
-			log::error << "Cannot identify device '" << dev_name << "'" << std::endl;
+			log::error << "Cannot identify device '" << device << "'" << std::endl;
 			LOG_DETAILS();
 		}
 
 		return NO_DEVICE;
 	}
 
-	// log::ok << "Device '" << dev_name << "' found" << std::endl;
+	log::ok << "Device '" << device << "' found" << std::endl;
 
 	/* Affer the device type */
 	if (!S_ISCHR(st.st_mode)) {
-		log::error << "Device '" << dev_name << "' is of the wrong type" << std::endl;
+		log::error << "Device '" << device << "' is of the wrong type" << std::endl;
 		LOG_DETAILS();
 		
 		return WRONG_DEVICE;
@@ -82,19 +87,34 @@ Camera::Error Camera::openDevice(const std::string& dev_name, const Camera::Form
 	// log::ok << "Device parameters are as expected" << std::endl;
 
 	/* Attempt to open de device */
-	descriptor = open(dev_name.c_str(), O_RDWR | O_NONBLOCK, 0);
+	descriptor = open(device.c_str(), O_RDWR /*| O_NONBLOCK*/, 0);
 
 	if (-1 == descriptor) {
-		log::error << "Cannot open device ' " << dev_name << "'" << std::endl;
+		log::error << "Cannot open device ' " << device << "'" << std::endl;
 		LOG_DETAILS();		
 	}
 
 	// log::ok << "Device opened successfully" << std::endl;
 
 	/* Keep relevant device data */
-	this->dev.name = dev_name;
+	this->dev.name = device;
+	this->dev.index = dev_index;
 	this->dev.descriptor = descriptor;
 	this->format = format;
+
+	if (this->format.encoding == AUTO) {
+		memset(&desc,0,sizeof(desc));
+		desc.index = dev.index;
+		desc.type = BUF_TYPE;
+		if (xioctl(descriptor, VIDIOC_ENUM_FMT, &desc) == -1) {
+			if (errno == EINVAL)
+				int a = 3; 
+			log::error << "Could not infer encoding automatically. Defaulting to MJPEG" << std::endl;
+			this->format.encoding = MJPEG;
+			LOG_DETAILS();	
+		}
+		this->format.encoding = (Encoding)(desc.pixelformat);
+	}
 
 	log::ok << "Device is open" << std::endl;
 
@@ -156,11 +176,11 @@ Camera::Error Camera::initialize() {
 
 	/* Select video capture buffer type and check cropping capabilities */
 	CLEAR(cropcap);
-	cropcap.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+	cropcap.type = BUF_TYPE;
 
 	if (0 == xioctl(dev.descriptor, VIDIOC_CROPCAP, &cropcap)) {
 		
-		crop.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+		crop.type = BUF_TYPE;
 		crop.c = cropcap.defrect;
 
 		if (-1 == xioctl(dev.descriptor, VIDIOC_S_CROP, &crop)) {
@@ -173,12 +193,13 @@ Camera::Error Camera::initialize() {
 
 	/* Select video format */
 	CLEAR(fmt);
-	fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+	fmt.type = BUF_TYPE;
 
 	fmt.fmt.pix.width = this->format.width;
 	fmt.fmt.pix.height = this->format.height;
 	fmt.fmt.pix.pixelformat = this->format.encoding;
 	fmt.fmt.pix.field       = V4L2_FIELD_INTERLACED;
+	
 
 	if (-1 == xioctl(dev.descriptor, VIDIOC_S_FMT, &fmt)) {
 		
@@ -233,8 +254,8 @@ Camera::Error Camera::initializeMemoryMap() {
 	/* Attempt to initiate memory mapped I/O */
 	CLEAR(req);
 	req.count = BUFFER_COUNT;
-	req.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-	req.memory = V4L2_MEMORY_MMAP;
+	req.type = BUF_TYPE;
+	req.memory = MEM_TYPE;
 
 	/* Check for memory mapping support */
 	if (-1 == xioctl(dev.descriptor, VIDIOC_REQBUFS, &req)) {
@@ -258,8 +279,8 @@ Camera::Error Camera::initializeMemoryMap() {
 		
 		/* Query the status of the buffer */
 		CLEAR(buf);
-		buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-		buf.memory = V4L2_MEMORY_MMAP;
+		buf.type = BUF_TYPE;
+		buf.memory = MEM_TYPE;
 		buf.index = n_buffers;
 
 		if (-1 == xioctl(dev.descriptor, VIDIOC_QUERYBUF, &buf)) {
@@ -299,8 +320,8 @@ Camera::Error Camera::start() {
 	for (i = 0; i < BUFFER_COUNT; i++) {
 
 		CLEAR(buf);
-		buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-		buf.memory = V4L2_MEMORY_MMAP;
+		buf.type = BUF_TYPE;
+		buf.memory = MEM_TYPE;
 		buf.index = i;
 
 		if (-1 == xioctl(dev.descriptor, VIDIOC_QBUF, &buf)) {
@@ -312,7 +333,7 @@ Camera::Error Camera::start() {
 	}
 
 	/* Attempt to start streaming */
-	type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+	type = BUF_TYPE;
 	if (-1 == xioctl(dev.descriptor, VIDIOC_STREAMON, &type)) {
 		log::error << "Could not start stream" << std::endl;
 		LOG_DETAILS();
@@ -341,7 +362,7 @@ Camera::Error Camera::stop() {
 
 	/* Stop video stream */		
 	CLEAR(buf);
-	buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+	buf.type = BUF_TYPE;
  	xioctl(dev.descriptor, VIDIOC_STREAMOFF, &buf);
 	
 	streaming = false;
@@ -404,8 +425,8 @@ Camera::Error Camera::readFrame (v4l2_buffer& buf, std::string filename) {
 
 	/* Read frame */
 	CLEAR(buf);
-	buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-	buf.memory = V4L2_MEMORY_MMAP;
+	buf.type = BUF_TYPE;
+	buf.memory = MEM_TYPE;
 
 	/* Attempt to dequeue buffer */
 	if (-1 == xioctl(dev.descriptor, VIDIOC_DQBUF, &buf)) {

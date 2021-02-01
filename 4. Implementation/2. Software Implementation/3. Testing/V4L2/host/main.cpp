@@ -7,10 +7,10 @@ int main(int argc, char** argv) {
 
 	Camera cam;
 
-	std::string device = "/dev/video0";
+	int dev_index = 3;
 
-	if (cam.openDevice(device, (Camera::Format){640, 480, \
-			Camera::Encoding::MJPEG}) != Camera::Error::OK ) {
+	if (cam.openDevice(dev_index, (Camera::Format){640, 480, \
+			Camera::Encoding::YUV420}) != Camera::Error::OK ) {
 		cam.closeDevice();
 		return 1;
 	}
