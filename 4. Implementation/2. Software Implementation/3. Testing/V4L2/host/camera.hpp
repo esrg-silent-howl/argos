@@ -7,6 +7,7 @@
 #include <linux/videodev2.h>
 
 #define BUFFER_COUNT	4
+#define FETCH_TIMEOUT	50
 
 class Camera {
 
@@ -15,7 +16,12 @@ public:
 	enum Encoding {
 		MJPEG = V4L2_PIX_FMT_MJPEG,
 		JPEG = V4L2_PIX_FMT_JPEG,
-		MPEG = V4L2_PIX_FMT_MPEG
+		MPEG = V4L2_PIX_FMT_MPEG,
+		MPEG1 = V4L2_PIX_FMT_MPEG1,	
+		MPEG2 = V4L2_PIX_FMT_MPEG2,
+		MPEG4 = V4L2_PIX_FMT_MPEG4,
+		YUV420 = V4L2_PIX_FMT_YUV420,
+		YUV422P = V4L2_PIX_FMT_YUV422P,
 	};
 
 	struct Format {
@@ -97,7 +103,7 @@ private:
 	Error uninitialize();
 	Error initializeMemoryMap();
 
-	Error readFrame(v4l2_buffer& buf);
+	Error readFrame(v4l2_buffer& buf, std::string filename);
 
 	bool streaming;
 
@@ -106,7 +112,7 @@ public:
 	Camera(const std::string& device = std::string(""), const Format& format = Format());
 	~Camera();
 
-	Error openDevice(const std::string& device, const Format& format);
+	Error openDevice(const std::string& device, const Format& format, bool silent = false);
 	bool isOpen();
 	void closeDevice();
 	
