@@ -57,93 +57,41 @@ include CMakeFiles/argos.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/argos.dir/flags.make
 
-CMakeFiles/argos.dir/main.cpp.o: CMakeFiles/argos.dir/flags.make
-CMakeFiles/argos.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/argos.dir/main.cpp.o"
-	/usr/bin/g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos.dir/main.cpp.o -c "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/main.cpp"
+CMakeFiles/argos.dir/argos.cpp.o: CMakeFiles/argos.dir/flags.make
+CMakeFiles/argos.dir/argos.cpp.o: ../argos.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/argos.dir/argos.cpp.o"
+	/usr/bin/g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos.dir/argos.cpp.o -c "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/argos.cpp"
 
-CMakeFiles/argos.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/argos.dir/main.cpp.i"
-	/usr/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/main.cpp" > CMakeFiles/argos.dir/main.cpp.i
+CMakeFiles/argos.dir/argos.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/argos.dir/argos.cpp.i"
+	/usr/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/argos.cpp" > CMakeFiles/argos.dir/argos.cpp.i
 
-CMakeFiles/argos.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/argos.dir/main.cpp.s"
-	/usr/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/main.cpp" -o CMakeFiles/argos.dir/main.cpp.s
+CMakeFiles/argos.dir/argos.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/argos.dir/argos.cpp.s"
+	/usr/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/argos.cpp" -o CMakeFiles/argos.dir/argos.cpp.s
 
-CMakeFiles/argos.dir/main.cpp.o.requires:
+CMakeFiles/argos.dir/argos.cpp.o.requires:
 
-.PHONY : CMakeFiles/argos.dir/main.cpp.o.requires
+.PHONY : CMakeFiles/argos.dir/argos.cpp.o.requires
 
-CMakeFiles/argos.dir/main.cpp.o.provides: CMakeFiles/argos.dir/main.cpp.o.requires
-	$(MAKE) -f CMakeFiles/argos.dir/build.make CMakeFiles/argos.dir/main.cpp.o.provides.build
-.PHONY : CMakeFiles/argos.dir/main.cpp.o.provides
+CMakeFiles/argos.dir/argos.cpp.o.provides: CMakeFiles/argos.dir/argos.cpp.o.requires
+	$(MAKE) -f CMakeFiles/argos.dir/build.make CMakeFiles/argos.dir/argos.cpp.o.provides.build
+.PHONY : CMakeFiles/argos.dir/argos.cpp.o.provides
 
-CMakeFiles/argos.dir/main.cpp.o.provides.build: CMakeFiles/argos.dir/main.cpp.o
-
-
-CMakeFiles/argos.dir/core/camera/camera.cpp.o: CMakeFiles/argos.dir/flags.make
-CMakeFiles/argos.dir/core/camera/camera.cpp.o: ../core/camera/camera.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/argos.dir/core/camera/camera.cpp.o"
-	/usr/bin/g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos.dir/core/camera/camera.cpp.o -c "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/camera/camera.cpp"
-
-CMakeFiles/argos.dir/core/camera/camera.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/argos.dir/core/camera/camera.cpp.i"
-	/usr/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/camera/camera.cpp" > CMakeFiles/argos.dir/core/camera/camera.cpp.i
-
-CMakeFiles/argos.dir/core/camera/camera.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/argos.dir/core/camera/camera.cpp.s"
-	/usr/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/camera/camera.cpp" -o CMakeFiles/argos.dir/core/camera/camera.cpp.s
-
-CMakeFiles/argos.dir/core/camera/camera.cpp.o.requires:
-
-.PHONY : CMakeFiles/argos.dir/core/camera/camera.cpp.o.requires
-
-CMakeFiles/argos.dir/core/camera/camera.cpp.o.provides: CMakeFiles/argos.dir/core/camera/camera.cpp.o.requires
-	$(MAKE) -f CMakeFiles/argos.dir/build.make CMakeFiles/argos.dir/core/camera/camera.cpp.o.provides.build
-.PHONY : CMakeFiles/argos.dir/core/camera/camera.cpp.o.provides
-
-CMakeFiles/argos.dir/core/camera/camera.cpp.o.provides.build: CMakeFiles/argos.dir/core/camera/camera.cpp.o
-
-
-CMakeFiles/argos.dir/core/log/log.cpp.o: CMakeFiles/argos.dir/flags.make
-CMakeFiles/argos.dir/core/log/log.cpp.o: ../core/log/log.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/argos.dir/core/log/log.cpp.o"
-	/usr/bin/g++-7  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/argos.dir/core/log/log.cpp.o -c "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/log/log.cpp"
-
-CMakeFiles/argos.dir/core/log/log.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/argos.dir/core/log/log.cpp.i"
-	/usr/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/log/log.cpp" > CMakeFiles/argos.dir/core/log/log.cpp.i
-
-CMakeFiles/argos.dir/core/log/log.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/argos.dir/core/log/log.cpp.s"
-	/usr/bin/g++-7 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/log/log.cpp" -o CMakeFiles/argos.dir/core/log/log.cpp.s
-
-CMakeFiles/argos.dir/core/log/log.cpp.o.requires:
-
-.PHONY : CMakeFiles/argos.dir/core/log/log.cpp.o.requires
-
-CMakeFiles/argos.dir/core/log/log.cpp.o.provides: CMakeFiles/argos.dir/core/log/log.cpp.o.requires
-	$(MAKE) -f CMakeFiles/argos.dir/build.make CMakeFiles/argos.dir/core/log/log.cpp.o.provides.build
-.PHONY : CMakeFiles/argos.dir/core/log/log.cpp.o.provides
-
-CMakeFiles/argos.dir/core/log/log.cpp.o.provides.build: CMakeFiles/argos.dir/core/log/log.cpp.o
+CMakeFiles/argos.dir/argos.cpp.o.provides.build: CMakeFiles/argos.dir/argos.cpp.o
 
 
 # Object files for target argos
 argos_OBJECTS = \
-"CMakeFiles/argos.dir/main.cpp.o" \
-"CMakeFiles/argos.dir/core/camera/camera.cpp.o" \
-"CMakeFiles/argos.dir/core/log/log.cpp.o"
+"CMakeFiles/argos.dir/argos.cpp.o"
 
 # External object files for target argos
 argos_EXTERNAL_OBJECTS =
 
-argos: CMakeFiles/argos.dir/main.cpp.o
-argos: CMakeFiles/argos.dir/core/camera/camera.cpp.o
-argos: CMakeFiles/argos.dir/core/log/log.cpp.o
+argos: CMakeFiles/argos.dir/argos.cpp.o
 argos: CMakeFiles/argos.dir/build.make
 argos: CMakeFiles/argos.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable argos"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable argos"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/argos.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -151,9 +99,7 @@ CMakeFiles/argos.dir/build: argos
 
 .PHONY : CMakeFiles/argos.dir/build
 
-CMakeFiles/argos.dir/requires: CMakeFiles/argos.dir/main.cpp.o.requires
-CMakeFiles/argos.dir/requires: CMakeFiles/argos.dir/core/camera/camera.cpp.o.requires
-CMakeFiles/argos.dir/requires: CMakeFiles/argos.dir/core/log/log.cpp.o.requires
+CMakeFiles/argos.dir/requires: CMakeFiles/argos.dir/argos.cpp.o.requires
 
 .PHONY : CMakeFiles/argos.dir/requires
 

@@ -4,17 +4,13 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/argos.cpp" "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build/CMakeFiles/argos.dir/argos.cpp.o"
+  "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/daemon/shutdown.cpp" "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build/CMakeFiles/shutdown.dir/daemon/shutdown.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "../core/camera"
-  "../core/log"
-  "../machine_learning"
-  "../core/network"
-  "../threads"
+  "../daemon"
   )
 
 # Targets to which this target links.

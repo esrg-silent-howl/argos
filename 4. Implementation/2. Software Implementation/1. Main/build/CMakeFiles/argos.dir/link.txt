@@ -1,1 +1,1 @@
-/usr/bin/g++-7  -g  -rdynamic CMakeFiles/argos.dir/main.cpp.o CMakeFiles/argos.dir/core/camera/camera.cpp.o CMakeFiles/argos.dir/core/log/log.cpp.o  -o argos 
+/usr/bin/g++-7  -g  -rdynamic CMakeFiles/argos.dir/argos.cpp.o  -o argos 

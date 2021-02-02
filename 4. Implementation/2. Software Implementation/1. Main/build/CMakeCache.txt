@@ -135,7 +135,7 @@ CMAKE_OBJCOPY:FILEPATH=/usr/bin/objcopy
 CMAKE_OBJDUMP:FILEPATH=/usr/bin/objdump
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=argos
+CMAKE_PROJECT_NAME:STATIC=shutdown
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -295,6 +295,12 @@ argos_BINARY_DIR:STATIC=/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Sof
 
 //Value Computed by CMake
 argos_SOURCE_DIR:STATIC=/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main
+
+//Value Computed by CMake
+shutdown_BINARY_DIR:STATIC=/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build
+
+//Value Computed by CMake
+shutdown_SOURCE_DIR:STATIC=/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main
 
 
 ########################

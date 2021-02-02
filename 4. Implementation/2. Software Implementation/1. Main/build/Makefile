@@ -144,6 +144,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named shutdown
+
+# Build rule for target.
+shutdown: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 shutdown
+.PHONY : shutdown
+
+# fast build rule for target.
+shutdown/fast:
+	$(MAKE) -f CMakeFiles/shutdown.dir/build.make CMakeFiles/shutdown.dir/build
+.PHONY : shutdown/fast
+
+#=============================================================================
 # Target rules for targets named argos
 
 # Build rule for target.
@@ -520,86 +533,59 @@ ExperimentalBuild/fast:
 	$(MAKE) -f CMakeFiles/ExperimentalBuild.dir/build.make CMakeFiles/ExperimentalBuild.dir/build
 .PHONY : ExperimentalBuild/fast
 
-core/camera/camera.o: core/camera/camera.cpp.o
+argos.o: argos.cpp.o
 
-.PHONY : core/camera/camera.o
-
-# target to build an object file
-core/camera/camera.cpp.o:
-	$(MAKE) -f CMakeFiles/argos.dir/build.make CMakeFiles/argos.dir/core/camera/camera.cpp.o
-.PHONY : core/camera/camera.cpp.o
-
-core/camera/camera.i: core/camera/camera.cpp.i
-
-.PHONY : core/camera/camera.i
-
-# target to preprocess a source file
-core/camera/camera.cpp.i:
-	$(MAKE) -f CMakeFiles/argos.dir/build.make CMakeFiles/argos.dir/core/camera/camera.cpp.i
-.PHONY : core/camera/camera.cpp.i
-
-core/camera/camera.s: core/camera/camera.cpp.s
-
-.PHONY : core/camera/camera.s
-
-# target to generate assembly for a file
-core/camera/camera.cpp.s:
-	$(MAKE) -f CMakeFiles/argos.dir/build.make CMakeFiles/argos.dir/core/camera/camera.cpp.s
-.PHONY : core/camera/camera.cpp.s
-
-core/log/log.o: core/log/log.cpp.o
-
-.PHONY : core/log/log.o
+.PHONY : argos.o
 
 # target to build an object file
-core/log/log.cpp.o:
-	$(MAKE) -f CMakeFiles/argos.dir/build.make CMakeFiles/argos.dir/core/log/log.cpp.o
-.PHONY : core/log/log.cpp.o
+argos.cpp.o:
+	$(MAKE) -f CMakeFiles/argos.dir/build.make CMakeFiles/argos.dir/argos.cpp.o
+.PHONY : argos.cpp.o
 
-core/log/log.i: core/log/log.cpp.i
+argos.i: argos.cpp.i
 
-.PHONY : core/log/log.i
+.PHONY : argos.i
 
 # target to preprocess a source file
-core/log/log.cpp.i:
-	$(MAKE) -f CMakeFiles/argos.dir/build.make CMakeFiles/argos.dir/core/log/log.cpp.i
-.PHONY : core/log/log.cpp.i
+argos.cpp.i:
+	$(MAKE) -f CMakeFiles/argos.dir/build.make CMakeFiles/argos.dir/argos.cpp.i
+.PHONY : argos.cpp.i
 
-core/log/log.s: core/log/log.cpp.s
+argos.s: argos.cpp.s
 
-.PHONY : core/log/log.s
+.PHONY : argos.s
 
 # target to generate assembly for a file
-core/log/log.cpp.s:
-	$(MAKE) -f CMakeFiles/argos.dir/build.make CMakeFiles/argos.dir/core/log/log.cpp.s
-.PHONY : core/log/log.cpp.s
+argos.cpp.s:
+	$(MAKE) -f CMakeFiles/argos.dir/build.make CMakeFiles/argos.dir/argos.cpp.s
+.PHONY : argos.cpp.s
 
-main.o: main.cpp.o
+daemon/shutdown.o: daemon/shutdown.cpp.o
 
-.PHONY : main.o
+.PHONY : daemon/shutdown.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/argos.dir/build.make CMakeFiles/argos.dir/main.cpp.o
-.PHONY : main.cpp.o
+daemon/shutdown.cpp.o:
+	$(MAKE) -f CMakeFiles/shutdown.dir/build.make CMakeFiles/shutdown.dir/daemon/shutdown.cpp.o
+.PHONY : daemon/shutdown.cpp.o
 
-main.i: main.cpp.i
+daemon/shutdown.i: daemon/shutdown.cpp.i
 
-.PHONY : main.i
+.PHONY : daemon/shutdown.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/argos.dir/build.make CMakeFiles/argos.dir/main.cpp.i
-.PHONY : main.cpp.i
+daemon/shutdown.cpp.i:
+	$(MAKE) -f CMakeFiles/shutdown.dir/build.make CMakeFiles/shutdown.dir/daemon/shutdown.cpp.i
+.PHONY : daemon/shutdown.cpp.i
 
-main.s: main.cpp.s
+daemon/shutdown.s: daemon/shutdown.cpp.s
 
-.PHONY : main.s
+.PHONY : daemon/shutdown.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/argos.dir/build.make CMakeFiles/argos.dir/main.cpp.s
-.PHONY : main.cpp.s
+daemon/shutdown.cpp.s:
+	$(MAKE) -f CMakeFiles/shutdown.dir/build.make CMakeFiles/shutdown.dir/daemon/shutdown.cpp.s
+.PHONY : daemon/shutdown.cpp.s
 
 # Help Target
 help:
@@ -610,6 +596,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... package"
+	@echo "... shutdown"
 	@echo "... argos"
 	@echo "... ContinuousSubmit"
 	@echo "... ContinuousMemCheck"
@@ -641,15 +628,12 @@ help:
 	@echo "... ContinuousTest"
 	@echo "... ContinuousUpdate"
 	@echo "... ExperimentalBuild"
-	@echo "... core/camera/camera.o"
-	@echo "... core/camera/camera.i"
-	@echo "... core/camera/camera.s"
-	@echo "... core/log/log.o"
-	@echo "... core/log/log.i"
-	@echo "... core/log/log.s"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... argos.o"
+	@echo "... argos.i"
+	@echo "... argos.s"
+	@echo "... daemon/shutdown.o"
+	@echo "... daemon/shutdown.i"
+	@echo "... daemon/shutdown.s"
 .PHONY : help
 
 

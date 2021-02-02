@@ -8,7 +8,7 @@
 			"name": "(gdb) Launch",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/4. Implementation/2. Software Implementation/1. Main/build/argos",
+			"program": "${command:cmake.launchTargetPath}",
 			"args": [],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}/4. Implementation/2. Software Implementation/1. Main",
