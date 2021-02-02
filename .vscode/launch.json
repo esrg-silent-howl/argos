@@ -5,13 +5,13 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "g++ - Build and debug active file",
+			"name": "(gdb) Launch",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${fileDirname}/${fileBasenameNoExtension}",
+			"program": "${workspaceFolder}/4. Implementation/2. Software Implementation/1. Main/build/argos",
 			"args": [],
 			"stopAtEntry": false,
-			"cwd": "${workspaceFolder}",
+			"cwd": "${workspaceFolder}/4. Implementation/2. Software Implementation/1. Main",
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "gdb",
@@ -21,9 +21,7 @@
 					"text": "-enable-pretty-printing",
 					"ignoreFailures": true
 				}
-			],
-			"preLaunchTask": "C/C++: g++ build active file",
-			"miDebuggerPath": "/usr/bin/gdb"
+			]
 		}
 	]
 }
