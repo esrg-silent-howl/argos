@@ -71,6 +71,8 @@ linux/videodev2.h
 /home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/main.cpp
 iostream
 -
+unistd.h
+-
 camera.hpp
 /home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/camera.hpp
 
