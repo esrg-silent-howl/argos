@@ -8,14 +8,12 @@
 
 #define BUFFER_COUNT	4
 #define FETCH_TIMEOUT	50
-#define DEFAULT_DEVICE	1000	
 
 class Camera {
 
 public:
 
 	enum Encoding {
-		AUTO=0,
 		MJPEG = V4L2_PIX_FMT_MJPEG,
 		JPEG = V4L2_PIX_FMT_JPEG,
 		MPEG = V4L2_PIX_FMT_MPEG,
@@ -44,7 +42,6 @@ public:
 			this->height = fmt.height;
 			this->width = fmt.width;
 		}
-		
 	};
 
 	struct Point2D {
@@ -80,7 +77,6 @@ public:
 
 	struct Device {
 		std::string name;
-		uint32_t index;
 		int32_t descriptor;
 
 		Device(std::string name = "", int32_t descriptor = -1) : \
@@ -113,10 +109,10 @@ private:
 
 public:
 
-	Camera(uint32_t dev_index = DEFAULT_DEVICE, const Format& format = Format());
+	Camera(const std::string& device = std::string(""), const Format& format = Format());
 	~Camera();
 
-	Error openDevice(uint32_t dev_index, const Format& format, bool silent = false);
+	Error openDevice(const std::string& device, const Format& format, bool silent = false);
 	bool isOpen();
 	void closeDevice();
 	

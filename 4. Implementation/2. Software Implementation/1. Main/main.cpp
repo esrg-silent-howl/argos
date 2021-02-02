@@ -1,18 +1,16 @@
-#include <iostream>
 #include <unistd.h>
 
 #include "camera.hpp"
+#include "log.hpp"
 
-using namespace std;
-
-int main(int argc, char** argv) {
+int main(int argc, char** argv) {	
 
 	Camera cam;
 
-	int dev_index = 1;
+	std::string device = "/dev/video0";
 
-	if (cam.openDevice(dev_index, (Camera::Format){640, 480, \
-			Camera::Encoding::AUTO}) != Camera::Error::OK ) {
+	if (cam.openDevice(device, (Camera::Format){640, 480, \
+			Camera::Encoding::MJPEG}) != Camera::Error::OK ) {
 		cam.closeDevice();
 		return 1;
 	}
@@ -30,7 +28,4 @@ int main(int argc, char** argv) {
 	cam.stop();
 
 	cam.closeDevice();
-
-
-	return 0;
 }

@@ -8,5 +8,6 @@ CMakeFiles/argos.dir/core/camera/camera.cpp.o: ../core/camera/camera.hpp
 CMakeFiles/argos.dir/core/log/log.cpp.o: ../core/log/log.cpp
 
 CMakeFiles/argos.dir/main.cpp.o: ../core/camera/camera.hpp
+CMakeFiles/argos.dir/main.cpp.o: ../core/log/log.hpp
 CMakeFiles/argos.dir/main.cpp.o: ../main.cpp
 
