@@ -1,7 +1,17 @@
 [
 {
   "directory": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build",
-  "command": "/usr/bin/g++-7    -g   -o CMakeFiles/argos.dir/main.cpp.o -c \"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/main.cpp\"",
+  "command": "/usr/bin/g++-7   -I\"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/camera\" -I\"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/log\"  -g   -o CMakeFiles/argos.dir/main.cpp.o -c \"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/main.cpp\"",
   "file": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/main.cpp"
+},
+{
+  "directory": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build",
+  "command": "/usr/bin/g++-7   -I\"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/camera\" -I\"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/log\"  -g   -o CMakeFiles/argos.dir/core/camera/camera.cpp.o -c \"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/camera/camera.cpp\"",
+  "file": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/camera/camera.cpp"
+},
+{
+  "directory": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build",
+  "command": "/usr/bin/g++-7   -I\"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/camera\" -I\"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/log\"  -g   -o CMakeFiles/argos.dir/core/log/log.cpp.o -c \"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/log/log.cpp\"",
+  "file": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/log/log.cpp"
 }
 ]

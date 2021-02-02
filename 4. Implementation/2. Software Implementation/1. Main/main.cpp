@@ -1,6 +1,12 @@
 #include <iostream>
 
+#include "camera.hpp"
+
+
 int main(int argc, char** argv) {
-    
-	std::cout << "Hello, world!\n";
+
+	Camera cam;
+
+
+	std::cout << "Hello, world with camera!\n";
 }

@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/argos.dir/main.cpp.o"
+  "CMakeFiles/argos.dir/core/camera/camera.cpp.o"
+  "CMakeFiles/argos.dir/core/log/log.cpp.o"
   "argos.pdb"
   "argos"
 )

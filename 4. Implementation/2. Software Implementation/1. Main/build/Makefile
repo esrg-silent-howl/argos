@@ -520,6 +520,60 @@ ExperimentalBuild/fast:
 	$(MAKE) -f CMakeFiles/ExperimentalBuild.dir/build.make CMakeFiles/ExperimentalBuild.dir/build
 .PHONY : ExperimentalBuild/fast
 
+core/camera/camera.o: core/camera/camera.cpp.o
+
+.PHONY : core/camera/camera.o
+
+# target to build an object file
+core/camera/camera.cpp.o:
+	$(MAKE) -f CMakeFiles/argos.dir/build.make CMakeFiles/argos.dir/core/camera/camera.cpp.o
+.PHONY : core/camera/camera.cpp.o
+
+core/camera/camera.i: core/camera/camera.cpp.i
+
+.PHONY : core/camera/camera.i
+
+# target to preprocess a source file
+core/camera/camera.cpp.i:
+	$(MAKE) -f CMakeFiles/argos.dir/build.make CMakeFiles/argos.dir/core/camera/camera.cpp.i
+.PHONY : core/camera/camera.cpp.i
+
+core/camera/camera.s: core/camera/camera.cpp.s
+
+.PHONY : core/camera/camera.s
+
+# target to generate assembly for a file
+core/camera/camera.cpp.s:
+	$(MAKE) -f CMakeFiles/argos.dir/build.make CMakeFiles/argos.dir/core/camera/camera.cpp.s
+.PHONY : core/camera/camera.cpp.s
+
+core/log/log.o: core/log/log.cpp.o
+
+.PHONY : core/log/log.o
+
+# target to build an object file
+core/log/log.cpp.o:
+	$(MAKE) -f CMakeFiles/argos.dir/build.make CMakeFiles/argos.dir/core/log/log.cpp.o
+.PHONY : core/log/log.cpp.o
+
+core/log/log.i: core/log/log.cpp.i
+
+.PHONY : core/log/log.i
+
+# target to preprocess a source file
+core/log/log.cpp.i:
+	$(MAKE) -f CMakeFiles/argos.dir/build.make CMakeFiles/argos.dir/core/log/log.cpp.i
+.PHONY : core/log/log.cpp.i
+
+core/log/log.s: core/log/log.cpp.s
+
+.PHONY : core/log/log.s
+
+# target to generate assembly for a file
+core/log/log.cpp.s:
+	$(MAKE) -f CMakeFiles/argos.dir/build.make CMakeFiles/argos.dir/core/log/log.cpp.s
+.PHONY : core/log/log.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -587,6 +641,12 @@ help:
 	@echo "... ContinuousTest"
 	@echo "... ContinuousUpdate"
 	@echo "... ExperimentalBuild"
+	@echo "... core/camera/camera.o"
+	@echo "... core/camera/camera.i"
+	@echo "... core/camera/camera.s"
+	@echo "... core/log/log.o"
+	@echo "... core/log/log.i"
+	@echo "... core/log/log.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

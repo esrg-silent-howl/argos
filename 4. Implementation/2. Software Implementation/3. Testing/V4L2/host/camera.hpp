@@ -1,6 +1,6 @@
 #ifndef _CAMERA_HPP
 #define _CAMERA_HPP
-
+// not main
 #include <string>
 #include <vector>
 
