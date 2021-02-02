@@ -16,8 +16,8 @@ chmod 755 ${TARGET_DIR}/etc/init.d/S10mdev
 cp package/busybox/mdev.conf ${TARGET_DIR}/etc/mdev.conf
 
 # copy interfaces and wpa_supplicant files from desktop to the board folder
-cp ~/Desktop/buildroot_files/interfaces board/raspberrypi/interfaces
-cp ~/Desktop/buildroot_files/wpa_supplicant.conf board/raspberrypi/wpa_supplicant.conf
+cp ~/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/4. Support/dev_files/important_files/system/interfaces
+cp ~/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/4. Support/dev_files/important_files/system/wpa_supplicant.conf
 
 # copy interfaces and wpa_supplicant files from the board folder to the target
 cp board/raspberrypi/interfaces ${TARGET_DIR}/etc/network/interfaces
