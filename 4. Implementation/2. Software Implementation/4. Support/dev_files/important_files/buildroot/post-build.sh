@@ -16,18 +16,19 @@ chmod 755 ${TARGET_DIR}/etc/init.d/S10mdev
 cp package/busybox/mdev.conf ${TARGET_DIR}/etc/mdev.conf
 
 # copy interfaces and wpa_supplicant files from desktop to the board folder
-cp ~/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/4. Support/dev_files/important_files/system/interfaces
-cp ~/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/4. Support/dev_files/important_files/system/wpa_supplicant.conf
+cp "~/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/4. Support/dev_files/important_files/system/interfaces" board/raspberrypi/interfaces
+cp "~/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/4. Support/dev_files/important_files/system/wpa_supplicant.conf" board/raspberrypi/wpa_supplicant.conf
+cp "~/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/4. Support/dev_files/important_files/system/interfaces" board/raspberrypi/libtensorflow-lite.a
 
 # copy interfaces and wpa_supplicant files from the board folder to the target
 cp board/raspberrypi/interfaces ${TARGET_DIR}/etc/network/interfaces
 cp board/raspberrypi/wpa_supplicant.conf ${TARGET_DIR}/etc/wpa_supplicant.conf
+cp board/raspberrypi/libtensorflow-lite.a ${TARGET_DIR}/etc/network/libtensorflow-lite.a
 
 # create /home directory for applications
 #mkdir ${TARGET_DIR}/home
 
 # create first-boot signal in target
 touch ${TARGET_DIR}/home/.firstboot
-
 
 # cp board/raspberrypi/sshd_config ${TARGET_DIR}/etc/ssh/sshd_config
