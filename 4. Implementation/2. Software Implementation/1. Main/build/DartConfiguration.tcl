@@ -4,39 +4,29 @@
 
 
 # Configuration directories and files
-SourceDirectory: /home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main
-BuildDirectory: /home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build
+SourceDirectory: /home/silent/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main
+BuildDirectory: /home/silent/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build
 
 # Where to place the cost data store
 CostDataFile: 
 
 # Site is something like machine.domain, i.e. pragmatic.crd
-Site: josep
+Site: silent
 
 # Build name is osname-revision-compiler, i.e. Linux-2.4.2-2smp-c++
-BuildName: Linux-g++-7
+BuildName: Linux-g++-9
 
 # Subprojects
 LabelsForSubprojects: 
 
 # Submission information
-IsCDash: 
-CDashVersion: 
-QueryCDashVersion: 
-DropSite: 
-DropLocation: 
-DropSiteUser: 
-DropSitePassword: 
-DropSiteMode: 
-DropMethod: http
-TriggerSite: 
-ScpCommand: /usr/bin/scp
+SubmitURL: http://
 
 # Dashboard start time
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "/usr/bin/cmake" "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main"
+ConfigureCommand: "/usr/bin/cmake" "/home/silent/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main"
 MakeCommand: /usr/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}" -- -i
 DefaultCTestConfigurationType: Release
 
@@ -72,8 +62,8 @@ UpdateOptions:
 UpdateType: 
 
 # Compiler info
-Compiler: /usr/bin/g++-7
-CompilerVersion: 7.5.0
+Compiler: /usr/bin/g++-9
+CompilerVersion: 9.3.0
 
 # Dynamic analysis (MemCheck)
 PurifyCommand: 

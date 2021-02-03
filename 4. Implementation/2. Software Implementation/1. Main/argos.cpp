@@ -13,7 +13,7 @@
 
 int main(int argc, char** argv) {	
 
+	std::cout << "Hello fam\n";
 	
-
 	return 1;
 }

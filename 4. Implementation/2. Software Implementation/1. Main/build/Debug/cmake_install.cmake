@@ -1,4 +1,4 @@
-# Install script for directory: /home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main
+# Install script for directory: /home/silent/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build/Debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/silent/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build/Debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

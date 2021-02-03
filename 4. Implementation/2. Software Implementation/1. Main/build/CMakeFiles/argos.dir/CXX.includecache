@@ -22,7 +22,7 @@ sstream
 string
 -
 
-/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/argos.cpp
+/home/silent/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/argos.cpp
 malloc.h
 -
 stdio.h
@@ -40,7 +40,7 @@ unistd.h
 signal.h
 -
 camera.hpp
-/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/camera.hpp
+/home/silent/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/camera.hpp
 log.hpp
-/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/log.hpp
+/home/silent/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/log.hpp
 
