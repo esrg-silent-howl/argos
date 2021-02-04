@@ -1,2 +1,0 @@
-/usr/bin/ar qc liblib.a  CMakeFiles/lib.dir/core/camera/camera.cpp.o CMakeFiles/lib.dir/core/log/log.cpp.o CMakeFiles/lib.dir/core/machine_learning/machine_learning.cpp.o
-/usr/bin/ranlib liblib.a

@@ -1,2 +1,0 @@
-/usr/bin/ar qc libmachine_learning.a  CMakeFiles/machine_learning.dir/core/machine_learning/machine_learning.cpp.o
-/usr/bin/ranlib libmachine_learning.a
