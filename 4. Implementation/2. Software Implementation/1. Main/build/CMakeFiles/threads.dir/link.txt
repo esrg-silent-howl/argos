@@ -1,0 +1,2 @@
+/usr/bin/ar qc libthreads.a  CMakeFiles/threads.dir/core/threads/threads.cpp.o CMakeFiles/threads.dir/core/threads/camera_control.cpp.o CMakeFiles/threads.dir/core/threads/cloud.cpp.o CMakeFiles/threads.dir/core/threads/database.cpp.o CMakeFiles/threads.dir/core/threads/main.cpp.o CMakeFiles/threads.dir/core/threads/ml_inference.cpp.o CMakeFiles/threads.dir/core/threads/remote_client.cpp.o
+/usr/bin/ranlib libthreads.a

@@ -90,6 +90,11 @@ argos_EXTERNAL_OBJECTS =
 
 argos: CMakeFiles/argos.dir/argos.cpp.o
 argos: CMakeFiles/argos.dir/build.make
+argos: liblog.a
+argos: libcamera.a
+argos: libmachine_learning.a
+argos: libnetwork.a
+argos: libthreads.a
 argos: CMakeFiles/argos.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable argos"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/argos.dir/link.txt --verbose=$(VERBOSE)

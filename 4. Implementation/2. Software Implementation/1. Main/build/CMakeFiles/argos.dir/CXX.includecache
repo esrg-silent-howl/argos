@@ -14,14 +14,6 @@ vector
 linux/videodev2.h
 -
 
-../core/log/log.hpp
-iostream
--
-sstream
--
-string
--
-
 /home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/argos.cpp
 malloc.h
 -
@@ -41,6 +33,4 @@ signal.h
 -
 camera.hpp
 /home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/camera.hpp
-log.hpp
-/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/log.hpp
 

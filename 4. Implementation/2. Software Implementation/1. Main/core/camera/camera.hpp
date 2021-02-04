@@ -1,5 +1,5 @@
-#ifndef _CAMERA_HPP
-#define _CAMERA_HPP
+#ifndef _CAMERA_HPP_H
+#define _CAMERA_HPP_H
 
 #include <string>
 #include <vector>
@@ -46,14 +46,27 @@ public:
 
 	struct Point2D {
 
-	private:
 		uint32_t x;
 		uint32_t y;
 
-	public:
 		Point2D(uint32_t x, uint32_t y) {
 			this->x = x;
 			this->y = y;
+		}
+	};
+
+	struct Color {
+
+		uint8_t r;
+		uint8_t g;
+		uint8_t b;
+		uint8_t a;
+
+		Color(uint32_t a, uint32_t r = 0, uint32_t g = 0, uint32_t b = 0) {
+			this->a = a;
+			this->r = r;
+			this->g = g;
+			this->b = b;
 		}
 	};
 
@@ -76,6 +89,7 @@ public:
 	};
 
 	struct Device {
+		
 		std::string name;
 		int32_t descriptor;
 
@@ -122,7 +136,13 @@ public:
 
 	Error capture(std::string& filename);
 
-	Error drawRectangle(const Point2D& start, uint32_t width, uint32_t height);
+	Error drawRectangle(std::string input_file, std::string output_file, 
+			const Point2D& start, const Point2D& end, const Color& fill, 
+			const Color& stroke);
+	
+	Error drawText(std::string input_file, std::string output_file, 
+			std::string text, const Point2D& start, uint32_t thickness, 
+			uint32_t size, const Color& stroke);
 };
 
 #endif

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -443,7 +444,6 @@ Camera::Error Camera::readFrame (v4l2_buffer& buf, std::string filename) {
     out_file.write(static_cast<char*>(buffers[buf.index].start), buf.bytesused);
     
 	if (!out_file.good()) {
-		out_file.close();
 		log::error << "An error occured while writing to file " << std::endl;
 		goto cleanup;
 	}
@@ -452,6 +452,8 @@ Camera::Error Camera::readFrame (v4l2_buffer& buf, std::string filename) {
 
 	cleanup:
 	
+	out_file.close();
+
 	if (-1 == xioctl(dev.descriptor, VIDIOC_QBUF, &buf)) {
 		log::error << "Failed to enqueue buffer for capture" << std::endl;
 		LOG_DETAILS();
@@ -461,7 +463,56 @@ Camera::Error Camera::readFrame (v4l2_buffer& buf, std::string filename) {
 	return return_val;
 }
 
-Camera::Error Camera::drawRectangle (const Point2D& start, uint32_t width, uint32_t height) {
+Camera::Error Camera::drawRectangle(std::string input_file, 
+		std::string output_file, const Camera::Point2D& start, 
+		const Camera::Point2D& end, const Camera::Color& fill, 
+		const Camera::Color& stroke) {
+	
+	/* Command format:
+		convert [input_file] -strokewidth 2 -stroke "[stroke color code]" 
+		-fill "[fill color code]" -draw "rectangle [start.x],[start.y] 
+		[end.x],[end.y] " [output_file]*/
 
+	std::stringstream command;
+	std::stringstream stroke_color_code;
+	std::stringstream fill_color_code;
+	std::stringstream rectangle;
+	
+
+	stroke_color_code << "rgba(" << (uint32_t)stroke.r << ',' << \
+	(uint32_t)stroke.g << ',' << (uint32_t)stroke.b << ',' << \
+	(uint32_t)stroke.a << ")";
+
+	fill_color_code << "rgba(" << (uint32_t)fill.r << ',' << (uint32_t)fill.g \
+	<< ',' << (uint32_t)fill.b << ',' << (uint32_t)fill.a << ")";
+
+	rectangle << "rectangle " << start.x << ',' << start.y << ' ' << end.x << \
+	',' << end.y;
+
+	command << "convert \"" << input_file << "\" -strokewidth 2 -stroke \"" << \
+	stroke_color_code.str() << "\" -fill \"" << fill_color_code.str() << \
+	"\" -draw \"" << rectangle.str() << "\" \"" << output_file << "\"";
+
+	log::info << "Running [" << command.str() << ']' << std::endl;
+
+	system(command.str().c_str());
 }
 
+Camera::Error Camera::drawText(std::string input_file, std::string output_file, 
+			std::string text, const Camera::Point2D& start, uint32_t thickness, 
+			uint32_t size, const Camera::Color& stroke) {
+
+	/* Command format:
+		convert [input_file] -gravity Northwest -weight [thickness] -pointsize 
+		[size] -annotate +[start.x]+[start.y] "[text]" [output_file]	*/
+	
+	std::stringstream command;
+
+	command << "convert \"" << input_file << "\" -gravity Northwest -weight " \
+	<< thickness << " -pointsize " << size << " -annotate +" << start.x << '+' \
+	<< start.y << " \"" << text << "\" \"" << output_file << "\"";
+
+	log::info << "Running [" << command.str() << ']' << std::endl;
+
+	system(command.str().c_str());
+}

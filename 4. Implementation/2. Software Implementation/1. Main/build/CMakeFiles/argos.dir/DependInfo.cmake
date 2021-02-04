@@ -12,13 +12,15 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../core/camera"
   "../core/log"
-  "../machine_learning"
-  "../core/network"
-  "../threads"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
+  "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build/CMakeFiles/log.dir/DependInfo.cmake"
+  "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build/CMakeFiles/camera.dir/DependInfo.cmake"
+  "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build/CMakeFiles/machine_learning.dir/DependInfo.cmake"
+  "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build/CMakeFiles/network.dir/DependInfo.cmake"
+  "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build/CMakeFiles/threads.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

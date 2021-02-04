@@ -1,12 +1,67 @@
 [
 {
   "directory": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build",
-  "command": "/usr/bin/g++-7   -I\"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/daemon\"  -g   -o CMakeFiles/shutdown.dir/daemon/shutdown.cpp.o -c \"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/daemon/shutdown.cpp\"",
-  "file": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/daemon/shutdown.cpp"
+  "command": "/usr/bin/g++-7    -g   -o CMakeFiles/threads.dir/core/threads/threads.cpp.o -c \"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/threads/threads.cpp\"",
+  "file": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/threads/threads.cpp"
 },
 {
   "directory": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build",
-  "command": "/usr/bin/g++-7   -I\"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/camera\" -I\"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/log\" -I\"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/machine_learning\" -I\"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/network\" -I\"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/threads\"  -g   -o CMakeFiles/argos.dir/argos.cpp.o -c \"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/argos.cpp\"",
+  "command": "/usr/bin/g++-7    -g   -o CMakeFiles/threads.dir/core/threads/camera_control.cpp.o -c \"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/threads/camera_control.cpp\"",
+  "file": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/threads/camera_control.cpp"
+},
+{
+  "directory": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build",
+  "command": "/usr/bin/g++-7    -g   -o CMakeFiles/threads.dir/core/threads/cloud.cpp.o -c \"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/threads/cloud.cpp\"",
+  "file": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/threads/cloud.cpp"
+},
+{
+  "directory": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build",
+  "command": "/usr/bin/g++-7    -g   -o CMakeFiles/threads.dir/core/threads/database.cpp.o -c \"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/threads/database.cpp\"",
+  "file": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/threads/database.cpp"
+},
+{
+  "directory": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build",
+  "command": "/usr/bin/g++-7    -g   -o CMakeFiles/threads.dir/core/threads/main.cpp.o -c \"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/threads/main.cpp\"",
+  "file": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/threads/main.cpp"
+},
+{
+  "directory": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build",
+  "command": "/usr/bin/g++-7    -g   -o CMakeFiles/threads.dir/core/threads/ml_inference.cpp.o -c \"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/threads/ml_inference.cpp\"",
+  "file": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/threads/ml_inference.cpp"
+},
+{
+  "directory": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build",
+  "command": "/usr/bin/g++-7    -g   -o CMakeFiles/threads.dir/core/threads/remote_client.cpp.o -c \"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/threads/remote_client.cpp\"",
+  "file": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/threads/remote_client.cpp"
+},
+{
+  "directory": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build",
+  "command": "/usr/bin/g++-7    -g   -o CMakeFiles/log.dir/core/log/log.cpp.o -c \"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/log/log.cpp\"",
+  "file": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/log/log.cpp"
+},
+{
+  "directory": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build",
+  "command": "/usr/bin/g++-7    -g   -o CMakeFiles/network.dir/core/network/wifi.cpp.o -c \"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/network/wifi.cpp\"",
+  "file": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/network/wifi.cpp"
+},
+{
+  "directory": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build",
+  "command": "/usr/bin/g++-7   -I\"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/log\"  -g   -o CMakeFiles/camera.dir/core/camera/camera.cpp.o -c \"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/camera/camera.cpp\"",
+  "file": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/camera/camera.cpp"
+},
+{
+  "directory": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build",
+  "command": "/usr/bin/g++-7    -g   -o CMakeFiles/machine_learning.dir/core/machine_learning/machine_learning.cpp.o -c \"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/machine_learning/machine_learning.cpp\"",
+  "file": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/machine_learning/machine_learning.cpp"
+},
+{
+  "directory": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build",
+  "command": "/usr/bin/g++-7   -I\"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/camera\" -I\"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/core/log\"  -g   -o CMakeFiles/argos.dir/argos.cpp.o -c \"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/argos.cpp\"",
   "file": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/argos.cpp"
+},
+{
+  "directory": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build",
+  "command": "/usr/bin/g++-7   -I\"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/daemon\"  -g   -o CMakeFiles/shutdown.dir/daemon/shutdown.cpp.o -c \"/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/daemon/shutdown.cpp\"",
+  "file": "/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/daemon/shutdown.cpp"
 }
 ]

@@ -296,11 +296,29 @@ argos_BINARY_DIR:STATIC=/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Sof
 //Value Computed by CMake
 argos_SOURCE_DIR:STATIC=/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main
 
+//Dependencies for target
+camera_LIB_DEPENDS:STATIC=
+
+//Dependencies for target
+lib_LIB_DEPENDS:STATIC=
+
+//Dependencies for target
+log_LIB_DEPENDS:STATIC=
+
+//Dependencies for target
+machine_learning_LIB_DEPENDS:STATIC=
+
+//Dependencies for target
+network_LIB_DEPENDS:STATIC=
+
 //Value Computed by CMake
 shutdown_BINARY_DIR:STATIC=/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/build
 
 //Value Computed by CMake
 shutdown_SOURCE_DIR:STATIC=/home/josep/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main
+
+//Dependencies for target
+threads_LIB_DEPENDS:STATIC=
 
 
 ########################
