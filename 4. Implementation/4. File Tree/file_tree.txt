@@ -1,0 +1,33 @@
+├── argos.cpp
+├── build
+├── core
+│   ├── camera
+│   │   ├── camera.cpp
+│   │   └── camera.hpp
+│   ├── log
+│   │   ├── log.cpp
+│   │   └── log.hpp
+│   ├── machine_learning
+│   │   ├── machine_learning.cpp
+│   │   └── machine_learning.hpp
+│   ├── network
+│   │   ├── wifi.cpp
+│   │   └── wifi.hpp
+│   └── threads
+│       ├── camera_control.cpp
+│       ├── camera_control.hpp
+│       ├── cloud.cpp
+│       ├── cloud.hpp
+│       ├── database.cpp
+│       ├── database.hpp
+│       ├── main.cpp
+│       ├── main.hpp
+│       ├── ml_inference.cpp
+│       ├── ml_inference.hpp
+│       ├── remote_client.cpp
+│       ├── remote_client.hpp
+│       ├── threads.cpp
+│       └── threads.hpp
+└── daemon
+    ├── shutdown.cpp
+    └── shutdown.hpp
