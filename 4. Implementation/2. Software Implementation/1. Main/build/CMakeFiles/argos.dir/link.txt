@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 /usr/bin/g++-7  -g  -rdynamic CMakeFiles/argos.dir/argos.cpp.o  -o argos liblog.a libcamera.a libmachine_learning.a libnetwork.a libthreads.a 
+=======
+/usr/bin/g++-9  -g  -rdynamic CMakeFiles/argos.dir/argos.cpp.o  -o argos 
+>>>>>>> f9be9cabb0ac4768ea12252a2eed507ed1f7bf10

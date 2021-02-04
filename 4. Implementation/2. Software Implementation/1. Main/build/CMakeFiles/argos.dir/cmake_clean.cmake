@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/argos.dir/argos.cpp.o"
-  "argos.pdb"
   "argos"
+  "argos.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
