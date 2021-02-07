@@ -14,24 +14,73 @@
 // #include <vector>
 // #include <utility>
 
+// #include <gmock/gmock.h>
+// #include <gtest/gtest.h>
+
 // #include "tensorflow/lite/interpreter.h"
 // #include "tensorflow/lite/kernels/register.h"
 // #include "tensorflow/lite/model.h"
 // #include "tensorflow/lite/optional_debug_tools.h"
+// #include "tensorflow/lite/examples/label_image/bitmap_helpers.h"
+// #include "tensorflow/lite/examples/label_image/get_top_n.h"
 
-// using tensorflow::Flag;
-// using tensorflow::Tensor;
-// using tensorflow::Status;
-// using tensorflow::string;
-// using tensorflow::int32;
+// #include "tensorflow/lite/model.h"
+// #include "tensorflow/lite/string.h"
 
-// bool readLabels(const string &filename, )
+// using namespace tflite;
+// using namespace label_image;
 
-// #define TFLITE_ERROR_CHECK(x)                                \
-//   if (!(x)) {                                                \
-//     fprintf(stderr, "Error at %s:%d\n", __FILE__, __LINE__); \
-//     exit(1);                                                 \
-//   }
+// struct Settings {
+//   bool verbose = false;
+//   bool accel = false;
+//   bool old_accel = false;
+//   bool input_floating = false;
+//   bool profiling = false;
+//   bool allow_fp16 = false;
+//   bool gl_backend = false;
+//   int loop_count = 1;
+//   float input_mean = 127.5f;
+//   float input_std = 127.5f;
+//   string root_dir = "/home/silent/";
+//   string model_name = root_dir + "Desktop/ObjectDetection/object_detection/TFLite_model/detect.tflite";
+//   tflite::FlatBufferModel* model;
+//   string input_bmp_name = root_dir + "Desktop/ObjectDetection/object_detection/TFLite_model/gun1.bmp";
+//   string labels_file_name = root_dir + "Desktop/ObjectDetection/object_detection/TFLite_model/labelmap.txt";
+//   string input_layer_type = "uint8_t";
+//   int number_of_threads = 4;
+//   int number_of_results = 1;
+//   int max_profiling_buffer_entries = 1024;
+//   int number_of_warmup_runs = 2;
+// };
+
+/* #define TFLITE_ERROR_CHECK(x)  if (!(x)) {fprintf(stderr, "Error at %s:%d\n", __FILE__, __LINE__);exit(1);}*/
+
+// TEST(LabelImageTest, Gun1) {
+//   std::string lena_file =
+//       "tensorflow/lite/examples/label_image/testdata/"
+//       "grace_hopper.bmp";
+//   int height, width, channels;
+//   Settings s;
+//   std::vector<uint8_t> input =
+//       read_bmp(lena_file, &width, &height, &channels, &s);
+//   ASSERT_EQ(height, 606);
+//   ASSERT_EQ(width, 517);
+//   ASSERT_EQ(channels, 3);
+
+//   std::vector<uint8_t> output(606 * 517 * 3);
+//   resize<uint8_t>(output.data(), input.data(), 606, 517, 3, 214, 214, 3, &s);
+//   ASSERT_EQ(output[0], 0x15);
+//   ASSERT_EQ(output[214 * 214 * 3 - 1], 0x11);
+// }
+
+// TEST(LabelImageTest, GetTopN) {
+//   uint8_t in[] = {1, 1, 2, 2, 4, 4, 16, 32, 128, 64};
+
+//   std::vector<std::pair<float, int>> top_results;
+//   get_top_n<uint8_t>(in, 10, 5, 0.025, &top_results, false);
+//   ASSERT_EQ(top_results.size(), 4);
+//   ASSERT_EQ(top_results[0].second, 8);
+// }  
 
 // int main(int argc, char* argv[]) {
 
@@ -54,9 +103,13 @@
 //     }
 
 //     // Fill input buffers
-//     // TODO(user): Insert code to fill input tensors.
-//     // Note: The buffer of the input tensor with index `i` of type T can
-//     // be accessed with `T* input = interpreter->typed_input_tensor<T>(i);
+//     // T* input = interpreter->typed_input_tensor<T>(i);
+//     for (size_t i = 0; size_t < cvimg.size(); ++i) {
+//     const auto& rgb = cvimg[i];
+//     interpreter->typed_input_tensor<uchar>(0)[3*i + 0] = rgb[0];
+//     interpreter->typed_input_tensor<uchar>(0)[3*i + 1] = rgb[1];
+//     interpreter->typed_input_tensor<uchar>(0)[3*i + 2] = rgb[2];
+// }
 
 //     // Run inference
 //     TFLITE_ERROR_CHECK(interpreter->Invoke() == kTfLiteOk);
@@ -64,362 +117,468 @@
 //     tflite::PrintInterpreterState(interpreter.get());
 
 //     // Read output buffers
-//     // TODO(user): Insert getting data out code.
-//     // Note: The buffer of the output tensor with index `i` of type T can
-//     // be accessed with `T* output = interpreter->typed_output_tensor<T>(i);
+//     // T* output = interpreter->typed_output_tensor<T>(i);
+//     auto output = interpreter->typed_output_tensor<int>(0);
+
 
 // }
 
 
 
+/* Copyright 2017 The TensorFlow Authors. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+==============================================================================*/
+
+// #include "tensorflow/lite/examples/label_image/label_image.h"
+
+#include <fcntl.h>      // NOLINT(build/include_order)
+#include <getopt.h>     // NOLINT(build/include_order)
+#include <sys/time.h>   // NOLINT(build/include_order)
+#include <sys/types.h>  // NOLINT(build/include_order)
+#include <sys/uio.h>    // NOLINT(build/include_order)
+#include <unistd.h>     // NOLINT(build/include_order)
+
+#include <cstdarg>
+#include <cstdio>
+#include <cstdlib>
 #include <fstream>
-#include <utility>
+#include <iomanip>
+#include <iostream>
+#include <map>
+#include <memory>
+#include <sstream>
+#include <string>
+#include <unordered_set>
 #include <vector>
 
-#include "tensorflow/cc/ops/const_op.h"
-#include "tensorflow/cc/ops/image_ops.h"
-#include "tensorflow/cc/ops/standard_ops.h"
-#include "tensorflow/core/framework/graph.pb.h"
-#include "tensorflow/core/framework/tensor.h"
-#include "tensorflow/core/graph/default_device.h"
-#include "tensorflow/core/graph/graph_def_builder.h"
-#include "tensorflow/core/lib/core/errors.h"
-#include "tensorflow/core/lib/core/stringpiece.h"
-#include "tensorflow/core/lib/core/threadpool.h"
-#include "tensorflow/core/lib/io/path.h"
-#include "tensorflow/core/lib/strings/str_util.h"
-#include "tensorflow/core/lib/strings/stringprintf.h"
-#include "tensorflow/core/platform/env.h"
-#include "tensorflow/core/platform/init_main.h"
-#include "tensorflow/core/platform/logging.h"
-#include "tensorflow/core/platform/types.h"
-#include "tensorflow/core/public/session.h"
-#include "tensorflow/core/util/command_line_flags.h"
+#include "absl/memory/memory.h"
+#include "tensorflow/lite/delegates/nnapi/nnapi_delegate.h"
+#include "tensorflow/lite/examples/label_image/bitmap_helpers.h"
+#include "tensorflow/lite/examples/label_image/get_top_n.h"
+#include "tensorflow/lite/kernels/register.h"
+#include "tensorflow/lite/optional_debug_tools.h"
+#include "tensorflow/lite/profiling/profiler.h"
+#include "tensorflow/lite/string_util.h"
+#include "tensorflow/lite/tools/evaluation/utils.h"
 
-// These are all common classes it's handy to reference with no namespace.
-using tensorflow::Flag;
-using tensorflow::Tensor;
-using tensorflow::Status;
-using tensorflow::string;
-using tensorflow::int32;
+#include "tensorflow/lite/examples/label_image/label_image.h"
+
+#define LOG(x) std::cerr
+
+namespace tflite {
+namespace label_image {
+
+double get_us(struct timeval t) { return (t.tv_sec * 1000000 + t.tv_usec); }
+
+using TfLiteDelegatePtr = tflite::Interpreter::TfLiteDelegatePtr;
+using TfLiteDelegatePtrMap = std::map<std::string, TfLiteDelegatePtr>;
+
+TfLiteDelegatePtr CreateGPUDelegate(Settings* s) {
+#if defined(__ANDROID__)
+  TfLiteGpuDelegateOptions options = TfLiteGpuDelegateOptionsDefault();
+  options.metadata = TfLiteGpuDelegateGetModelMetadata(s->model->GetModel());
+  if (s->allow_fp16) {
+    options.compile_options.precision_loss_allowed = 1;
+  } else {
+    options.compile_options.precision_loss_allowed = 0;
+  }
+  options.compile_options.preferred_gl_object_type =
+      TFLITE_GL_OBJECT_TYPE_FASTEST;
+  options.compile_options.dynamic_batch_enabled = 0;
+
+  return evaluation::CreateGPUDelegate(s->model, &options);
+#else
+  //return evaluation::CreateGPUDelegate(s->model);
+#endif
+}
+
+TfLiteDelegatePtrMap GetDelegates(Settings* s) {
+  TfLiteDelegatePtrMap delegates;
+  if (s->gl_backend) {
+    auto delegate = CreateGPUDelegate(s);
+    if (!delegate) {
+      LOG(INFO) << "GPU acceleration is unsupported on this platform.";
+    } else {
+      delegates.emplace("GPU", std::move(delegate));
+    }
+  }
+
+  if (s->accel) {
+//     auto delegate = evaluation::CreateNNAPIDelegate();
+//     if (!delegate) {
+//       LOG(INFO) << "NNAPI acceleration is unsupported on this platform.";
+//     } else {
+//       delegates.emplace("NNAPI", evaluation::CreateNNAPIDelegate());
+//     }
+//   }
+//   return delegates;
+}
 
 // Takes a file name, and loads a list of labels from it, one per line, and
 // returns a vector of the strings. It pads with empty strings so the length
 // of the result is a multiple of 16, because our model expects that.
-Status ReadLabelsFile(const string &file_name, std::vector<string> *result,
-                      size_t *found_label_count) {
-    std::ifstream file(file_name);
-    if (!file) {
-        return tensorflow::errors::NotFound("Labels file ", file_name,
-                                            " not found.");
-    }
-    result->clear();
-    string line;
-    while (std::getline(file, line)) {
-        result->push_back(line);
-    }
-    *found_label_count = result->size();
-    const int padding = 16;
-    while (result->size() % padding) {
-        result->emplace_back();
-    }
-    return Status::OK();
+TfLiteStatus ReadLabelsFile(const string& file_name,
+                            std::vector<string>* result,
+                            size_t* found_label_count) {
+  std::ifstream file(file_name);
+  if (!file) {
+    LOG(FATAL) << "Labels file " << file_name << " not found\n";
+    return kTfLiteError;
+  }
+  result->clear();
+  string line;
+  while (std::getline(file, line)) {
+    result->push_back(line);
+  }
+  *found_label_count = result->size();
+  const int padding = 16;
+  while (result->size() % padding) {
+    result->emplace_back();
+  }
+  return kTfLiteOk;
 }
 
-static Status ReadEntireFile(tensorflow::Env *env, const string &filename,
-                             Tensor *output) {
-    tensorflow::uint64 file_size = 0;
-    TF_RETURN_IF_ERROR(env->GetFileSize(filename, &file_size));
+void PrintProfilingInfo(const profiling::ProfileEvent* e, uint32_t op_index,
+                        TfLiteRegistration registration) {
+  // output something like
+  // time (ms) , Node xxx, OpCode xxx, symblic name
+  //      5.352, Node   5, OpCode   4, DEPTHWISE_CONV_2D
 
-    string contents;
-    contents.resize(file_size);
-
-    std::unique_ptr<tensorflow::RandomAccessFile> file;
-    TF_RETURN_IF_ERROR(env->NewRandomAccessFile(filename, &file));
-
-    tensorflow::StringPiece data;
-    TF_RETURN_IF_ERROR(file->Read(0, file_size, &data, &(contents)[0]));
-    if (data.size() != file_size) {
-        return tensorflow::errors::DataLoss("Truncated read of '", filename,
-                                            "' expected ", file_size, " got ",
-                                            data.size());
-    }
-    output->scalar<string>()() = data.ToString();
-    return Status::OK();
+  LOG(INFO) << std::fixed << std::setw(10) << std::setprecision(3)
+            << (e->end_timestamp_us - e->begin_timestamp_us) / 1000.0
+            << ", Node " << std::setw(3) << std::setprecision(3) << op_index
+            << ", OpCode " << std::setw(3) << std::setprecision(3)
+            << registration.builtin_code << ", "
+            << EnumNameBuiltinOperator(
+                   static_cast<BuiltinOperator>(registration.builtin_code))
+            << "\n";
 }
 
-bool EndsWith(const string &filename, const string &extension) {
-    string fNameExt;
-    size_t i = filename.rfind('.', filename.length());
-    if (i != string::npos) {
-        fNameExt = filename.substr(i + 1, filename.length() - i);
+void RunInference(Settings* s) {
+  if (!s->model_name.c_str()) {
+    LOG(ERROR) << "no model file name\n";
+    exit(-1);
+  }
+
+  std::unique_ptr<tflite::FlatBufferModel> model;
+  std::unique_ptr<tflite::Interpreter> interpreter;
+  model = tflite::FlatBufferModel::BuildFromFile(s->model_name.c_str());
+  if (!model) {
+    LOG(FATAL) << "\nFailed to mmap model " << s->model_name << "\n";
+    exit(-1);
+  }
+  s->model = model.get();
+  LOG(INFO) << "Loaded model " << s->model_name << "\n";
+  model->error_reporter();
+  LOG(INFO) << "resolved reporter\n";
+
+  tflite::ops::builtin::BuiltinOpResolver resolver;
+
+  tflite::InterpreterBuilder(*model, resolver)(&interpreter);
+  if (!interpreter) {
+    LOG(FATAL) << "Failed to construct interpreter\n";
+    exit(-1);
+  }
+
+  interpreter->UseNNAPI(s->old_accel);
+  interpreter->SetAllowFp16PrecisionForFp32(s->allow_fp16);
+
+  if (s->verbose) {
+    LOG(INFO) << "tensors size: " << interpreter->tensors_size() << "\n";
+    LOG(INFO) << "nodes size: " << interpreter->nodes_size() << "\n";
+    LOG(INFO) << "inputs: " << interpreter->inputs().size() << "\n";
+    LOG(INFO) << "input(0) name: " << interpreter->GetInputName(0) << "\n";
+
+    int t_size = interpreter->tensors_size();
+    for (int i = 0; i < t_size; i++) {
+      if (interpreter->tensor(i)->name)
+        LOG(INFO) << i << ": " << interpreter->tensor(i)->name << ", "
+                  << interpreter->tensor(i)->bytes << ", "
+                  << interpreter->tensor(i)->type << ", "
+                  << interpreter->tensor(i)->params.scale << ", "
+                  << interpreter->tensor(i)->params.zero_point << "\n";
     }
-    return fNameExt == extension;
-}
+  }
 
-// Given an image file name, read in the data, try to decode it as an image,
-// resize it to the requested size, and then scale the values as desired.
-Status ReadTensorFromImageFile(const string &file_name, const int input_height,
-                               const int input_width, const float input_mean,
-                               const float input_std,
-                               std::vector<Tensor> *out_tensors) {
-    auto root = tensorflow::Scope::NewRootScope();
-    using namespace ::tensorflow::ops;  // NOLINT(build/namespaces)
+  if (s->number_of_threads != -1) {
+    interpreter->SetNumThreads(s->number_of_threads);
+  }
 
-    string input_name = "file_reader";
-    string output_name = "normalized";
+  int image_width = 224;
+  int image_height = 224;
+  int image_channels = 3;
+  std::vector<uint8_t> in = read_bmp(s->input_bmp_name, &image_width,
+                                     &image_height, &image_channels, s);
 
-    // read file_name into a tensor named input
-    Tensor input(tensorflow::DT_STRING, tensorflow::TensorShape());
-    TF_RETURN_IF_ERROR(
-            ReadEntireFile(tensorflow::Env::Default(), file_name, &input));
+  int input = interpreter->inputs()[0];
+  if (s->verbose) LOG(INFO) << "input: " << input << "\n";
 
-    // use a placeholder to read input data
-    auto file_reader =
-            Placeholder(root.WithOpName("input"), tensorflow::DataType::DT_STRING);
+  const std::vector<int> inputs = interpreter->inputs();
+  const std::vector<int> outputs = interpreter->outputs();
 
-    std::vector<std::pair<string, tensorflow::Tensor>> inputs = {
-            {"input", input},
-    };
+  if (s->verbose) {
+    LOG(INFO) << "number of inputs: " << inputs.size() << "\n";
+    LOG(INFO) << "number of outputs: " << outputs.size() << "\n";
+  }
 
-    // Now try to figure out what kind of file it is and decode it.
-    const int wanted_channels = 3;
-    tensorflow::Output image_reader;
-    if (EndsWith(file_name, ".png")) {
-        image_reader = DecodePng(root.WithOpName("png_reader"), file_reader,
-                                 DecodePng::Channels(wanted_channels));
-    } else if (EndsWith(file_name, ".gif")) {
-        // gif decoder returns 4-D tensor, remove the first dim
-        image_reader =
-                Squeeze(root.WithOpName("squeeze_first_dim"),
-                        DecodeGif(root.WithOpName("gif_reader"), file_reader));
-    } else if (EndsWith(file_name, ".bmp")) {
-        image_reader = DecodeBmp(root.WithOpName("bmp_reader"), file_reader);
+  auto delegates_ = GetDelegates(s);
+  for (const auto& delegate : delegates_) {
+    if (interpreter->ModifyGraphWithDelegate(delegate.second.get()) !=
+        kTfLiteOk) {
+      LOG(FATAL) << "Failed to apply " << delegate.first << " delegate.";
     } else {
-        // Assume if it's neither a PNG nor a GIF then it must be a JPEG.
-        image_reader = DecodeJpeg(root.WithOpName("jpeg_reader"), file_reader,
-                                  DecodeJpeg::Channels(wanted_channels));
+      LOG(INFO) << "Applied " << delegate.first << " delegate.";
+    }
+  }
+
+  if (interpreter->AllocateTensors() != kTfLiteOk) {
+    LOG(FATAL) << "Failed to allocate tensors!";
+  }
+
+  if (s->verbose) PrintInterpreterState(interpreter.get());
+
+  // get input dimension from the input tensor metadata
+  // assuming one input only
+  TfLiteIntArray* dims = interpreter->tensor(input)->dims;
+  int wanted_height = dims->data[1];
+  int wanted_width = dims->data[2];
+  int wanted_channels = dims->data[3];
+
+  switch (interpreter->tensor(input)->type) {
+    case kTfLiteFloat32:
+      s->input_floating = true;
+      resize<float>(interpreter->typed_tensor<float>(input), in.data(),
+                    image_height, image_width, image_channels, wanted_height,
+                    wanted_width, wanted_channels, s);
+      break;
+    case kTfLiteUInt8:
+      resize<uint8_t>(interpreter->typed_tensor<uint8_t>(input), in.data(),
+                      image_height, image_width, image_channels, wanted_height,
+                      wanted_width, wanted_channels, s);
+      break;
+    default:
+      LOG(FATAL) << "cannot handle input type "
+                 << interpreter->tensor(input)->type << " yet";
+      exit(-1);
+  }
+
+  auto profiler =
+      absl::make_unique<profiling::Profiler>(s->max_profiling_buffer_entries);
+  interpreter->SetProfiler(profiler.get());
+
+  if (s->profiling) profiler->StartProfiling();
+  if (s->loop_count > 1)
+    for (int i = 0; i < s->number_of_warmup_runs; i++) {
+      if (interpreter->Invoke() != kTfLiteOk) {
+        LOG(FATAL) << "Failed to invoke tflite!\n";
+      }
     }
 
-    // Now cast the image data to float so we can do normal math on it.
-    auto float_caster =
-            Cast(root.WithOpName("float_caster"), image_reader, tensorflow::DT_FLOAT);
-    // The convention for image ops in TensorFlow is that all images are expected
-    // to be in batches, so that they're four-dimensional arrays with indices of
-    // [batch, height, width, channel]. Because we only have a single image, we
-    // have to add a batch dimension of 1 to the start with ExpandDims().
-    auto dims_expander = ExpandDims(root, float_caster, 0);
-    // Bilinearly resize the image to fit the required dimensions.
-    auto resized = ResizeBilinear(
-            root, dims_expander,
-            Const(root.WithOpName("size"), {input_height, input_width}));
-    // Subtract the mean and divide by the scale.
-    auto output_tensor = Div(root.WithOpName(output_name), Sub(root, resized, {input_mean}),
-        {input_std});
+  struct timeval start_time, stop_time;
+  gettimeofday(&start_time, nullptr);
+  for (int i = 0; i < s->loop_count; i++) {
+    if (interpreter->Invoke() != kTfLiteOk) {
+      LOG(FATAL) << "Failed to invoke tflite!\n";
+    }
+  }
+  gettimeofday(&stop_time, nullptr);
+  LOG(INFO) << "invoked \n";
+  LOG(INFO) << "average time: "
+            << (get_us(stop_time) - get_us(start_time)) / (s->loop_count * 1000)
+            << " ms \n";
 
-    // This runs the GraphDef network definition that we've just constructed, and
-    // returns the results in the output tensor.
-    tensorflow::GraphDef graph;
-    TF_RETURN_IF_ERROR(root.ToGraphDef(&graph));
+  if (s->profiling) {
+    profiler->StopProfiling();
+    auto profile_events = profiler->GetProfileEvents();
+    for (int i = 0; i < profile_events.size(); i++) {
+      auto op_index = profile_events[i]->event_metadata;
+      const auto node_and_registration =
+          interpreter->node_and_registration(op_index);
+      const TfLiteRegistration registration = node_and_registration->second;
+      PrintProfilingInfo(profile_events[i], op_index, registration);
+    }
+  }
 
-    std::unique_ptr<tensorflow::Session> session(
-            tensorflow::NewSession(tensorflow::SessionOptions()));
-    TF_RETURN_IF_ERROR(session->Create(graph));
-    TF_RETURN_IF_ERROR(session->Run({inputs}, {output_name, "jpeg_reader"}, {}, out_tensors));
-    std::cout << "Image_reader: " << (*out_tensors)[1].DebugString() << "\n";
-    std::cout << "Input tensor: " << (*out_tensors)[0].DebugString() << "\n";
-    return Status::OK();
+  const float threshold = 0.001f;
+
+  std::vector<std::pair<float, int>> top_results;
+
+  int output = interpreter->outputs()[0];
+  TfLiteIntArray* output_dims = interpreter->tensor(output)->dims;
+  // assume output dims to be something like (1, 1, ... ,size)
+  auto output_size = output_dims->data[output_dims->size - 1];
+  switch (interpreter->tensor(output)->type) {
+    case kTfLiteFloat32:
+      get_top_n<float>(interpreter->typed_output_tensor<float>(0), output_size,
+                       s->number_of_results, threshold, &top_results, true);
+      break;
+    case kTfLiteUInt8:
+      get_top_n<uint8_t>(interpreter->typed_output_tensor<uint8_t>(0),
+                         output_size, s->number_of_results, threshold,
+                         &top_results, false);
+      break;
+    default:
+      LOG(FATAL) << "cannot handle output type "
+                 << interpreter->tensor(input)->type << " yet";
+      exit(-1);
+  }
+
+  std::vector<string> labels;
+  size_t label_count;
+
+  if (ReadLabelsFile(s->labels_file_name, &labels, &label_count) != kTfLiteOk)
+    exit(-1);
+
+  for (const auto& result : top_results) {
+    const float confidence = result.first;
+    const int index = result.second;
+    LOG(INFO) << confidence << ": " << index << " " << labels[index] << "\n";
+  }
 }
 
-// Reads a model graph definition from disk, and creates a session object you
-// can use to run it.
-Status LoadGraph(const string &graph_file_name,
-                 std::unique_ptr<tensorflow::Session> *session) {
-    tensorflow::GraphDef graph_def;
-    Status load_graph_status =
-            ReadBinaryProto(tensorflow::Env::Default(), graph_file_name, &graph_def);
-    if (!load_graph_status.ok()) {
-        return tensorflow::errors::NotFound("Failed to load compute graph at '",
-                                            graph_file_name, "'");
-    }
-    session->reset(tensorflow::NewSession(tensorflow::SessionOptions()));
-    Status session_create_status = (*session)->Create(graph_def);
-    if (!session_create_status.ok()) {
-        return session_create_status;
-    }
-    return Status::OK();
+void display_usage() {
+  LOG(INFO)
+      << "label_image\n"
+      << "--accelerated, -a: [0|1], use Android NNAPI or not\n"
+      << "--old_accelerated, -d: [0|1], use old Android NNAPI delegate or not\n"
+      << "--allow_fp16, -f: [0|1], allow running fp32 models with fp16 or not\n"
+      << "--count, -c: loop interpreter->Invoke() for certain times\n"
+      << "--gl_backend, -g: use GL GPU Delegate on Android\n"
+      << "--input_mean, -b: input mean\n"
+      << "--input_std, -s: input standard deviation\n"
+      << "--image, -i: image_name.bmp\n"
+      << "--labels, -l: labels for the model\n"
+      << "--tflite_model, -m: model_name.tflite\n"
+      << "--profiling, -p: [0|1], profiling or not\n"
+      << "--num_results, -r: number of results to show\n"
+      << "--threads, -t: number of threads\n"
+      << "--verbose, -v: [0|1] print more information\n"
+      << "--warmup_runs, -w: number of warmup runs\n"
+      << "\n";
 }
 
-// Analyzes the output of the Inception graph to retrieve the highest scores and
-// their positions in the tensor, which correspond to categories.
-Status GetTopLabels(const std::vector<Tensor> &outputs, int how_many_labels,
-                    Tensor *indices, Tensor *scores) {
-    auto root = tensorflow::Scope::NewRootScope();
-    using namespace ::tensorflow::ops;  // NOLINT(build/namespaces)
+int Main(int argc, char** argv) {
+  Settings s;
 
-    string output_name = "top_k";
-    TopK(root.WithOpName(output_name), outputs[0], how_many_labels);
-    // This runs the GraphDef network definition that we've just constructed, and
-    // returns the results in the output tensors.
-    tensorflow::GraphDef graph;
-    TF_RETURN_IF_ERROR(root.ToGraphDef(&graph));
+  int c;
+  while (1) {
+    static struct option long_options[] = {
+        {"accelerated", required_argument, nullptr, 'a'},
+        {"old_accelerated", required_argument, nullptr, 'd'},
+        {"allow_fp16", required_argument, nullptr, 'f'},
+        {"count", required_argument, nullptr, 'c'},
+        {"verbose", required_argument, nullptr, 'v'},
+        {"image", required_argument, nullptr, 'i'},
+        {"labels", required_argument, nullptr, 'l'},
+        {"tflite_model", required_argument, nullptr, 'm'},
+        {"profiling", required_argument, nullptr, 'p'},
+        {"threads", required_argument, nullptr, 't'},
+        {"input_mean", required_argument, nullptr, 'b'},
+        {"input_std", required_argument, nullptr, 's'},
+        {"num_results", required_argument, nullptr, 'r'},
+        {"max_profiling_buffer_entries", required_argument, nullptr, 'e'},
+        {"warmup_runs", required_argument, nullptr, 'w'},
+        {"gl_backend", required_argument, nullptr, 'g'},
+        {nullptr, 0, nullptr, 0}};
 
-    std::unique_ptr<tensorflow::Session> session(
-            tensorflow::NewSession(tensorflow::SessionOptions()));
-    TF_RETURN_IF_ERROR(session->Create(graph));
-    // The TopK node returns two outputs, the scores and their original indices,
-    // so we have to append :0 and :1 to specify them both.
-    std::vector<Tensor> out_tensors;
-    TF_RETURN_IF_ERROR(session->Run({}, {output_name + ":0", output_name + ":1"},
-                                    {}, &out_tensors));
-    *scores = out_tensors[0];
-    *indices = out_tensors[1];
-    return Status::OK();
+    /* getopt_long stores the option index here. */
+    int option_index = 0;
+
+    c = getopt_long(argc, argv,
+                    "a:b:c:d:e:f:g:i:l:m:p:r:s:t:v:w:", long_options,
+                    &option_index);
+
+    /* Detect the end of the options. */
+    if (c == -1) break;
+
+    switch (c) {
+      case 'a':
+        s.accel = strtol(optarg, nullptr, 10);  // NOLINT(runtime/deprecated_fn)
+        break;
+      case 'b':
+        s.input_mean = strtod(optarg, nullptr);
+        break;
+      case 'c':
+        s.loop_count =
+            strtol(optarg, nullptr, 10);  // NOLINT(runtime/deprecated_fn)
+        break;
+      case 'd':
+        s.old_accel =
+            strtol(optarg, nullptr, 10);  // NOLINT(runtime/deprecated_fn)
+        break;
+      case 'e':
+        s.max_profiling_buffer_entries =
+            strtol(optarg, nullptr, 10);  // NOLINT(runtime/deprecated_fn)
+        break;
+      case 'f':
+        s.allow_fp16 =
+            strtol(optarg, nullptr, 10);  // NOLINT(runtime/deprecated_fn)
+        break;
+      case 'g':
+        s.gl_backend =
+            strtol(optarg, nullptr, 10);  // NOLINT(runtime/deprecated_fn)
+        break;
+      case 'i':
+        s.input_bmp_name = optarg;
+        break;
+      case 'l':
+        s.labels_file_name = optarg;
+        break;
+      case 'm':
+        s.model_name = optarg;
+        break;
+      case 'p':
+        s.profiling =
+            strtol(optarg, nullptr, 10);  // NOLINT(runtime/deprecated_fn)
+        break;
+      case 'r':
+        s.number_of_results =
+            strtol(optarg, nullptr, 10);  // NOLINT(runtime/deprecated_fn)
+        break;
+      case 's':
+        s.input_std = strtod(optarg, nullptr);
+        break;
+      case 't':
+        s.number_of_threads = strtol(  // NOLINT(runtime/deprecated_fn)
+            optarg, nullptr, 10);
+        break;
+      case 'v':
+        s.verbose =
+            strtol(optarg, nullptr, 10);  // NOLINT(runtime/deprecated_fn)
+        break;
+      case 'w':
+        s.number_of_warmup_runs =
+            strtol(optarg, nullptr, 10);  // NOLINT(runtime/deprecated_fn)
+        break;
+      case 'h':
+      case '?':
+        /* getopt_long already printed an error message. */
+        display_usage();
+        exit(-1);
+      default:
+        exit(-1);
+    }
+  }
+  RunInference(&s);
+  return 0;
 }
 
-// Given the output of a model run, and the name of a file containing the labels
-// this prints out the top five highest-scoring values.
-Status PrintTopLabels(const std::vector<Tensor> &outputs,
-                      const string &labels_file_name) {
-    std::vector<string> labels;
-    size_t label_count;
-    Status read_labels_status =
-            ReadLabelsFile(labels_file_name, &labels, &label_count);
-    if (!read_labels_status.ok()) {
-        LOG(ERROR) << read_labels_status;
-        return read_labels_status;
-    }
-    const int how_many_labels = std::min(5, static_cast<int>(label_count));
-    Tensor indices;
-    Tensor scores;
-    TF_RETURN_IF_ERROR(GetTopLabels(outputs, how_many_labels, &indices, &scores));
-    tensorflow::TTypes<float>::Flat scores_flat = scores.flat<float>();
-    tensorflow::TTypes<int32>::Flat indices_flat = indices.flat<int32>();
-    for (int pos = 0; pos < how_many_labels; ++pos) {
-        const int label_index = indices_flat(pos);
-        const float score = scores_flat(pos);
-        LOG(INFO) << labels[label_index] << " (" << label_index << "): " << score;
-    }
-    return Status::OK();
+}  // namespace label_image
+}  // namespace tflite
+
+int main(int argc, char** argv) {
+  return tflite::label_image::Main(argc, argv);
 }
 
-// This is a testing function that returns whether the top label index is the
-// one that's expected.
-Status CheckTopLabel(const std::vector<Tensor> &outputs, int expected,
-                     bool *is_expected) {
-    *is_expected = false;
-    Tensor indices;
-    Tensor scores;
-    const int how_many_labels = 1;
-    TF_RETURN_IF_ERROR(GetTopLabels(outputs, how_many_labels, &indices, &scores));
-    tensorflow::TTypes<int32>::Flat indices_flat = indices.flat<int32>();
-    if (indices_flat(0) != expected) {
-        LOG(ERROR) << "Expected label #" << expected << " but got #"
-                   << indices_flat(0);
-        *is_expected = false;
-    } else {
-        *is_expected = true;
-    }
-    return Status::OK();
-}
 
-int main(int argc, char *argv[]) {
-    // These are the command-line flags the program can understand.
-    // They define where the graph and input data is located, and what kind of
-    // input the model expects. If you train your own model, or use something
-    // other than inception_v3, then you'll need to update these.
-    string image = "../data/grace_hopper.jpg";
-    string graph = "../data/inception_v3_2016_08_28_frozen.pb";
-    string labels = "../data/imagenet_slim_labels.txt";
-    int32 input_width = 299;
-    int32 input_height = 299;
-    float input_mean = 0;
-    float input_std = 255;
-    string input_layer = "input";
-    string output_layer = "InceptionV3/Predictions/Reshape_1";
-    bool self_test = false;
-    string root_dir;
-    std::vector<Flag> flag_list = {
-            Flag("image", &image, "image to be processed"),
-            Flag("graph", &graph, "graph to be executed"),
-            Flag("labels", &labels, "name of file containing labels"),
-            Flag("input_width", &input_width, "resize image to this width in pixels"),
-            Flag("input_height", &input_height,
-                 "resize image to this height in pixels"),
-            Flag("input_mean", &input_mean, "scale pixel values to this mean"),
-            Flag("input_std", &input_std, "scale pixel values to this std deviation"),
-            Flag("input_layer", &input_layer, "name of input layer"),
-            Flag("output_layer", &output_layer, "name of output layer"),
-            Flag("self_test", &self_test, "run a self test"),
-            Flag("root_dir", &root_dir,
-                 "interpret image and graph file names relative to this directory"),
-    };
-    string usage = tensorflow::Flags::Usage(argv[0], flag_list);
-    const bool parse_result = tensorflow::Flags::Parse(&argc, argv, flag_list);
-    if (!parse_result) {
-        LOG(ERROR) << usage;
-        return -1;
-    }
-
-    // We need to call this to set up global state for TensorFlow.
-    tensorflow::port::InitMain(argv[0], &argc, &argv);
-    if (argc > 1) {
-        LOG(ERROR) << "Unknown argument " << argv[1] << "\n" << usage;
-        return -1;
-    }
-
-    // First we load and initialize the model.
-    std::unique_ptr<tensorflow::Session> session;
-    string graph_path = tensorflow::io::JoinPath(root_dir, graph);
-    Status load_graph_status = LoadGraph(graph_path, &session);
-    if (!load_graph_status.ok()) {
-        LOG(ERROR) << load_graph_status;
-        return -1;
-    }
-
-    // Get the image from disk as a float array of numbers, resized and normalized
-    // to the specifications the main graph expects.
-    std::vector<Tensor> resized_tensors;
-    string image_path = tensorflow::io::JoinPath(root_dir, image);
-    Status read_tensor_status =
-            ReadTensorFromImageFile(image_path, input_height, input_width, input_mean,
-                                    input_std, &resized_tensors);
-    if (!read_tensor_status.ok()) {
-        LOG(ERROR) << read_tensor_status;
-        return -1;
-    }
-    const Tensor &resized_tensor = resized_tensors[0];
-
-    // Actually run the image through the model.
-    std::vector<Tensor> outputs;
-    Status run_status = session->Run({{input_layer, resized_tensor}},
-                                     {output_layer}, {}, &outputs);
-    if (!run_status.ok()) {
-        LOG(ERROR) << "Running model failed: " << run_status;
-        return -1;
-    }
-
-    // This is for automated testing to make sure we get the expected result with
-    // the default settings. We know that label 653 (military uniform) should be
-    // the top label for the Admiral Hopper image.
-    if (self_test) {
-        bool expected_matches;
-        Status check_status = CheckTopLabel(outputs, 653, &expected_matches);
-        if (!check_status.ok()) {
-            LOG(ERROR) << "Running check failed: " << check_status;
-            return -1;
-        }
-        if (!expected_matches) {
-            LOG(ERROR) << "Self-test failed!";
-            return -1;
-        }
-    }
-
-    // Do something interesting with the results we've generated.
-    Status print_status = PrintTopLabels(outputs, labels);
-    if (!print_status.ok()) {
-        LOG(ERROR) << "Running print failed: " << print_status;
-        return -1;
-    }
-
-    return 0;
