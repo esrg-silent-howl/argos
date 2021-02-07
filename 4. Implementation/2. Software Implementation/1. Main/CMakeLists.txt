@@ -25,6 +25,12 @@ add_executable(argos argos.cpp)
 
 # Include directories for each library/executable
 target_include_directories(argos PUBLIC ${CMAKE_SOURCE_DIR}/core/camera)
+
+	# Require Python Libraries 
+	find_package(PythonLibs REQUIRED)
+	include_directories(${PYTHON_INCLUDE_DIRS})
+	target_link_libraries(argos ${PYTHON_LIBRARIES})
+
 target_include_directories(camera PUBLIC ${CMAKE_SOURCE_DIR}/core/log)
 target_link_libraries(argos log camera network threads) #machine_learning
 
@@ -37,7 +43,7 @@ LINK_DIRECTORIES(${HOME}/Desktop/rasp-tf/tensorflow_src/tensorflow/lite/tools/ma
 add_executable(machine_learning core/machine_learning/machine_learning.cpp)
 # target_link_libraries(machine_learning ${HOME}/Desktop/rasp-tf/tensorflow_src/tensorflow/lite/tools/make/gen/linux_x86_64/lib/libtensorflow-lite)
 target_include_directories(machine_learning PUBLIC ${HOME}/Desktop/rasp-tf/tensorflow_src \ 
-	${HOME}/Desktop/rasp-tf/tensorflow_src/tensorflow/lite/tools/make/downloads/flatbuffers/include ${HOME}Desktop/rasp-tf/tensorflow_src/tensorflow/lite/tools/make/downloads/absl)
+	${HOME}/Desktop/rasp-tf/tensorflow_src/tensorflow/lite/tools/make/downloads/flatbuffers/include ${HOME}/Desktop/rasp-tf/tensorflow_src/tensorflow/lite/tools/make/downloads/absl)
 TARGET_LINK_LIBRARIES(machine_learning libtensorflow-lite.a pthread)
 target_compile_options(machine_learning PRIVATE -Wall -Wextra)
 
