@@ -1,4 +1,5 @@
 #include "threads.hpp"
+//#include "camera.hpp"
 
 threads::threads(std::string pt_name, unsigned int pt_prio, void* (*pt_fun)(void*), void* args){
 
@@ -51,52 +52,122 @@ threads::threads(std::string pt_name, unsigned int pt_prio, void* (*pt_fun)(void
 
 threads::~threads(){}
 
-static void* inferenceFunc(void* arg){
-    printf("Starting Inference");
 
+// Static Condition Variables
+static pthread_cond_t cTerminate = PTHREAD_COND_INITIALIZER;
+static pthread_cond_t cCameraInit = PTHREAD_COND_INITIALIZER;
+static pthread_cond_t cInferenceStopped = PTHREAD_COND_INITIALIZER;
+static pthread_cond_t cThreatFound = PTHREAD_COND_INITIALIZER;
+
+// Static Mutexes
+static pthread_mutex_t mCamera = PTHREAD_MUTEX_INITIALIZER;
+static pthread_mutex_t mNotifyCache = PTHREAD_MUTEX_INITIALIZER;
+static pthread_mutex_t mFrameCache = PTHREAD_MUTEX_INITIALIZER;
+static pthread_mutex_t mMetaCache = PTHREAD_MUTEX_INITIALIZER;
+
+// dummy bool
+bool camera_init = false;
+
+static void* inferenceFunc(void* arg){
+    printf("Starting tMLInference\n");
+
+    // maybe not needed
+
+    int mtx_status_lock = pthread_mutex_lock(&mCamera);
+    while (!camera_init){
+        // Automaticlly unlocks mutex and locks it when signalled
+        int cond_wait_status = pthread_cond_wait(&cCameraInit, &mCamera);
+        if (!cond_wait_status)
+            printf("pthread_cond wait failed on tMLInference");    
+    }
+    int mtx_status_unlock = pthread_mutex_unlock(&mCamera);
+
+    while(true){
+
+    }
+    
     return (void*)0;
 }
 
 static void* cameraFunc(void* arg){
-    printf("Starting Camera");
+    printf("Starting tCameraControl\n");
+
+    // Init I2C and light sensor
+
+    // Prepare camera 
+
+    int cond_sig_status = pthread_cond_signal(&cCameraInit);
+
+    while(true){
+
+    }
 
     return (void*)0;
 }
 
 static void* rclientFunc(void* arg){
-    printf("Starting Remote Client");
+    printf("Starting tRemoteClient\n");
+
+    while(true){
+
+    }
 
     return (void*)0;
 }
 
 static void* cloudFunc(void* arg){
-    printf("Starting Cloud");
+    printf("Starting tCloud\n");
+
+    while(true){
+
+    }
 
     return (void*)0;
 }
 
 static void* databaseFunc(void* arg){
-    printf("Starting Database");
+    printf("Starting tDatabase\n");
+
+    while(true){
+
+    }
 
     return (void*)0;
 }
 
 static void* mainFunc(void* arg){
-    printf("Starting Main");
+    printf("Starting tMain\n");
+
+    threads tMLInference("tMLInference", 60, inferenceFunc, NULL);
+	threads tCameraControl("tCameraControl", 50, cameraFunc, NULL);
+
+    // Attempt to connect the network
+
+    int mtx_status_lock = pthread_mutex_lock(&mCamera);
+    while (!camera_init){
+        // Automaticlly unlocks mutex and locks it when signalled
+        int cond_wait_status = pthread_cond_wait(&cCameraInit, &mCamera);
+        if (!cond_wait_status)
+            printf("pthread_cond wait failed on tMain");    
+    }
+    int mtx_status_unlock = pthread_mutex_unlock(&mCamera);
+
+    threads tRemoteClient("tRemoteClient", 40, rclientFunc, NULL);
+    threads tCloud("tCloud", 30, cloudFunc, NULL);
+    threads tDatabase("tDatabase", 20, databaseFunc, NULL);
+
+    while(true){
+
+    }
 
     return (void*)0;
 }
 
 void startScheduler(){
 
-    //Creating and starting all the threads
+    //Creating and starting the main thread
     //Priority from 0-99
-    threads tMLInference("tCamera", 60, inferenceFunc, NULL);
-	threads tCameraControl("tCamera", 50, cameraFunc, NULL);
-    threads tRemoteClient("tCamera", 40, rclientFunc, NULL);
-    threads tCloud("tCamera", 30, cloudFunc, NULL);
-    threads tDatabase("tCamera", 20, databaseFunc, NULL);
-    threads tMain("tCamera", 10, mainFunc, NULL);
+    threads tMain("tMain", 10, mainFunc, NULL);
 
 }
 

@@ -5,15 +5,21 @@
 #include <time.h>
 #include <stdlib.h>
 #include <string.h>
+#include <fstream>
+#include <iostream>
+#include <vector>
 
 #include <sys/time.h>
 #include <unistd.h>
 #include <signal.h>
 #include <Python.h>
 
+#include "threads.hpp"
 #include "camera.hpp"
 
 int main(int argc, char** argv) {	
+
+	//startScheduler();
 
 	Camera cam;
 
@@ -71,6 +77,10 @@ int main(int argc, char** argv) {
 		// 		Camera::Point2D(start+5, end-15), 25, 15, Camera::Color(255, 0, 0, 0));
 	}
 
+	cam.stop();
+
+	cam.closeDevice();
+
 	const char* _filename = filename.c_str();
 	const char*  _target_dir = target_dir.c_str();
 	const char*  _project_dir = project_dir.c_str();
@@ -90,9 +100,59 @@ int main(int argc, char** argv) {
 	Py_Finalize();
 	// End fo Python Plugin
 
-	cam.stop();
+	// std::vector<std::string> lines;
+	// std::vector<int> values1;
+	// std::vector<int> values2;
+	// std::string temp;
+	// std::string box;
+	// std::string l_box;
+	// std::string label;
+	// std::ifstream info;
+	// info.open(root_dir + "Desktop/out/model_output.txt");
 
-	cam.closeDevice();
+	// while(std::getline(info,temp)){
+	// 	if(temp.size() > 0)
+	// 		lines.push_back(temp);
+	// }
+
+	// for (int i = 0; i < lines.size(); i++){
+
+	// 	if(lines[i] == std::to_string(i)){
+	// 		box = lines[i+1];
+	// 		l_box = lines[i+2];
+	// 		label = lines[i+3];
+	// 	}
+
+	// 	std::string aux;
+	// 	for(auto x : box)
+	// 		if(x == ' '){
+	// 			values1.push_back(std::stoi(aux));
+	// 			aux = " ";
+	// 		}
+	// 		else
+	// 			aux += x;
+
+	// 	for(auto x : l_box)
+	// 		if(x == ' '){
+	// 			values2.push_back(std::stoi(aux));
+	// 			aux = " ";
+	// 		}
+	// 		else
+	// 			aux += x;
+
+	// 	capture_str[28] = (char)(i+0x30);
+
+	// 	cam.drawRectangle(capture_str, capture_str_rect1, 
+	// 			Camera::Point2D(start, end), Camera::Point2D(start+offsetx, 
+	// 			end+offsety), Camera::Color(0), Camera::Color(255, 0, 255, 0));
+	// 	cam.drawRectangle(capture_str_rect1, capture_str_rect2, 
+	// 			Camera::Point2D(start, end), Camera::Point2D(start+70, end-20),
+	// 			Camera::Color(255, 255, 255, 255), Camera::Color(0));
+	// 	cam.drawText(capture_str_rect2, capture_str_final, "gun: 80%", 
+	// 			Camera::Point2D(start+5, end-15), 25, 15, Camera::Color(255, 0, 0, 0));
+	//}
+
+	//info.close();
 
 	return 0;
 }
