@@ -27,7 +27,6 @@ class threads{
         threads(std::string, unsigned int, void* (*pt_fun)(void*), void*);
         ~threads();
 };
-
-extern void startScheduler(void);
+void startScheduler();
 
 #endif

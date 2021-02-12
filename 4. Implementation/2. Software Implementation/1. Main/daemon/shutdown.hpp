@@ -12,6 +12,10 @@
 #include <time.h>
 #include <signal.h>
 
+#include <Python.h>
+#include <iostream>
+#include <vector>
+
 extern void daemonSetup();
 
 #endif

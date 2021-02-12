@@ -14,7 +14,7 @@
 #include <signal.h>
 #include <Python.h>
 
-#include "threads.hpp"
+//#include "threads.hpp"
 #include "camera.hpp"
 
 int main(int argc, char** argv) {	
