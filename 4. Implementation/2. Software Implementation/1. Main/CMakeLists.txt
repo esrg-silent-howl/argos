@@ -40,13 +40,18 @@ add_executable(shutdown daemon/shutdown.cpp)
 target_include_directories(shutdown PUBLIC ${CMAKE_SOURCE_DIR}/daemon/ ${CMAKE_SOURCE_DIR}/core/threads ${CMAKE_SOURCE_DIR}/core/camera)
 target_link_libraries(shutdown log camera network _threads pthread)
 
+# Require Python Libraries 
+find_package(PythonLibs REQUIRED)
+include_directories(${PYTHON_INCLUDE_DIRS})
+target_link_libraries(shutdown ${PYTHON_LIBRARIES})
+
 # add_library( tflite SHARED IMPORTED )
 # set_target_properties( tflite PROPERTIES IMPORTED_LOCATION ${HOME}/Desktop/rasp-tf/tensorflow_src/tensorflow/lite/tools/make/gen/linux_x86_64/lib/libtensorflow-lite )
 LINK_DIRECTORIES(${HOME}/Desktop/rasp-tf/tensorflow_src/tensorflow/lite/tools/make/gen/linux_x86_64/lib/)
 add_executable(machine_learning core/machine_learning/machine_learning.cpp)
 # target_link_libraries(machine_learning ${HOME}/Desktop/rasp-tf/tensorflow_src/tensorflow/lite/tools/make/gen/linux_x86_64/lib/libtensorflow-lite)
 target_include_directories(machine_learning PUBLIC ${HOME}/Desktop/rasp-tf/tensorflow_src \ 
-	${HOME}/Desktop/rasp-tf/tensorflow_src/tensorflow/lite/tools/make/downloads/flatbuffers/include ${HOME}/Desktop/rasp-tf/tensorflow_src/tensorflow/lite/tools/make/downloads/absl)
+	${HOME}/Desktop/rasp-tf/tensorflow_src/tensorflow/lite/tools/make/downloads/flatbuffers/include ${HOME}/Desktop/rasp-tf/tensorflow_src/tensorflow/lite/tools/make/downloads/absl ${HOME}/Desktop/rasp-tf/tensorflow_src/tensorflow/lite/tools/make/downloads/eigen)
 TARGET_LINK_LIBRARIES(machine_learning libtensorflow-lite.a pthread)
 target_compile_options(machine_learning PRIVATE -Wall -Wextra)
 

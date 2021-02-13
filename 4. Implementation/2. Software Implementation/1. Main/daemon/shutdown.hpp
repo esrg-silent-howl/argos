@@ -11,10 +11,11 @@
 #include <fcntl.h>
 #include <time.h>
 #include <signal.h>
+#include <errno.h>
 
-#include <Python.h>
 #include <iostream>
 #include <vector>
+#include <Python.h>
 
 extern void daemonSetup();
 

@@ -38,15 +38,6 @@ use_TPU = args.edgetpu
 IM_NAME = args.image
 IM_DIR = args.imagedir
 
-# If both an image AND a folder are specified, throw an error
-if (IM_NAME and IM_DIR):
-    print('Error! Please only use the --image argument or the --imagedir argument, not both. Issue "python TFLite_detection_image.py -h" for help.')
-    sys.exit()
-
-# If neither an image or a folder are specified, default to using 'test1.jpg' for image name
-#if (not IM_NAME and not IM_DIR):
-#    IM_NAME = 'test1.jpg'
-
 # Import TensorFlow libraries
 # If tflite_runtime is installed, import interpreter from tflite_runtime, else import from regular tensorflow
 # If using Coral Edge TPU, import the load_delegate library
@@ -88,12 +79,6 @@ PATH_TO_LABELS = os.path.join(CWD_PATH,MODEL_NAME,LABELMAP_NAME)
 # Load the label map
 with open(PATH_TO_LABELS, 'r') as f:
     labels = [line.strip() for line in f.readlines()]
-
-# Have to do a weird fix for label map if using the COCO "starter model" from
-# https://www.tensorflow.org/lite/models/object_detection/overview
-# First label is '???', which has to be removed.
-if labels[0] == '???':
-    del(labels[0])
 
 # Load the Tensorflow Lite model.
 # If using Edge TPU, use special load_delegate argument
@@ -182,7 +167,3 @@ print("[OK]: Closed " + root_dir + "Desktop/model_output.txt")
 
 # Clean up
 cv2.destroyAllWindows()
-
-#result_string = str(ymin) + " " + str(xmin) + " " + str(ymax) + " " + str(xmax) + str(label_ymin) + " " + str(xmin) + str(label)
-
-#python argos_tflite_detection_image.py --modeldir=TFLite_model --image=gun1.jpeg
