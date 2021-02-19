@@ -17,7 +17,7 @@ add_library(camera core/camera/camera.cpp)
 add_library(log core/log/log.cpp)
 # add_library(machine_learning core/machine_learning/machine_learning.cpp)
 add_library(network core/network/wifi.cpp)
-add_library(_threads core/threads/_threads.cpp core/threads/camera_control.cpp 
+add_library(threads core/threads/threads.cpp core/threads/camera_control.cpp 
 	core/threads/cloud.cpp core/threads/database.cpp 
 	core/threads/main.cpp core/threads/ml_inference.cpp
 	core/threads/remote_client.cpp)
@@ -25,20 +25,22 @@ add_executable(argos argos.cpp)
 
 # Include directories for each library/executable
 target_include_directories(argos PUBLIC ${CMAKE_SOURCE_DIR}/core/camera ${CMAKE_SOURCE_DIR}/core/threads)
-#TARGET_LINK_LIBRARIES(argos pthread)
+TARGET_LINK_LIBRARIES(argos pthread)
 
 # Require Python Libraries 
 find_package(PythonLibs REQUIRED)
 include_directories(${PYTHON_INCLUDE_DIRS})
 target_link_libraries(argos ${PYTHON_LIBRARIES})
 
+target_include_directories(argos PUBLIC ${CMAKE_SOURCE_DIR}/core/threads)
 target_include_directories(camera PUBLIC ${CMAKE_SOURCE_DIR}/core/log)
-# target_link_libraries(argos log camera network _threads pthread) #machine_learning
+target_include_directories(threads PUBLIC ${CMAKE_SOURCE_DIR}/threads ${CMAKE_SOURCE_DIR}/core/log)
+target_link_libraries(argos log camera network threads pthread) #machine_learning
 
 add_executable(shutdown daemon/shutdown.cpp)
 # target_include_directories(shutdown PUBLIC ${CMAKE_SOURCE_DIR}/daemon/)
 target_include_directories(shutdown PUBLIC ${CMAKE_SOURCE_DIR}/daemon/ ${CMAKE_SOURCE_DIR}/core/threads ${CMAKE_SOURCE_DIR}/core/camera)
-target_link_libraries(shutdown log camera network _threads pthread)
+target_link_libraries(shutdown log camera network threads pthread)
 
 # Require Python Libraries 
 find_package(PythonLibs REQUIRED)

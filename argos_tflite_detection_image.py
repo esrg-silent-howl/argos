@@ -22,7 +22,7 @@ parser.add_argument('--threshold', help='Minimum confidence threshold for displa
 parser.add_argument('--image', help='Name of the single image to perform detection on. To run detection on multiple images, use --imagedir',
                     default=None)
 parser.add_argument('--imagedir', help='Name of the folder containing images to perform detection on. Folder must contain only images.',
-                    default=root_dir + 'Desktop/out')
+                    default=root_dir + 'Desktop/ObjectDetection/object_detection/img')
 parser.add_argument('--edgetpu', help='Use Coral Edge TPU Accelerator to speed up detection',
                     action='store_true')
 
