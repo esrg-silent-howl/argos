@@ -1,7 +1,7 @@
 # Import packages
 import os
 import argparse
-import cv2
+from cv2 import cv2
 import numpy as np
 import sys
 import glob
@@ -22,7 +22,7 @@ parser.add_argument('--threshold', help='Minimum confidence threshold for displa
 parser.add_argument('--image', help='Name of the single image to perform detection on. To run detection on multiple images, use --imagedir',
                     default=None)
 parser.add_argument('--imagedir', help='Name of the folder containing images to perform detection on. Folder must contain only images.',
-                    default=root_dir + 'Desktop/ObjectDetection/object_detection/img')
+                    default=root_dir + 'Desktop/out')
 parser.add_argument('--edgetpu', help='Use Coral Edge TPU Accelerator to speed up detection',
                     action='store_true')
 
@@ -103,16 +103,16 @@ input_mean = 127.5
 input_std = 127.5
 
 f = open(root_dir + "Desktop/model_output.txt", "w")
-print("[OK]: Opened " + root_dir + "Desktop/model_output.txt for writing")
-
+print("[OK]: Opened model output file")
+index = 0
 # Loop over every image and perform detection
 for image_path in images:
-
+    
     # Load image and resize to expected shape [1xHxWx3]
     image = cv2.imread(image_path)
-    image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    imH, imW, _ = image.shape 
-    image_resized = cv2.resize(image_rgb, (width, height))
+    # image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    imH, imW, _ = image.shape
+    image_resized = cv2.resize(image, (width, height))
     input_data = np.expand_dims(image_resized, axis=0)
 
     # Normalize pixel values if using a floating model (i.e. if model is non-quantized)
@@ -140,30 +140,33 @@ for image_path in images:
             ymax = int(min(imH,(boxes[i][2] * imH)))
             xmax = int(min(imW,(boxes[i][3] * imW)))
 
-            f.write(str(ymin) + " " + str(xmin) + " " + str(ymax) + " " + str(xmax) + "\n")
-
-            cv2.rectangle(image, (xmin,ymin), (xmax,ymax), (10, 255, 0), 2)
-
-            # Draw label
             object_name = labels[int(classes[i])] # Look up object name from "labels" array using class index
             label = '%s: %d%%' % (object_name, int(scores[i]*100)) # Example: 'person: 72%'
-            labelSize, baseLine = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.7, 2) # Get font size
-            label_ymin = max(ymin, labelSize[1] + 10) # Make sure not to draw label too close to top of window
-            cv2.rectangle(image, (xmin, label_ymin-labelSize[1]-10), (xmin+labelSize[0], label_ymin+baseLine-10), (255, 255, 255), cv2.FILLED) # Draw white box to put label text in
-            cv2.putText(image, label, (xmin, label_ymin-7), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 2) # Draw label text
 
-            f.write(str(label_ymin) + " " + str(xmin) + "\n")
-            f.write(str(label) + "\n")
+            f.write(str(index) + " " + str(ymin) + " " + str(xmin) + " " + str(ymax) + " " + str(xmax) + " " + str(label) +"\n")
+
+            # cv2.rectangle(image, (xmin,ymin), (xmax,ymax), (10, 255, 0), 2)
+
+            # Draw label
+            # labelSize, baseLine = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.7, 2) # Get font size
+            # label_ymin = max(ymin, labelSize[1] + 10) # Make sure not to draw label too close to top of window
+            # cv2.rectangle(image, (xmin, label_ymin-labelSize[1]-10), (xmin+labelSize[0], label_ymin+baseLine-10), (255, 255, 255), cv2.FILLED) # Draw white box to put label text in
+            # cv2.putText(image, label, (xmin, label_ymin-7), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 2) # Draw label text
+
+            # f.write(str(label_ymin) + " " + str(xmin) + "\n")
+            # f.write(str(label) + "\n")
     
     # All the results have been drawn on the image, now display the image
-    cv2.imshow('Gun predictor', image)
+    # cv2.imshow('Gun predictor', image)
 
     # Press any key to continue to next image, or press 'q' to quit
-    if cv2.waitKey(0) == ord('q'):
-        break
+    # if cv2.waitKey(0) == ord('q'):
+        # break
+
+    index = index + 1
 
 f.close()
-print("[OK]: Closed " + root_dir + "Desktop/model_output.txt")
+print("[OK]: Closed model output file")
 
 # Clean up
-cv2.destroyAllWindows()
+# cv2.destroyAllWindows()

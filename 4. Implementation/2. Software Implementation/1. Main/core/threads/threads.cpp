@@ -1,8 +1,6 @@
 #include "threads.hpp"
 #include "log.hpp"
 
-#define EMPTY_MIN_PRIO (int32_t)(-1000)
-
 typedef struct shed_param shed_param;
 
 // Thread::Thread(std::string pt_name, unsigned int pt_prio, void* (*pt_fun)(void*), void* args){
@@ -118,12 +116,16 @@ const Thread* createThread (const Thread::Config& config) {
 
 int32_t deleteThread (Thread& thread) {
 
+	int32_t status;
+	
 	/* Destroy attr object */
-	pthread_attr_destroy(&(thread.native_attr));
+	status = pthread_attr_destroy(&(thread.native_attr));
 
 	/* Free objects memory */
 	delete &thread;
 
-    return 0;
+    return status;
 }
+
+
 
