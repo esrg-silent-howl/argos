@@ -13,6 +13,13 @@ typedef enum GPIOFunction {
 
 } GPIOFunction_t;
 
+typedef struct GPIOPinFunction {
+
+	uint32_t pin;
+	GPIOFunction_t function;
+
+} GPIOPinFunction_t ;
+
 typedef struct GPIORegisters_t {
 
 	uint32_t GPFSEL[6];
@@ -41,7 +48,7 @@ typedef struct GPIORegisters_t {
 
 } GPIORegisters_t;
 
-void setGPIOFunction(struct GPIORegisters_t *gpio_regs, int gpio, GPIOFunction_t function_code);
+void setGPIOFunction(struct GPIORegisters_t *gpio_regs, GPIOPinFunction_t* data);
 
 void setGPIOOutputValue(struct GPIORegisters_t *gpio_regs, int gpio, bool out_val);
 uint32_t getGPIOInputValue(struct GPIORegisters_t *gpio_regs, int gpio);

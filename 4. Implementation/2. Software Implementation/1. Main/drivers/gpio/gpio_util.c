@@ -1,8 +1,11 @@
 #include "gpio_util.h"
 #include <linux/module.h>
 
-void setGPIOFunction(struct GPIORegisters_t *gpio_regs, int gpio, GPIOFunction_t function_code) {
+void setGPIOFunction(struct GPIORegisters_t *gpio_regs, GPIOPinFunction_t* data) {
 	
+	int gpio = data->pin;
+	int function_code = data->function;
+
 	int register_index = gpio / 10;		/* GPFSEL register */
 	int bit = (gpio % 10) * 3;			/* Position of first bit in register */
 
@@ -21,6 +24,9 @@ void setGPIOFunction(struct GPIORegisters_t *gpio_regs, int gpio, GPIOFunction_t
 void setGPIOOutputValue(struct GPIORegisters_t *gpio_regs, int gpio, bool output_value) {
 
 	pr_alert("%s: register value is 0x%x\n",__FUNCTION__,(1<<(gpio %32)));
+
+	if (gpio_regs == NULL) 
+		return;
 			 
 	if (output_value)
 		gpio_regs->GPSET[gpio / 32] = (1 << (gpio % 32));
@@ -30,4 +36,10 @@ void setGPIOOutputValue(struct GPIORegisters_t *gpio_regs, int gpio, bool output
 
 uint32_t getGPIOInputValue(struct GPIORegisters_t *gpio_regs, int gpio) {
 
+	if (gpio_regs == NULL) 
+		return -EFAULT;
+
+	printk("%s: value: %d\n", __FUNCTION__, (gpio_regs->GPLEV[gpio/32] >> gpio%32) & 1);
+
+	return (gpio_regs->GPLEV[gpio/32] >> gpio%32) & 1;
 }
