@@ -23,8 +23,9 @@
 #include "threads.hpp"
 #include "camera.hpp"
 
-#define FRAME_GRAB 7
-#define THREAT_THRESHOLD 0
+#define FRAME_GRAB 			7
+#define THREAT_THRESHOLD 	0
+#define CAM_DELAY 			14
 
 static Camera cam;
 
@@ -34,22 +35,26 @@ static std::string capture_str_rect1 = root_dir + "Desktop/out/outx1.jpg";
 static std::string capture_str_rect2 = root_dir + "Desktop/out/outx2.jpg";
 static std::string capture_str_final = root_dir + "Desktop/out/outx3.jpg";
 
+static bool cloud_finished = false;
 static bool camera_init = false;
 static bool capture_done = false;
 static bool notify_rc = false;
 static bool threads_created = false;
 static bool threat_found = false;
+static bool warm_start = false;
 static bool thread_unblocked[2] = {false, false};
 
 static std::vector<std::string> detections;
 
 /* Static Condition Variables */
 static pthread_cond_t cCameraInit = PTHREAD_COND_INITIALIZER;
+// static pthread_cond_t cThreatFound = PTHREAD_COND_INITIALIZER;
 static pthread_cond_t cThreatFoundDB = PTHREAD_COND_INITIALIZER;
 static pthread_cond_t cThreatFoundCloud = PTHREAD_COND_INITIALIZER;
 static pthread_cond_t cCaptureDone = PTHREAD_COND_INITIALIZER;
 static pthread_cond_t cThreadsCreated = PTHREAD_COND_INITIALIZER;
 static pthread_cond_t cNotification = PTHREAD_COND_INITIALIZER;
+static pthread_cond_t cCloudFinished = PTHREAD_COND_INITIALIZER;
 
 static pthread_cond_t cInferenceStopped = PTHREAD_COND_INITIALIZER;
 static pthread_cond_t cTerminate = PTHREAD_COND_INITIALIZER;
@@ -58,9 +63,12 @@ static pthread_cond_t cTerminate = PTHREAD_COND_INITIALIZER;
 static pthread_mutex_t mCamera = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t mNotifyCache = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t mFrameCache = PTHREAD_MUTEX_INITIALIZER;
+static pthread_mutex_t mFrameCacheCam = PTHREAD_MUTEX_INITIALIZER;
+// static pthread_mutex_t mMetaCache = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t mMetaCacheDB = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t mMetaCacheCloud = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t mCameraWait = PTHREAD_MUTEX_INITIALIZER;
+
 
 static void split_str(std::string str, std::vector<std::string>& aux){
 
@@ -79,14 +87,14 @@ static void split_str(std::string str, std::vector<std::string>& aux){
 	aux.push_back(word);
 } 
 
-const wchar_t* getWideChar(const char* c)
-{
-    const size_t cSize = strlen(c)+1;
-	std::wstring wc( cSize, L'#' );
-	mbstowcs( &wc[0], c, cSize );
+// const wchar_t* getWideChar(const char* c)
+// {
+//     const size_t cSize = strlen(c)+1;
+// 	std::wstring wc( cSize, L'#' );
+// 	mbstowcs( &wc[0], c, cSize );
 
-    return wc.c_str();
-}
+//     return wc.c_str();
+// }
 
 static void* cameraHandler(void* arg){
     perror("[ARGOS] Starting tCameraControl");
@@ -121,33 +129,56 @@ static void* cameraHandler(void* arg){
             perror("[tCameraControl] pthread_cond_wait failed on cThreadsCreated");    
     }
 
-    /* Start Camera */
-    cam.start();
-
-	/* Sample frames periodically */
-    for (uint32_t i = 0; i < FRAME_GRAB; i++) {
-
-        sleep(1);
-        capture_str[28] = (char)(i+0x30);
-
-		cam.capture(capture_str);
-	}
-
-	cam.stop();
-	cam.closeDevice();
-
-	capture_done = true;
+	/* To ensure first frame capture event */
     /* Signal the condition variable */
-	if (pthread_cond_signal(&cCaptureDone) > 0)
-		perror("[tCameraControl] pthread_cond_signal failed on cCaptureDone");
+    // if (pthread_cond_signal(&cCloudFinished) > 0)
+    //     perror("[tCameraControl] pthread_cond_signal failed on cCloudFinished");
+
+	/* Start Camera */
+   	cam.start();
 
     while(true){
 
+		if(warm_start){
+		/* Blocks on frame cache mutex waiting for tCloud to submmit the frames */
+		pthread_mutex_lock(&mFrameCacheCam);
+		while (!cloud_finished){
+			/* Automatically unlocks mutex when signalled */
+			if (pthread_cond_wait(&cCloudFinished, &mFrameCacheCam) > 0)
+				perror("[tCameraControl] pthread_cond_wait failed on cCloudFinished");    
+			}
+		/* Clear shared variable */
+		cloud_finished = false;
+		}
+		
+		warm_start = true;
+
+		/* Sample frames periodically */
+		for (uint32_t i = 0; i < FRAME_GRAB; i++) {
+
+			sleep(1);
+			capture_str[28] = (char)(i+0x30);
+
+			cam.capture(capture_str);
+		}
+
+		// cam.stop();
+		// cam.closeDevice();
+
+		capture_done = true;
+		/* Signal the condition variable */
+		if (pthread_cond_broadcast(&cCaptureDone) > 0)
+			perror("[tCameraControl] pthread_cond_signal failed on cCaptureDone");
+
+
         /* Adjust camera exposure */
 
-		// perror("[tCameraControl] Infinite loop");
-		// sleep(3);
+		/* Intentional Delay*/
+		// sleep(CAM_DELAY);
     }
+
+	cam.stop();
+	cam.closeDevice();
 
     pthread_exit(NULL);
 }
@@ -156,107 +187,136 @@ static void* inferenceHandler(void* arg){
     perror("[ARGOS] Starting tMLInference");
 
 	std::string filename = root_dir + "Desktop/ARGOS/argos/argos_tflite_detection_image.py";
+	// bool timed = false;
 	
 	/* Transform the directory string into a C string */
     const char* _filename = filename.c_str();
 
-	/* Blocks on frame cache mutex waiting for the camera captures */
-    pthread_mutex_lock(&mFrameCache);
-    while (!capture_done){
-        /* Automatically unlocks mutex when signalled */
-        if (pthread_cond_wait(&cCaptureDone, &mFrameCache) > 0)
-            perror("[tMLInference] pthread_cond_wait failed on cCaptureDone");    
-    }
-	/* Clear shared variable */
-	capture_done = false;
+	#define MAX_WAIT_TIME_IN_SECONDS 10
 
-	/* Python Plugin */
-	Py_Initialize();
-
-	PyRun_SimpleString("import sys");
-	PyRun_SimpleString("import os");
-
-	PyRun_SimpleString("print('[tMLInference] Executing Inference Python Script')");
-
-	/* Run Inference Script */
-	FILE* file = fopen(_filename, "r");
-	PyRun_SimpleFile(file, _filename);
-
-	/* End of Python Plugin */
-	Py_Finalize();
-
-	std::vector<std::string> lines;
-	std::vector<std::string> aux;
-	std::string temp;	
-
-	std::ifstream info;
-
-	info.open(root_dir + "Desktop/model_output.txt");
-	if(info.is_open()){
-		perror("[tMLInference] Model output file opened");
-
-		while(std::getline(info,temp)){
-			if(temp.size() > 0)
-				lines.push_back(temp);
-		}
-	}
-	info.close();
-
-	for(size_t i = 0; i < lines.size(); i++){
-		std::vector<std::string> aux;
-		split_str(lines.at(i), aux);
-
-			detections.push_back(aux.at(0).c_str());
-			int img = atoi(aux.at(0).c_str());
-			capture_str[28] = (char)(img+0x30);
-			
-			int ymin = atoi(aux.at(1).c_str());
-			int xmin = atoi(aux.at(2).c_str());
-			int ymax = atoi(aux.at(3).c_str());
-			int xmax = atoi(aux.at(4).c_str());
-
-			std::string label = aux.at(5) + " " + aux.at(6); 
-
-			cam.drawRectangle(capture_str, capture_str, 
-					Camera::Point2D(xmin, ymin), Camera::Point2D(xmax, 
-					ymax), Camera::Color(0), Camera::Color(255, 0, 255, 0));
-			cam.drawRectangle(capture_str, capture_str, 
-					Camera::Point2D(xmin, ymin), Camera::Point2D(xmin+70, ymin-20),
-					Camera::Color(255, 255, 255, 255), Camera::Color(0));
-			cam.drawText(capture_str, capture_str, label, 
-					Camera::Point2D(xmin+5, ymin-15), 25, 15, Camera::Color(255, 0, 0, 0));
-
-	}
-
-	if(lines.size() > THREAT_THRESHOLD){
-
-		threat_found = true;
-
-		/* Condition variable broadcast would be better
-		for signalling the three threads */
-
-		/* Signal the condition variable */
-		if (pthread_cond_signal(&cThreatFoundCloud) > 0)
-			perror("[tMLInference] pthread_cond_signal failed on cThreatFoundCloud");
-
-		/* Signal the condition variable */
-		if (pthread_cond_signal(&cThreatFoundDB) > 0)
-			perror("[tMLInference] pthread_cond_signal failed on cThreatFoundDB");
-
-		notify_rc = true;	
-		/* Signal the condition variable */
-		if (pthread_cond_signal(&cNotification) > 0)
-			perror("[tMLInference] pthread_cond_signal failed on cNotification");
-	}
+	// struct timespec max_wait = {0, 0};
+	// clock_gettime(CLOCK_REALTIME, &max_wait);
+	// max_wait.tv_sec += MAX_WAIT_TIME_IN_SECONDS;
 
     while(true){
 
+		/* Blocks on frame cache mutex waiting for the camera captures */
+		if(pthread_mutex_lock(&mFrameCache) > 0)
+			perror("[tMLInference] pthread_mutex_lock failed on mFrameCache");
+		while (!capture_done){
+			/* Automatically unlocks mutex when signalled */
+			// if(timed)
+			// 	if (pthread_cond_timedwait(&cCaptureDone, &mFrameCache, &max_wait) > 0)
+			// 		perror("[tMLInference] pthread_cond_timedwait failed on cCaptureDone"); 
+			// else
+				if (pthread_cond_wait(&cCaptureDone, &mFrameCache) > 0)
+					perror("[tMLInference] pthread_cond_wait failed on cCaptureDone");    
+		}
+		if(pthread_mutex_unlock(&mFrameCache) > 0)
+			perror("[tMLInference] pthread_mutex_unlock failed on mFrameCache");
+
+		/* Clear shared variable */
+		capture_done = false;
+
+		// timed = true;
+
+		/* Initialize the Python interpreter */
+		Py_Initialize();
+
+		PyRun_SimpleString("import sys");
+		PyRun_SimpleString("import os");
+
+		PyRun_SimpleString("print('[tMLInference] Executing Inference Python Script')");
+
+		/* Run Inference Script */
+		FILE* file = fopen(_filename, "r");
+		PyRun_SimpleFile(file, _filename);
+		fclose(file);
+
+		// PyObject *obj = Py_BuildValue("s", _filename);
+ 		// FILE *file = _Py_fopen_obj(obj, "r+");
+ 		// if(file != NULL)
+     	// 	PyRun_SimpleFile(file, _filename);
+		// fclose(file);
+		
+		/* Close the Python Interpreter */
+		Py_Finalize();
+
+
+		std::vector<std::string> lines;
+		std::vector<std::string> aux;
+		std::string temp;	
+
+		std::ifstream info;
+
+		info.open(root_dir + "Desktop/model_output.txt");
+		if(info.is_open()){
+			perror("[tMLInference] Model output file opened");
+
+			while(std::getline(info,temp)){
+				if(temp.size() > 0)
+					lines.push_back(temp);
+			}
+		}
+		info.close();
+
+		for(size_t i = 0; i < lines.size(); i++){
+			std::vector<std::string> aux;
+			split_str(lines.at(i), aux);
+
+				detections.push_back(aux.at(0).c_str());
+				int img = atoi(aux.at(0).c_str());
+				capture_str[28] = (char)(img+0x30);
+				
+				int ymin = atoi(aux.at(1).c_str());
+				int xmin = atoi(aux.at(2).c_str());
+				int ymax = atoi(aux.at(3).c_str());
+				int xmax = atoi(aux.at(4).c_str());
+
+				std::string label = aux.at(5) + " " + aux.at(6); 
+
+				cam.drawRectangle(capture_str, capture_str, 
+						Camera::Point2D(xmin, ymin), Camera::Point2D(xmax, 
+						ymax), Camera::Color(0), Camera::Color(255, 0, 255, 0));
+				cam.drawRectangle(capture_str, capture_str, 
+						Camera::Point2D(xmin, ymin), Camera::Point2D(xmin+70, ymin-20),
+						Camera::Color(255, 255, 255, 255), Camera::Color(0));
+				cam.drawText(capture_str, capture_str, label, 
+						Camera::Point2D(xmin+5, ymin-15), 25, 15, Camera::Color(255, 0, 0, 0));
+
+		}
+
+		if(lines.size() > THREAT_THRESHOLD){
+
+			threat_found = true;
+
+			/* Condition variable broadcast would be better
+			for signalling the two threads */
+
+			/* Signal the condition variable */
+			if (pthread_cond_signal(&cThreatFoundCloud) > 0)
+				perror("[tMLInference] pthread_cond_signal failed on cThreatFoundCloud");
+
+			/* Signal the condition variable */
+			if (pthread_cond_signal(&cThreatFoundDB) > 0)
+				perror("[tMLInference] pthread_cond_signal failed on cThreatFoundDB");
+
+			// /* Signal the condition variable */
+			// if (pthread_cond_signal(&cThreatFound) > 0)
+			// 	perror("[tMLInference] pthread_cond_signal failed on cThreatFound (1)");
+
+			// /* Signal the condition variable */
+			// if (pthread_cond_signal(&cThreatFound) > 0)
+			// 	perror("[tMLInference] pthread_cond_signal failed on cThreatFound (2)");
+
+			notify_rc = true;	
+			/* Signal the condition variable */
+			if (pthread_cond_signal(&cNotification) > 0)
+				perror("[tMLInference] pthread_cond_signal failed on cNotification");
+		}
+
 		if(thread_unblocked[0] && thread_unblocked[1])
 			threat_found = false;
-
-		// perror("[tMLInference] Infinite loop");
-		// sleep(3);
-
     }
 
     pthread_exit(NULL);
@@ -281,7 +341,7 @@ static void* rclientHandler(void* arg){
 		/* Blocks on notify cache mutex waiting for a threat detection */
 		if(pthread_mutex_lock(&mNotifyCache) > 0)
 			perror("[tRemoteClient] pthread_mutex_lock failed on mNotifyCache");
-		while (!threat_found){
+		while (!notify_rc){
 			/* Automatically unlocks mutex when signalled */
 			if (pthread_cond_wait(&cNotification, &mNotifyCache) > 0)
 				perror("[tRemoteClient] pthread_cond_wait failed on cNotification");    
@@ -315,21 +375,21 @@ static void* d_cloudHandler(void* arg){
     perror("[d_tCloud] Starting d_tCloud");
 
 	std::string script_name = root_dir + "Desktop/ARGOS/argos/argos_drive.py";
-	std::string temp = "";
-	std::string detect_num;
+	// std::string temp = "";
+	// std::string detect_num;
 	
 	/* Transform the directory string into a C string */
     const char* _script_name = script_name.c_str();
     
-	int argc = detections.size();
-	for(size_t x = 0; x < argc; x++){
-		detect_num = detections.at(x);
-		temp = temp + " " + detect_num;
-	}
-	wchar_t* argv = const_cast<wchar_t*> (getWideChar(temp.c_str()));
+	// int argc = detections.size();
+	// for(size_t x = 0; x < argc; x++){
+	// 	detect_num = detections.at(x);
+	// 	temp = temp + " " + detect_num;
+	// }
+	// wchar_t* argv = const_cast<wchar_t*> (getWideChar(temp.c_str()));
 
 	/* Submmit Frames to cloud */
-	/* Python Plugin */
+	/* Initialize the Python interpreter */
 	Py_Initialize();
 
 	// PySys_SetArgv(argc, &argv);
@@ -341,11 +401,22 @@ static void* d_cloudHandler(void* arg){
 	/* Run Script */
 	FILE* file = fopen(_script_name, "r");
 	PyRun_SimpleFile(file, _script_name);
+	fclose(file);
 
-	/* End of Python Plugin */
+	/* Close the Python interpreter */
 	Py_Finalize();
 
-	perror("[tCloud] Last Frames uploaded");
+	perror("[d_tCloud] Last Frames uploaded");
+
+	/* Signal the condition variable */
+	cloud_finished = true;
+	if (pthread_cond_signal(&cCloudFinished) > 0)
+		perror("[d_tCloud] pthread_cond_signal failed on cCloudFinished");
+
+	/* Don't care about thread's return */
+	pthread_detach(pthread_self());
+
+	perror("[d_tCloud] Cloud daughter thread termination");
 
 	pthread_exit(NULL);
 }
@@ -368,6 +439,17 @@ static void* cloudHandler(void* arg){
 		/* Clear shared variable */
 		thread_unblocked[0] = true;
 
+		// /* Blocks on metadata cache mutex waiting for a threat detection */
+		// if(pthread_mutex_lock(&mMetaCache) > 0)
+		// 	perror("[tCloud] pthread_mutex_lock failed on mMetaCacheCloud");
+		// while (!threat_found){
+		// 	/* Automatically unlocks mutex when signalled */
+		// 	if (pthread_cond_wait(&cThreatFound, &mMetaCache) > 0)
+		// 		perror("[tCloud] pthread_cond_wait failed on cThreatFoundCloud");    
+		// }
+		// /* Clear shared variable */
+		// thread_unblocked[0] = true;
+
 		perror("[tCloud] Frame upload trial"); 
 
 		/* Cloud daughter thread setup */
@@ -381,10 +463,10 @@ static void* cloudHandler(void* arg){
 		/* Cloud daughter thread creation */
 		cloud_daughter_thread = const_cast<Thread*>(createThread(cloud_daughter));
 
-		if(pthread_join(cloud_daughter_thread->native, NULL) > 0)
-			perror("[tCloud] pthread_join on d_tCloud failed");
-		else 
-			perror("[tCloud] pthread_join on d_tCloud");
+		// if(pthread_join(cloud_daughter_thread->native, NULL) > 0)
+		// 	perror("[tCloud] pthread_join on d_tCloud failed");
+		// else 
+		// 	perror("[tCloud] pthread_join on d_tCloud");
 
 	}
 
@@ -406,35 +488,46 @@ static void* databaseHandler(void* arg){
 	/* Request connection */
 
     while(true){	
+
+		/* Blocks on metadata cache mutex waiting for a threat detection */
+		if(pthread_mutex_lock(&mMetaCacheDB) > 0)
+			perror("[tDatabase] pthread_mutex_lock failed on mMetaCacheDB");
+		while (!threat_found){
+			/* Automatically unlocks mutex when signalled */
+			if (pthread_cond_wait(&cThreatFoundDB, &mMetaCacheDB) > 0)
+				perror("[tDatabase] pthread_cond_wait failed on cThreatFoundDB");    
+		}
+		/* Clear shared variable */
+		thread_unblocked[1] = true;
 			
-			/* Blocks on metadata cache mutex waiting for a threat detection */
-			if(pthread_mutex_lock(&mMetaCacheDB) > 0)
-				perror("[tDatabase] pthread_mutex_lock failed on mMetaCacheDB");
-			while (!threat_found){
-				/* Automatically unlocks mutex when signalled */
-				if (pthread_cond_wait(&cThreatFoundDB, &mMetaCacheDB) > 0)
-					perror("[tDatabase] pthread_cond_wait failed on cThreatFoundDB");    
-			}
-			/* Clear shared variable */
-			thread_unblocked[1] = true;
+		// /* Blocks on metadata cache mutex waiting for a threat detection */
+		// if(pthread_mutex_lock(&mMetaCache) > 0)
+		// 	perror("[tDatabase] pthread_mutex_lock failed on mMetaCacheDB");
+		// while (!threat_found){
+		// 	/* Automatically unlocks mutex when signalled */
+		// 	if (pthread_cond_wait(&cThreatFound, &mMetaCache) > 0)
+		// 		perror("[tDatabase] pthread_cond_wait failed on cThreatFoundDB");    
+		// }
+		// /* Clear shared variable */
+		// thread_unblocked[1] = true;
 
-			perror("[tDatabase] Database update trial");
+		perror("[tDatabase] Database update trial");
 
-			/* Database daughter thread setup */
-			Thread::Config db_daughter;
-			const Thread* db_daughter_thread;
-			db_daughter.name = "d_tDatabase";
-			db_daughter.priority = BELOW_NORMAL;
-			db_daughter.args = NULL;
-			db_daughter.start_routine = d_databaseHandler;
+		/* Database daughter thread setup */
+		Thread::Config db_daughter;
+		const Thread* db_daughter_thread;
+		db_daughter.name = "d_tDatabase";
+		db_daughter.priority = BELOW_NORMAL;
+		db_daughter.args = NULL;
+		db_daughter.start_routine = d_databaseHandler;
 
-			/* Database daughter thread creation */
-			db_daughter_thread = const_cast<Thread*>(createThread(db_daughter));
+		/* Database daughter thread creation */
+		db_daughter_thread = const_cast<Thread*>(createThread(db_daughter));
 
-			if(pthread_join(db_daughter_thread->native, NULL) > 0)
-				perror("[tDatabase] pthread_join on d_tDatabase failed");
-			else 
-				perror("[tDatabase] pthread_join on d_tDatabase");
+		if(pthread_join(db_daughter_thread->native, NULL) > 0)
+			perror("[tDatabase] pthread_join on d_tDatabase failed");
+		else 
+			perror("[tDatabase] pthread_join on d_tDatabase");
     }
 
     pthread_exit(NULL);
