@@ -27,17 +27,17 @@ MODULE_LICENSE("GPL");
 
 /* Device variables */
 static struct class* dev_class = NULL;
-static struct device* dev = NULL;
 static dev_t dev_majorminor;
 static struct cdev c_dev;  // Character device structure
 
 GPIORegisters_t *gpio_regs;
 
+GPIOFunction_t configs[MAX_PIN_NUMBER] = {0};
+
 ssize_t gpio_write(struct file *pfile, const char __user *pbuff, size_t len, loff_t *off) {
 	
 	int pin_number, pin_value;
 	GPIORegisters_t *pdev;
-	char request[7];
 	
 	pr_alert("%s: called (%u)\n",__FUNCTION__,len);
 	
@@ -49,6 +49,11 @@ ssize_t gpio_write(struct file *pfile, const char __user *pbuff, size_t len, lof
 	pr_alert("%s:pbuff.str = %s\n", __FUNCTION__, pbuff);
 	sscanf(pbuff, "%u,%u", &pin_number, &pin_value);
 	printk("%s: parsed values: pin_number = %u, pin_value = %u\n", __FUNCTION__, pin_number, pin_value);
+
+	if (configs[pin_number] != OUTPUT) {
+		printk("%s: pin %u is not configured as an output\n", __FUNCTION__, pin_number);
+		return -1;
+	}
 
 	/* Assert pin number's validity */
 	if (pin_number<0 || pin_number>=MAX_PIN_NUMBER)
@@ -85,6 +90,11 @@ ssize_t gpio_read(struct file *pfile, char __user *p_buff, size_t len, loff_t *p
 	if (pin_number<0 || pin_number>=MAX_PIN_NUMBER)
 		return -EBADRQC;
 
+	if (configs[pin_number] != INPUT) {
+		printk("%s: pin %u is not configured as an input\n", __FUNCTION__, pin_number);
+		return -1;
+	}
+
 	/* Get pin value */
 	pin_value = getGPIOInputValue(pdev, pin_number);
 
@@ -115,7 +125,9 @@ long gpio_ioctl(struct file* pfile, uint32_t request, long unsigned int value) {
 		/* Fetch peripheral address */
 		pdev = (struct GPIORegisters_t *)pfile->private_data;
 		
-		setGPIOFunction(pdev, value);
+		/* Set required function */
+		setGPIOFunction(pdev, (GPIOPinFunction_t*)value);
+
 		return 0;
 
 	default:
@@ -191,7 +203,18 @@ static int __init gpio_module_init(void) {
 
 static void __exit gpio_module_exit(void) {
 	
+	int it;
+	GPIOPinFunction_t pin_func = {.function = INPUT};
+
 	pr_alert("%s: called\n",__FUNCTION__);
+
+	for (it = 0; it < MAX_PIN_NUMBER; it++) {
+
+		if (configs[it] == OUTPUT) {
+			pin_func.pin = it; 
+			setGPIOFunction(gpio_regs, &pin_func);
+		}
+	}
 	
 	iounmap(gpio_regs);
 	cdev_del(&c_dev);
