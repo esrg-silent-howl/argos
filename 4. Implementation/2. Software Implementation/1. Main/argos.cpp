@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <cinttypes>
+#include <cstdlib>
 
 /* C includes */
 #include <malloc.h>
@@ -40,6 +41,8 @@ static bool threads_created = false;
 static bool threat_found = false;
 static bool thread_unblocked[2] = {false, false};
 
+static std::vector<std::string> detections;
+
 /* Static Condition Variables */
 static pthread_cond_t cCameraInit = PTHREAD_COND_INITIALIZER;
 static pthread_cond_t cThreatFoundDB = PTHREAD_COND_INITIALIZER;
@@ -76,6 +79,14 @@ static void split_str(std::string str, std::vector<std::string>& aux){
 	aux.push_back(word);
 } 
 
+const wchar_t* getWideChar(const char* c)
+{
+    const size_t cSize = strlen(c)+1;
+	std::wstring wc( cSize, L'#' );
+	mbstowcs( &wc[0], c, cSize );
+
+    return wc.c_str();
+}
 
 static void* cameraHandler(void* arg){
     perror("[ARGOS] Starting tCameraControl");
@@ -195,6 +206,7 @@ static void* inferenceHandler(void* arg){
 		std::vector<std::string> aux;
 		split_str(lines.at(i), aux);
 
+			detections.push_back(aux.at(0).c_str());
 			int img = atoi(aux.at(0).c_str());
 			capture_str[28] = (char)(img+0x30);
 			
@@ -302,7 +314,37 @@ static void* rclientHandler(void* arg){
 static void* d_cloudHandler(void* arg){
     perror("[d_tCloud] Starting d_tCloud");
 
+	std::string script_name = root_dir + "Desktop/ARGOS/argos/argos_drive.py";
+	std::string temp = "";
+	std::string detect_num;
+	
+	/* Transform the directory string into a C string */
+    const char* _script_name = script_name.c_str();
+    
+	int argc = detections.size();
+	for(size_t x = 0; x < argc; x++){
+		detect_num = detections.at(x);
+		temp = temp + " " + detect_num;
+	}
+	wchar_t* argv = const_cast<wchar_t*> (getWideChar(temp.c_str()));
+
 	/* Submmit Frames to cloud */
+	/* Python Plugin */
+	Py_Initialize();
+
+	// PySys_SetArgv(argc, &argv);
+	PyRun_SimpleString("import sys");
+	PyRun_SimpleString("import os");
+
+	PyRun_SimpleString("print('[d_tCloud] Executing Google Drive Python Script')");
+
+	/* Run Script */
+	FILE* file = fopen(_script_name, "r");
+	PyRun_SimpleFile(file, _script_name);
+
+	/* End of Python Plugin */
+	Py_Finalize();
+
 	perror("[tCloud] Last Frames uploaded");
 
 	pthread_exit(NULL);
