@@ -48,7 +48,6 @@ static std::vector<std::string> detections;
 
 /* Static Condition Variables */
 static pthread_cond_t cCameraInit = PTHREAD_COND_INITIALIZER;
-// static pthread_cond_t cThreatFound = PTHREAD_COND_INITIALIZER;
 static pthread_cond_t cThreatFoundDB = PTHREAD_COND_INITIALIZER;
 static pthread_cond_t cThreatFoundCloud = PTHREAD_COND_INITIALIZER;
 static pthread_cond_t cCaptureDone = PTHREAD_COND_INITIALIZER;
@@ -64,7 +63,6 @@ static pthread_mutex_t mCamera = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t mNotifyCache = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t mFrameCache = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t mFrameCacheCam = PTHREAD_MUTEX_INITIALIZER;
-// static pthread_mutex_t mMetaCache = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t mMetaCacheDB = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t mMetaCacheCloud = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t mCameraWait = PTHREAD_MUTEX_INITIALIZER;
@@ -86,15 +84,6 @@ static void split_str(std::string str, std::vector<std::string>& aux){
     }
 	aux.push_back(word);
 } 
-
-// const wchar_t* getWideChar(const char* c)
-// {
-//     const size_t cSize = strlen(c)+1;
-// 	std::wstring wc( cSize, L'#' );
-// 	mbstowcs( &wc[0], c, cSize );
-
-//     return wc.c_str();
-// }
 
 static void* cameraHandler(void* arg){
     perror("[ARGOS] Starting tCameraControl");
@@ -129,11 +118,6 @@ static void* cameraHandler(void* arg){
             perror("[tCameraControl] pthread_cond_wait failed on cThreadsCreated");    
     }
 
-	/* To ensure first frame capture event */
-    /* Signal the condition variable */
-    // if (pthread_cond_signal(&cCloudFinished) > 0)
-    //     perror("[tCameraControl] pthread_cond_signal failed on cCloudFinished");
-
 	/* Start Camera */
    	cam.start();
 
@@ -162,9 +146,6 @@ static void* cameraHandler(void* arg){
 			cam.capture(capture_str);
 		}
 
-		// cam.stop();
-		// cam.closeDevice();
-
 		capture_done = true;
 		/* Signal the condition variable */
 		if (pthread_cond_broadcast(&cCaptureDone) > 0)
@@ -172,9 +153,6 @@ static void* cameraHandler(void* arg){
 
 
         /* Adjust camera exposure */
-
-		/* Intentional Delay*/
-		// sleep(CAM_DELAY);
     }
 
 	cam.stop();
@@ -187,16 +165,18 @@ static void* inferenceHandler(void* arg){
     perror("[ARGOS] Starting tMLInference");
 
 	std::string filename = root_dir + "Desktop/ARGOS/argos/argos_tflite_detection_image.py";
-	// bool timed = false;
+	bool timed = false;
 	
 	/* Transform the directory string into a C string */
     const char* _filename = filename.c_str();
 
 	#define MAX_WAIT_TIME_IN_SECONDS 10
 
-	// struct timespec max_wait = {0, 0};
-	// clock_gettime(CLOCK_REALTIME, &max_wait);
-	// max_wait.tv_sec += MAX_WAIT_TIME_IN_SECONDS;
+	struct timespec max_wait = {0, 0};
+	clock_gettime(CLOCK_REALTIME, &max_wait);
+	max_wait.tv_sec += MAX_WAIT_TIME_IN_SECONDS;
+
+	FILE* file = fopen(_filename, "r");
 
     while(true){
 
@@ -205,10 +185,10 @@ static void* inferenceHandler(void* arg){
 			perror("[tMLInference] pthread_mutex_lock failed on mFrameCache");
 		while (!capture_done){
 			/* Automatically unlocks mutex when signalled */
-			// if(timed)
-			// 	if (pthread_cond_timedwait(&cCaptureDone, &mFrameCache, &max_wait) > 0)
-			// 		perror("[tMLInference] pthread_cond_timedwait failed on cCaptureDone"); 
-			// else
+			if(timed)
+				if (pthread_cond_timedwait(&cCaptureDone, &mFrameCache, &max_wait) > 0)
+					perror("[tMLInference] pthread_cond_timedwait failed on cCaptureDone"); 
+			else
 				if (pthread_cond_wait(&cCaptureDone, &mFrameCache) > 0)
 					perror("[tMLInference] pthread_cond_wait failed on cCaptureDone");    
 		}
@@ -229,9 +209,9 @@ static void* inferenceHandler(void* arg){
 		PyRun_SimpleString("print('[tMLInference] Executing Inference Python Script')");
 
 		/* Run Inference Script */
-		FILE* file = fopen(_filename, "r");
+		// FILE* file = fopen(_filename, "r");
 		PyRun_SimpleFile(file, _filename);
-		fclose(file);
+		// fclose(file);
 
 		// PyObject *obj = Py_BuildValue("s", _filename);
  		// FILE *file = _Py_fopen_obj(obj, "r+");
@@ -301,24 +281,24 @@ static void* inferenceHandler(void* arg){
 			if (pthread_cond_signal(&cThreatFoundDB) > 0)
 				perror("[tMLInference] pthread_cond_signal failed on cThreatFoundDB");
 
-			// /* Signal the condition variable */
-			// if (pthread_cond_signal(&cThreatFound) > 0)
-			// 	perror("[tMLInference] pthread_cond_signal failed on cThreatFound (1)");
-
-			// /* Signal the condition variable */
-			// if (pthread_cond_signal(&cThreatFound) > 0)
-			// 	perror("[tMLInference] pthread_cond_signal failed on cThreatFound (2)");
-
 			notify_rc = true;	
 			/* Signal the condition variable */
 			if (pthread_cond_signal(&cNotification) > 0)
 				perror("[tMLInference] pthread_cond_signal failed on cNotification");
 		}
+		else{
+			perror("[tMLInference] No threats were found");
+			/* Signal the condition variable */
+			cloud_finished = true;
+			if (pthread_cond_signal(&cCloudFinished) > 0)
+				perror("[tMLInference] pthread_cond_signal failed on cCloudFinished");
+		}
 
-		if(thread_unblocked[0] && thread_unblocked[1])
-			threat_found = false;
+		// if(thread_unblocked[0] && thread_unblocked[1])
+		// 	threat_found = false;
     }
 
+	fclose(file);
     pthread_exit(NULL);
 }
 
@@ -327,6 +307,8 @@ static void* d_rclientHandler(void* arg){
 
 	/* Send threat notification to the remote client */
 	perror("[d_tRemoteClient] Last notification sent");
+	/* Don't care about thread's return */
+	pthread_detach(pthread_self());
 
 	pthread_exit(NULL);
 }
@@ -347,6 +329,7 @@ static void* rclientHandler(void* arg){
 				perror("[tRemoteClient] pthread_cond_wait failed on cNotification");    
 		}
 		/* Clear shared variable */
+		// pthread_mutex_unlock(&mNotifyCache);
 		notify_rc = false;
 		
 		perror("[tRemoteClient] Remote client notification trial"); 
@@ -362,10 +345,10 @@ static void* rclientHandler(void* arg){
 		/* Remote client thread creation */
 		rc_daughter_thread = const_cast<Thread*>(createThread(rc_daughter));
 
-		if(pthread_join(rc_daughter_thread->native, NULL) > 0)
-			perror("[tRemoteClient] pthread_join on d_tRemoteClient failed");
-		else 
-			perror("[tRemoteClient] pthread_join on d_tRemoteClient");
+		// if(pthread_join(rc_daughter_thread->native, NULL) > 0)
+		// 	perror("[tRemoteClient] pthread_join on d_tRemoteClient failed");
+		// else 
+		// 	perror("[tRemoteClient] pthread_join on d_tRemoteClient");
     }
 
     pthread_exit(NULL);
@@ -436,19 +419,7 @@ static void* cloudHandler(void* arg){
 			if (pthread_cond_wait(&cThreatFoundCloud, &mMetaCacheCloud) > 0)
 				perror("[tCloud] pthread_cond_wait failed on cThreatFoundCloud");    
 		}
-		/* Clear shared variable */
 		thread_unblocked[0] = true;
-
-		// /* Blocks on metadata cache mutex waiting for a threat detection */
-		// if(pthread_mutex_lock(&mMetaCache) > 0)
-		// 	perror("[tCloud] pthread_mutex_lock failed on mMetaCacheCloud");
-		// while (!threat_found){
-		// 	/* Automatically unlocks mutex when signalled */
-		// 	if (pthread_cond_wait(&cThreatFound, &mMetaCache) > 0)
-		// 		perror("[tCloud] pthread_cond_wait failed on cThreatFoundCloud");    
-		// }
-		// /* Clear shared variable */
-		// thread_unblocked[0] = true;
 
 		perror("[tCloud] Frame upload trial"); 
 
@@ -462,14 +433,8 @@ static void* cloudHandler(void* arg){
 
 		/* Cloud daughter thread creation */
 		cloud_daughter_thread = const_cast<Thread*>(createThread(cloud_daughter));
-
-		// if(pthread_join(cloud_daughter_thread->native, NULL) > 0)
-		// 	perror("[tCloud] pthread_join on d_tCloud failed");
-		// else 
-		// 	perror("[tCloud] pthread_join on d_tCloud");
-
+		//pthread_join(cloud_daughter_thread->native, NULL);
 	}
-
 	pthread_exit(NULL);
 }
 
@@ -478,6 +443,8 @@ static void* d_databaseHandler(void* arg){
 
 	/* Update database */
 	perror("[d_tDatabase] Updated database");
+	/* Don't care about thread's return */
+	pthread_detach(pthread_self());
 
 	pthread_exit(NULL);
 }
@@ -499,17 +466,6 @@ static void* databaseHandler(void* arg){
 		}
 		/* Clear shared variable */
 		thread_unblocked[1] = true;
-			
-		// /* Blocks on metadata cache mutex waiting for a threat detection */
-		// if(pthread_mutex_lock(&mMetaCache) > 0)
-		// 	perror("[tDatabase] pthread_mutex_lock failed on mMetaCacheDB");
-		// while (!threat_found){
-		// 	/* Automatically unlocks mutex when signalled */
-		// 	if (pthread_cond_wait(&cThreatFound, &mMetaCache) > 0)
-		// 		perror("[tDatabase] pthread_cond_wait failed on cThreatFoundDB");    
-		// }
-		// /* Clear shared variable */
-		// thread_unblocked[1] = true;
 
 		perror("[tDatabase] Database update trial");
 
@@ -524,10 +480,10 @@ static void* databaseHandler(void* arg){
 		/* Database daughter thread creation */
 		db_daughter_thread = const_cast<Thread*>(createThread(db_daughter));
 
-		if(pthread_join(db_daughter_thread->native, NULL) > 0)
-			perror("[tDatabase] pthread_join on d_tDatabase failed");
-		else 
-			perror("[tDatabase] pthread_join on d_tDatabase");
+		// if(pthread_join(db_daughter_thread->native, NULL) > 0)
+		// 	perror("[tDatabase] pthread_join on d_tDatabase failed");
+		// else 
+		// 	perror("[tDatabase] pthread_join on d_tDatabase");
     }
 
     pthread_exit(NULL);
