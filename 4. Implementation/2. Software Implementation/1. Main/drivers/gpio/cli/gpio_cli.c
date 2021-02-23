@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
 		return -2;
 	}
 
-	printf("IOCTL successful\n");
+	printf("Configured pin %d successfully\n", pin_assign17.pin);
 
 
 	result = ioctl(fd, GPIO_IOCTL_FUNCTION, &pin_assign27);
@@ -56,48 +56,54 @@ int main(int argc, char** argv) {
 		return -2;
 	}
 
-	printf("IOCTL successful\n");
+	printf("Configured pin %d successfully\n", pin_assign27.pin);
 
+	int i = 10;
 
-	result = write(fd, "17,0", 4);
+	while (i-- > 0) {
+
+		result = write(fd, "17,0", 4);
 	
-	if (result != 4) {
-		printf("Could not output value\n");
-		return -2;
+		if (result != 4) {
+			printf("Could not output value\n");
+			return -2;
+		}
+
+		printf("Write successful\n");
+
+		
+		result = read(fd, input, 27);
+
+		if (result != 0) {
+			printf("Could not get value\n");
+			return -2;
+		}
+
+		printf("Read: %s\n", input);
+
+		
+		sleep(1);
+
+		result = write(fd, "17,1", 4);
+		
+		if (result != 4) {
+			printf("Could not output value\n");
+			return -2;
+		}
+
+		printf("Write successful\n");
+
+		result = read(fd, input, 27);
+
+		if (result != 0) {
+			printf("Could not get value\n");
+			return -2;
+		}
+
+		printf("Read: %s\n", input);
+
+		sleep(1);
 	}
-
-	printf("Write successful\n");
-
-	
-	result = read(fd, input, 27);
-
-	if (result != 0) {
-		printf("Could not get value\n");
-		return -2;
-	}
-
-	printf("Read: %s\n", input);
-
-	
-	sleep(1);
-
-	result = write(fd, "17,1", 4);
-	
-	if (result != 4) {
-		printf("Could not output value\n");
-		return -2;
-	}
-
-	printf("Write successful\n");
-
-	result = read(fd, input, 27);
-
-	if (result != 0) {
-		printf("Could not get value\n");
-		return -2;
-	}
-
-	printf("Read: %s\n", input);
 
 	close(fd);
 	

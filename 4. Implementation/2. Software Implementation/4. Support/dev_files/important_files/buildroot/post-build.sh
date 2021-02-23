@@ -16,31 +16,33 @@ chmod 755 ${TARGET_DIR}/etc/init.d/S10mdev
 cp package/busybox/mdev.conf ${TARGET_DIR}/etc/mdev.conf
 
 # copy interfaces and wpa_supplicant files from desktop to the board folder
-cp "~/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/4. Support/dev_files/important_files/system/interfaces" board/raspberrypi/interfaces
-cp "~/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/4. Support/dev_files/important_files/system/wpa_supplicant.conf" board/raspberrypi/wpa_supplicant.conf
-cp "~/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/4. Support/dev_files/important_files/system/libtensorflow-lite.a" board/raspberrypi/libtensorflow-lite.a
-cp "~/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/4. Support/dev_files/important_files/system/S00gpio" board/raspberrypi/S00gpio
-cp "~/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/drivers/gpio/gpio.ko" board/raspberrypi/gpio.ko
+cp "$HOME/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/4. Support/dev_files/important_files/system/interfaces" board/raspberrypi/interfaces
+cp "$HOME/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/4. Support/dev_files/important_files/system/wpa_supplicant.conf" board/raspberrypi/wpa_supplicant.conf
+cp "$HOME/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/4. Support/dev_files/important_files/system/libtensorflow-lite.a" board/raspberrypi/libtensorflow-lite.a
+cp "$HOME/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/4. Support/dev_files/important_files/system/S60gpio" board/raspberrypi/S60gpio
+cp "$HOME/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/1. Main/drivers/gpio/gpio.ko" board/raspberrypi/gpio.ko
 
 
 # copy interfaces and wpa_supplicant files from the board folder to the target
 cp board/raspberrypi/interfaces ${TARGET_DIR}/etc/network/interfaces
 cp board/raspberrypi/wpa_supplicant.conf ${TARGET_DIR}/etc/wpa_supplicant.conf
 cp board/raspberrypi/libtensorflow-lite.a ${TARGET_DIR}/usr/lib/libtensorflow-lite.a
-cp board/raspberrypi/SOOgpio ${TARGET_DIR}/etc/init.d/SOOgpio
+cp "$HOME/Desktop/ARGOS/argos/4. Implementation/2. Software Implementation/4. Support/dev_files/important_files/system/S60gpio" ${TARGET_DIR}/etc/init.d/S60gpio
 
 # make S00gpio executable
-chmod +x ${TARGET_DIR}/etc/init.d/SOOgpio
+chmod +x ${TARGET_DIR}/etc/init.d/S60gpio
 
 # create directory for gpio driver
-if [ ! -d ${TARGET_DIR}/lib/modules/gpio ] then
+if [ ! -d ${TARGET_DIR}/lib/modules/gpio ] 
+then
 	mkdir ${TARGET_DIR}/lib/modules/gpio
 fi
 
 cp board/raspberrypi/gpio.ko ${TARGET_DIR}/lib/modules/gpio/gpio.ko
 
 # create /home directory for applications
-if [ ! -d ${TARGET_DIR}/home ] then
+if [ ! -d ${TARGET_DIR}/home ] 
+then
 	mkdir ${TARGET_DIR}/home
 fi
 

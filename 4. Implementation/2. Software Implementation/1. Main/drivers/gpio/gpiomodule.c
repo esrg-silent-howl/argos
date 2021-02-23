@@ -101,7 +101,7 @@ ssize_t gpio_read(struct file *pfile, char __user *p_buff, size_t len, loff_t *p
 	printk("%s: pin value: %d\n", __FUNCTION__, pin_value);
 
 	// copy_to_user(buf, memory_buffer, 1);
-	raw_copy_to_user(p_buff, (uint8_t*)&pin_value, 1);
+	raw_copy_to_user(p_buff, &((uint8_t)pin_value), 1);
 	
 	return 0;
 }
