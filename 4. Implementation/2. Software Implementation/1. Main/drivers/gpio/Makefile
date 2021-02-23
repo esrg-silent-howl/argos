@@ -13,5 +13,4 @@ KBUILD_TARGETS	:= clean help modules modules_install
 
 all: modules
 $(KBUILD_TARGETS):
-	#$(MAKE) -C $(KDIR) M=$(shell pwd) $@ EXTRA_CFLAGS="$(MY_CFLAGS)"
 	$(MAKE) -C $(KDIR) M=$(shell pwd) $@

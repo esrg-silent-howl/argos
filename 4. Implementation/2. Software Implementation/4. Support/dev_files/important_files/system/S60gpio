@@ -1,0 +1,1 @@
+insmod /lib/modules/gpio/gpio.ko
