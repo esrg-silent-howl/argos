@@ -310,6 +310,11 @@ static void* d_rclientHandler(void* arg){
 	/* Don't care about thread's return */
 	pthread_detach(pthread_self());
 
+	/* Don't care about thread's return */
+	pthread_detach(pthread_self());
+
+	perror("[d_tRemoteClient] Remote Client daughter thread termination");
+
 	pthread_exit(NULL);
 }
 
@@ -446,6 +451,11 @@ static void* d_databaseHandler(void* arg){
 	/* Don't care about thread's return */
 	pthread_detach(pthread_self());
 
+	/* Don't care about thread's return */
+	pthread_detach(pthread_self());
+
+	perror("[d_tDatabase] Database daughter thread termination");
+
 	pthread_exit(NULL);
 }
 
@@ -562,9 +572,7 @@ static void* mainHandler(void* arg){
     if (pthread_cond_signal(&cThreadsCreated) > 0)
         perror("[tMain] pthread_cond_signal failed on cThreadsCreated");
 
-    while(true){
-
-    }
+    while(true){}
 
     pthread_exit(NULL);
 }
